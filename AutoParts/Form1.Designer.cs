@@ -32,6 +32,7 @@
             tabPage1 = new TabPage();
             tabControl2 = new TabControl();
             tabPage7 = new TabPage();
+            textBox6 = new TextBox();
             label8 = new Label();
             button1 = new Button();
             textBox5 = new TextBox();
@@ -53,11 +54,12 @@
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             tabPage6 = new TabPage();
-            textBox6 = new TextBox();
+            tableLayoutPanel1 = new TableLayoutPanel();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage7.SuspendLayout();
+            tabPage8.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -130,6 +132,15 @@
             tabPage7.TabIndex = 0;
             tabPage7.Text = "Adicionar";
             // 
+            // textBox6
+            // 
+            textBox6.BackColor = Color.LightGray;
+            textBox6.BorderStyle = BorderStyle.FixedSingle;
+            textBox6.Location = new Point(392, 137);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(342, 27);
+            textBox6.TabIndex = 16;
+            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -150,6 +161,7 @@
             button1.TabIndex = 13;
             button1.Text = "Confirmar";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // textBox5
             // 
@@ -269,6 +281,7 @@
             // tabPage8
             // 
             tabPage8.BackColor = Color.White;
+            tabPage8.Controls.Add(tableLayoutPanel1);
             tabPage8.Location = new Point(4, 29);
             tabPage8.Name = "tabPage8";
             tabPage8.Padding = new Padding(3);
@@ -322,14 +335,20 @@
             tabPage6.TabIndex = 5;
             tabPage6.Text = "tabPage6";
             // 
-            // textBox6
+            // tableLayoutPanel1
             // 
-            textBox6.BackColor = Color.LightGray;
-            textBox6.BorderStyle = BorderStyle.FixedSingle;
-            textBox6.Location = new Point(392, 137);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(342, 27);
-            textBox6.TabIndex = 16;
+            tableLayoutPanel1.AutoScroll = true;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Location = new Point(6, 6);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(613, 347);
+            tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
             // Form1
             // 
@@ -344,6 +363,7 @@
             tabControl2.ResumeLayout(false);
             tabPage7.ResumeLayout(false);
             tabPage7.PerformLayout();
+            tabPage8.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -375,5 +395,6 @@
         private TextBox textBox2;
         private Label label8;
         private TextBox textBox6;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }
