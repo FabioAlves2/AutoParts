@@ -70,6 +70,32 @@
             tabControl4 = new TabControl();
             tabPage6 = new TabPage();
             tabPage5 = new TabPage();
+            tabControl1 = new TabControl();
+            MotorLista = new TabPage();
+            MotorAdicionar = new TabPage();
+            Malimentacao = new ComboBox();
+            label35 = new Label();
+            Msobrealimentacao = new ComboBox();
+            label34 = new Label();
+            MNval = new NumericUpDown();
+            label33 = new Label();
+            label32 = new Label();
+            Mtipo = new ComboBox();
+            MNcil = new NumericUpDown();
+            label31 = new Label();
+            Mbin = new TextBox();
+            label30 = new Label();
+            Mcilindrada = new TextBox();
+            label29 = new Label();
+            Mhp = new TextBox();
+            label28 = new Label();
+            label27 = new Label();
+            Mcomb = new ComboBox();
+            Mmarca = new TextBox();
+            label26 = new Label();
+            Mid = new TextBox();
+            label25 = new Label();
+            Mtitle = new Label();
             tabPage4 = new TabPage();
             vehicleNav = new TabControl();
             VehicleList = new TabPage();
@@ -189,10 +215,16 @@
             label2 = new Label();
             label1 = new Label();
             NavBar = new TabControl();
+            Madd = new Button();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
             tabControl4.SuspendLayout();
+            tabPage5.SuspendLayout();
+            tabControl1.SuspendLayout();
+            MotorAdicionar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)MNval).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)MNcil).BeginInit();
             tabPage4.SuspendLayout();
             vehicleNav.SuspendLayout();
             VehicleList.SuspendLayout();
@@ -626,11 +658,267 @@
             // 
             tabPage5.BackColor = Color.White;
             tabPage5.BorderStyle = BorderStyle.FixedSingle;
+            tabPage5.Controls.Add(tabControl1);
+            tabPage5.Font = new Font("Segoe UI", 11F);
             tabPage5.Location = new Point(4, 57);
             tabPage5.Name = "tabPage5";
             tabPage5.Size = new Size(998, 660);
             tabPage5.TabIndex = 4;
             tabPage5.Text = "Motor";
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(MotorLista);
+            tabControl1.Controls.Add(MotorAdicionar);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(0, 0);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(996, 658);
+            tabControl1.TabIndex = 0;
+            // 
+            // MotorLista
+            // 
+            MotorLista.Location = new Point(4, 34);
+            MotorLista.Name = "MotorLista";
+            MotorLista.Padding = new Padding(3);
+            MotorLista.Size = new Size(988, 620);
+            MotorLista.TabIndex = 0;
+            MotorLista.Text = "Lista";
+            MotorLista.UseVisualStyleBackColor = true;
+            // 
+            // MotorAdicionar
+            // 
+            MotorAdicionar.Controls.Add(Madd);
+            MotorAdicionar.Controls.Add(Malimentacao);
+            MotorAdicionar.Controls.Add(label35);
+            MotorAdicionar.Controls.Add(Msobrealimentacao);
+            MotorAdicionar.Controls.Add(label34);
+            MotorAdicionar.Controls.Add(MNval);
+            MotorAdicionar.Controls.Add(label33);
+            MotorAdicionar.Controls.Add(label32);
+            MotorAdicionar.Controls.Add(Mtipo);
+            MotorAdicionar.Controls.Add(MNcil);
+            MotorAdicionar.Controls.Add(label31);
+            MotorAdicionar.Controls.Add(Mbin);
+            MotorAdicionar.Controls.Add(label30);
+            MotorAdicionar.Controls.Add(Mcilindrada);
+            MotorAdicionar.Controls.Add(label29);
+            MotorAdicionar.Controls.Add(Mhp);
+            MotorAdicionar.Controls.Add(label28);
+            MotorAdicionar.Controls.Add(label27);
+            MotorAdicionar.Controls.Add(Mcomb);
+            MotorAdicionar.Controls.Add(Mmarca);
+            MotorAdicionar.Controls.Add(label26);
+            MotorAdicionar.Controls.Add(Mid);
+            MotorAdicionar.Controls.Add(label25);
+            MotorAdicionar.Controls.Add(Mtitle);
+            MotorAdicionar.Location = new Point(4, 34);
+            MotorAdicionar.Name = "MotorAdicionar";
+            MotorAdicionar.Padding = new Padding(3);
+            MotorAdicionar.Size = new Size(988, 620);
+            MotorAdicionar.TabIndex = 1;
+            MotorAdicionar.Text = "Adicionar";
+            MotorAdicionar.UseVisualStyleBackColor = true;
+            // 
+            // Malimentacao
+            // 
+            Malimentacao.DropDownStyle = ComboBoxStyle.DropDownList;
+            Malimentacao.FormattingEnabled = true;
+            Malimentacao.Items.AddRange(new object[] { "Carburador", "MPFI", "GDI", "TBI", "Injeção Elétronica" });
+            Malimentacao.Location = new Point(705, 175);
+            Malimentacao.Name = "Malimentacao";
+            Malimentacao.Size = new Size(255, 33);
+            Malimentacao.TabIndex = 57;
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Location = new Point(705, 147);
+            label35.Name = "label35";
+            label35.Size = new Size(117, 25);
+            label35.TabIndex = 56;
+            label35.Text = "Alimentação";
+            // 
+            // Msobrealimentacao
+            // 
+            Msobrealimentacao.DropDownStyle = ComboBoxStyle.DropDownList;
+            Msobrealimentacao.FormattingEnabled = true;
+            Msobrealimentacao.Items.AddRange(new object[] { "Atmosférico", "Supercharger", "Turbo + Intercooler", "Twin Turbo" });
+            Msobrealimentacao.Location = new Point(705, 249);
+            Msobrealimentacao.Name = "Msobrealimentacao";
+            Msobrealimentacao.Size = new Size(255, 33);
+            Msobrealimentacao.TabIndex = 55;
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Location = new Point(705, 221);
+            label34.Name = "label34";
+            label34.Size = new Size(164, 25);
+            label34.TabIndex = 54;
+            label34.Text = "Sobrealimentação";
+            // 
+            // MNval
+            // 
+            MNval.Location = new Point(518, 201);
+            MNval.Name = "MNval";
+            MNval.Size = new Size(125, 32);
+            MNval.TabIndex = 53;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Location = new Point(366, 203);
+            label33.Name = "label33";
+            label33.Size = new Size(108, 25);
+            label33.TabIndex = 52;
+            label33.Text = "Nº Válvulas";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Location = new Point(366, 253);
+            label32.Name = "label32";
+            label32.Size = new Size(49, 25);
+            label32.TabIndex = 51;
+            label32.Text = "Tipo";
+            // 
+            // Mtipo
+            // 
+            Mtipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            Mtipo.FormattingEnabled = true;
+            Mtipo.Items.AddRange(new object[] { "Boxer", "Linha", "Flat", "Rotativo", "V", "W" });
+            Mtipo.Location = new Point(442, 249);
+            Mtipo.Name = "Mtipo";
+            Mtipo.Size = new Size(201, 33);
+            Mtipo.TabIndex = 50;
+            // 
+            // MNcil
+            // 
+            MNcil.Location = new Point(518, 150);
+            MNcil.Name = "MNcil";
+            MNcil.Size = new Size(125, 32);
+            MNcil.TabIndex = 49;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(366, 154);
+            label31.Name = "label31";
+            label31.Size = new Size(114, 25);
+            label31.TabIndex = 48;
+            label31.Text = "Nº Cilindros";
+            // 
+            // Mbin
+            // 
+            Mbin.Location = new Point(179, 250);
+            Mbin.Name = "Mbin";
+            Mbin.Size = new Size(125, 32);
+            Mbin.TabIndex = 46;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(27, 250);
+            label30.Name = "label30";
+            label30.Size = new Size(119, 25);
+            label30.TabIndex = 45;
+            label30.Text = "Binário (Nm)";
+            // 
+            // Mcilindrada
+            // 
+            Mcilindrada.Location = new Point(179, 150);
+            Mcilindrada.Name = "Mcilindrada";
+            Mcilindrada.Size = new Size(125, 32);
+            Mcilindrada.TabIndex = 44;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(27, 154);
+            label29.Name = "label29";
+            label29.Size = new Size(134, 25);
+            label29.TabIndex = 43;
+            label29.Text = "Cilindrada (cc)";
+            // 
+            // Mhp
+            // 
+            Mhp.Location = new Point(179, 199);
+            Mhp.Name = "Mhp";
+            Mhp.Size = new Size(125, 32);
+            Mhp.TabIndex = 42;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(27, 203);
+            label28.Name = "label28";
+            label28.Size = new Size(125, 25);
+            label28.TabIndex = 41;
+            label28.Text = "Potência (Hp)";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Location = new Point(706, 64);
+            label27.Name = "label27";
+            label27.Size = new Size(116, 25);
+            label27.TabIndex = 40;
+            label27.Text = "Combustível";
+            // 
+            // Mcomb
+            // 
+            Mcomb.AutoCompleteCustomSource.AddRange(new string[] { "Diesel", "Elétrico", "Gasolina", "Híbrido" });
+            Mcomb.DropDownStyle = ComboBoxStyle.DropDownList;
+            Mcomb.FormattingEnabled = true;
+            Mcomb.Items.AddRange(new object[] { "Diesel", "Elétrico", "Gasolina", "Híbrido" });
+            Mcomb.Location = new Point(705, 92);
+            Mcomb.Name = "Mcomb";
+            Mcomb.Size = new Size(256, 33);
+            Mcomb.TabIndex = 39;
+            // 
+            // Mmarca
+            // 
+            Mmarca.Location = new Point(366, 92);
+            Mmarca.Name = "Mmarca";
+            Mmarca.Size = new Size(277, 32);
+            Mmarca.TabIndex = 38;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(366, 64);
+            label26.Name = "label26";
+            label26.Size = new Size(65, 25);
+            label26.TabIndex = 37;
+            label26.Text = "Marca";
+            // 
+            // Mid
+            // 
+            Mid.Location = new Point(27, 92);
+            Mid.Name = "Mid";
+            Mid.Size = new Size(277, 32);
+            Mid.TabIndex = 36;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(27, 64);
+            label25.Name = "label25";
+            label25.Size = new Size(30, 25);
+            label25.TabIndex = 35;
+            label25.Text = "ID";
+            // 
+            // Mtitle
+            // 
+            Mtitle.AutoSize = true;
+            Mtitle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Mtitle.Location = new Point(27, 19);
+            Mtitle.Name = "Mtitle";
+            Mtitle.Size = new Size(210, 25);
+            Mtitle.TabIndex = 2;
+            Mtitle.Text = "Adicionar novo motor";
             // 
             // tabPage4
             // 
@@ -744,6 +1032,7 @@
             // 
             // VtipoInput
             // 
+            VtipoInput.DropDownStyle = ComboBoxStyle.DropDownList;
             VtipoInput.FormattingEnabled = true;
             VtipoInput.Items.AddRange(new object[] { "Camião", "Carrinha", "Citadino", "Comercial", "Coupé", "Descapotável", "Hatchback", "Minivan", "Sedan", "SUV" });
             VtipoInput.Location = new Point(370, 167);
@@ -774,6 +1063,7 @@
             // 
             // VmotorTipoInput
             // 
+            VmotorTipoInput.DropDownStyle = ComboBoxStyle.DropDownList;
             VmotorTipoInput.FormattingEnabled = true;
             VmotorTipoInput.Items.AddRange(new object[] { "Boxer", "Linha", "Flat", "Rotativo", "V", "W" });
             VmotorTipoInput.Location = new Point(751, 339);
@@ -939,6 +1229,7 @@
             // 
             // VmotorCombInput
             // 
+            VmotorCombInput.DropDownStyle = ComboBoxStyle.DropDownList;
             VmotorCombInput.FormattingEnabled = true;
             VmotorCombInput.Items.AddRange(new object[] { "Diesel", "Elétrico", "Gasolina", "Híbrido" });
             VmotorCombInput.Location = new Point(361, 339);
@@ -1863,6 +2154,18 @@
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
             // 
+            // Madd
+            // 
+            Madd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Madd.BackColor = Color.Transparent;
+            Madd.ForeColor = SystemColors.ControlText;
+            Madd.Location = new Point(706, 317);
+            Madd.Name = "Madd";
+            Madd.Size = new Size(255, 40);
+            Madd.TabIndex = 58;
+            Madd.Text = "Adicionar Motor";
+            Madd.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1879,6 +2182,12 @@
             tabPage11.ResumeLayout(false);
             tabPage11.PerformLayout();
             tabControl4.ResumeLayout(false);
+            tabPage5.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
+            MotorAdicionar.ResumeLayout(false);
+            MotorAdicionar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)MNval).EndInit();
+            ((System.ComponentModel.ISupportInitialize)MNcil).EndInit();
             tabPage4.ResumeLayout(false);
             vehicleNav.ResumeLayout(false);
             VehicleList.ResumeLayout(false);
@@ -2061,6 +2370,33 @@
         private Button SpecBtn;
         private TextBox Psize;
         private DataGridView SpecsGrid;
+        private TabControl tabControl1;
+        private TabPage MotorLista;
+        private TabPage MotorAdicionar;
+        private Label Mtitle;
+        private TextBox Mmarca;
+        private Label label26;
+        private TextBox Mid;
+        private Label label25;
+        private Label label27;
+        private ComboBox Mcomb;
+        private TextBox Mhp;
+        private Label label28;
+        private TextBox Mcilindrada;
+        private Label label29;
+        private NumericUpDown MNcil;
+        private Label label31;
+        private TextBox Mbin;
+        private Label label30;
+        private Label label32;
+        private ComboBox Mtipo;
+        private NumericUpDown MNval;
+        private Label label33;
+        private ComboBox Msobrealimentacao;
+        private Label label34;
+        private ComboBox Malimentacao;
+        private Label label35;
+        private Button Madd;
         private TextBox Pdescri;
         private TextBox Pmarca;
         private TextBox Pname;
