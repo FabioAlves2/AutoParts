@@ -74,6 +74,11 @@
             vehicleNav = new TabControl();
             VehicleList = new TabPage();
             VehicleAdd = new TabPage();
+            dataGridView1 = new DataGridView();
+            textBox26 = new TextBox();
+            label35 = new Label();
+            textBox25 = new TextBox();
+            label34 = new Label();
             textBox24 = new TextBox();
             label33 = new Label();
             textBox23 = new TextBox();
@@ -95,15 +100,16 @@
             tabPage2 = new TabPage();
             tabPage1 = new TabPage();
             tabControl2 = new TabControl();
+            tabPage8 = new TabPage();
             tabPage7 = new TabPage();
-            textBox6 = new TextBox();
+            Asal = new TextBox();
             label8 = new Label();
-            button1 = new Button();
-            textBox5 = new TextBox();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            Abutton = new Button();
+            Acp = new TextBox();
+            Aaddr = new TextBox();
+            Abirth = new TextBox();
+            Acc = new TextBox();
+            Aname = new TextBox();
             label7 = new Label();
             label6 = new Label();
             monthCalendar1 = new MonthCalendar();
@@ -112,14 +118,7 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            tabPage8 = new TabPage();
-            tableLayoutPanel1 = new TableLayoutPanel();
             navBar = new TabControl();
-            textBox25 = new TextBox();
-            label34 = new Label();
-            textBox26 = new TextBox();
-            label35 = new Label();
-            dataGridView1 = new DataGridView();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
@@ -127,12 +126,11 @@
             tabPage4.SuspendLayout();
             vehicleNav.SuspendLayout();
             VehicleAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             tabPage1.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage7.SuspendLayout();
-            tabPage8.SuspendLayout();
             navBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // tabControl3
@@ -618,6 +616,52 @@
             VehicleAdd.Text = "Adicionar";
             VehicleAdd.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(335, 422);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(560, 224);
+            dataGridView1.TabIndex = 21;
+            // 
+            // textBox26
+            // 
+            textBox26.Enabled = false;
+            textBox26.Location = new Point(335, 343);
+            textBox26.Name = "textBox26";
+            textBox26.ReadOnly = true;
+            textBox26.Size = new Size(256, 32);
+            textBox26.TabIndex = 20;
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Location = new Point(335, 315);
+            label35.Name = "label35";
+            label35.Size = new Size(99, 25);
+            label35.TabIndex = 19;
+            label35.Text = "Cilindrada";
+            label35.Click += label35_Click;
+            // 
+            // textBox25
+            // 
+            textBox25.Enabled = false;
+            textBox25.Location = new Point(639, 343);
+            textBox25.Name = "textBox25";
+            textBox25.ReadOnly = true;
+            textBox25.Size = new Size(256, 32);
+            textBox25.TabIndex = 18;
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Location = new Point(639, 315);
+            label34.Name = "label34";
+            label34.Size = new Size(84, 25);
+            label34.TabIndex = 17;
+            label34.Text = "Potência";
+            // 
             // textBox24
             // 
             textBox24.Enabled = false;
@@ -808,28 +852,38 @@
             // 
             // tabControl2
             // 
-            tabControl2.Controls.Add(tabPage7);
             tabControl2.Controls.Add(tabPage8);
-            tabControl2.Dock = DockStyle.Top;
+            tabControl2.Controls.Add(tabPage7);
+            tabControl2.Dock = DockStyle.Fill;
             tabControl2.Location = new Point(3, 3);
             tabControl2.Margin = new Padding(0);
             tabControl2.Name = "tabControl2";
             tabControl2.Padding = new Point(0, 0);
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(917, 392);
+            tabControl2.Size = new Size(917, 684);
             tabControl2.TabIndex = 0;
+            // 
+            // tabPage8
+            // 
+            tabPage8.BackColor = Color.Transparent;
+            tabPage8.Location = new Point(4, 34);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Padding = new Padding(3);
+            tabPage8.Size = new Size(909, 646);
+            tabPage8.TabIndex = 1;
+            tabPage8.Text = "Lista";
             // 
             // tabPage7
             // 
-            tabPage7.BackColor = Color.White;
-            tabPage7.Controls.Add(textBox6);
+            tabPage7.BackColor = Color.Transparent;
+            tabPage7.Controls.Add(Asal);
             tabPage7.Controls.Add(label8);
-            tabPage7.Controls.Add(button1);
-            tabPage7.Controls.Add(textBox5);
-            tabPage7.Controls.Add(textBox4);
-            tabPage7.Controls.Add(textBox3);
-            tabPage7.Controls.Add(textBox2);
-            tabPage7.Controls.Add(textBox1);
+            tabPage7.Controls.Add(Abutton);
+            tabPage7.Controls.Add(Acp);
+            tabPage7.Controls.Add(Aaddr);
+            tabPage7.Controls.Add(Abirth);
+            tabPage7.Controls.Add(Acc);
+            tabPage7.Controls.Add(Aname);
             tabPage7.Controls.Add(label7);
             tabPage7.Controls.Add(label6);
             tabPage7.Controls.Add(monthCalendar1);
@@ -841,89 +895,83 @@
             tabPage7.Location = new Point(4, 34);
             tabPage7.Name = "tabPage7";
             tabPage7.Padding = new Padding(3);
-            tabPage7.Size = new Size(909, 354);
+            tabPage7.Size = new Size(909, 646);
             tabPage7.TabIndex = 0;
             tabPage7.Text = "Adicionar";
             // 
-            // textBox6
+            // Asal
             // 
-            textBox6.BackColor = Color.LightGray;
-            textBox6.BorderStyle = BorderStyle.FixedSingle;
-            textBox6.Location = new Point(392, 137);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(342, 32);
-            textBox6.TabIndex = 16;
+            Asal.BackColor = SystemColors.Window;
+            Asal.Location = new Point(339, 343);
+            Asal.Name = "Asal";
+            Asal.Size = new Size(256, 32);
+            Asal.TabIndex = 16;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(331, 140);
+            label8.Location = new Point(339, 315);
             label8.Name = "label8";
             label8.Size = new Size(70, 25);
             label8.TabIndex = 15;
             label8.Text = "Salário";
             // 
-            // button1
+            // Abutton
             // 
-            button1.BackColor = SystemColors.ActiveCaption;
-            button1.FlatAppearance.BorderColor = Color.Black;
-            button1.FlatAppearance.BorderSize = 3;
-            button1.Location = new Point(624, 316);
-            button1.Name = "button1";
-            button1.Size = new Size(110, 37);
-            button1.TabIndex = 13;
-            button1.Text = "Confirmar";
-            button1.UseVisualStyleBackColor = false;
+            Abutton.BackColor = SystemColors.ActiveCaption;
+            Abutton.FlatAppearance.BorderColor = Color.Black;
+            Abutton.FlatAppearance.BorderSize = 3;
+            Abutton.Location = new Point(485, 432);
+            Abutton.Name = "Abutton";
+            Abutton.Size = new Size(110, 37);
+            Abutton.TabIndex = 13;
+            Abutton.Text = "Adicionar";
+            Abutton.UseVisualStyleBackColor = false;
             // 
-            // textBox5
+            // Acp
             // 
-            textBox5.BackColor = Color.LightGray;
-            textBox5.BorderStyle = BorderStyle.FixedSingle;
-            textBox5.Location = new Point(429, 102);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(305, 32);
-            textBox5.TabIndex = 12;
+            Acp.BackColor = SystemColors.Window;
+            Acp.Location = new Point(339, 256);
+            Acp.Name = "Acp";
+            Acp.Size = new Size(256, 32);
+            Acp.TabIndex = 12;
             // 
-            // textBox4
+            // Aaddr
             // 
-            textBox4.BackColor = Color.LightGray;
-            textBox4.BorderStyle = BorderStyle.FixedSingle;
-            textBox4.Location = new Point(387, 67);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(347, 32);
-            textBox4.TabIndex = 11;
+            Aaddr.BackColor = SystemColors.Window;
+            Aaddr.Location = new Point(339, 174);
+            Aaddr.Name = "Aaddr";
+            Aaddr.Size = new Size(256, 32);
+            Aaddr.TabIndex = 11;
             // 
-            // textBox3
+            // Abirth
             // 
-            textBox3.BackColor = Color.LightGray;
-            textBox3.BorderStyle = BorderStyle.FixedSingle;
-            textBox3.Location = new Point(136, 67);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(178, 32);
-            textBox3.TabIndex = 10;
+            Abirth.BackColor = SystemColors.Window;
+            Abirth.Location = new Point(31, 174);
+            Abirth.Name = "Abirth";
+            Abirth.Size = new Size(252, 32);
+            Abirth.TabIndex = 10;
             // 
-            // textBox2
+            // Acc
             // 
-            textBox2.BackColor = Color.LightGray;
-            textBox2.BorderStyle = BorderStyle.FixedSingle;
-            textBox2.Location = new Point(387, 33);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(347, 32);
-            textBox2.TabIndex = 9;
+            Acc.BackColor = SystemColors.Window;
+            Acc.Location = new Point(339, 95);
+            Acc.Name = "Acc";
+            Acc.Size = new Size(256, 32);
+            Acc.TabIndex = 9;
             // 
-            // textBox1
+            // Aname
             // 
-            textBox1.BackColor = Color.LightGray;
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Location = new Point(62, 33);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(252, 32);
-            textBox1.TabIndex = 8;
+            Aname.BackColor = SystemColors.Window;
+            Aname.Location = new Point(31, 94);
+            Aname.Name = "Aname";
+            Aname.Size = new Size(252, 32);
+            Aname.TabIndex = 8;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(6, 105);
+            label7.Location = new Point(31, 228);
             label7.Name = "label7";
             label7.Size = new Size(207, 25);
             label7.TabIndex = 7;
@@ -932,7 +980,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(337, 35);
+            label6.Location = new Point(339, 66);
             label6.Name = "label6";
             label6.Size = new Size(35, 25);
             label6.TabIndex = 6;
@@ -940,15 +988,14 @@
             // 
             // monthCalendar1
             // 
-            monthCalendar1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            monthCalendar1.Location = new Point(8, 129);
+            monthCalendar1.Location = new Point(31, 262);
             monthCalendar1.Name = "monthCalendar1";
             monthCalendar1.TabIndex = 5;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(6, 70);
+            label5.Location = new Point(31, 146);
             label5.Name = "label5";
             label5.Size = new Size(156, 25);
             label5.TabIndex = 4;
@@ -957,7 +1004,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(320, 105);
+            label4.Location = new Point(339, 228);
             label4.Name = "label4";
             label4.Size = new Size(131, 25);
             label4.TabIndex = 3;
@@ -966,7 +1013,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(320, 70);
+            label3.Location = new Point(339, 146);
             label3.Name = "label3";
             label3.Size = new Size(78, 25);
             label3.TabIndex = 2;
@@ -975,7 +1022,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(6, 35);
+            label2.Location = new Point(31, 66);
             label2.Name = "label2";
             label2.Size = new Size(63, 25);
             label2.TabIndex = 1;
@@ -984,37 +1031,12 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(6, 3);
+            label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label1.Location = new Point(27, 19);
             label1.Name = "label1";
-            label1.Size = new Size(711, 25);
+            label1.Size = new Size(317, 25);
             label1.TabIndex = 0;
-            label1.Text = "Preencha todos estes campos para adicionar um novo administrador para esta loja.\r\n";
-            // 
-            // tabPage8
-            // 
-            tabPage8.BackColor = Color.White;
-            tabPage8.Controls.Add(tableLayoutPanel1);
-            tabPage8.Location = new Point(4, 34);
-            tabPage8.Name = "tabPage8";
-            tabPage8.Padding = new Padding(3);
-            tabPage8.Size = new Size(909, 354);
-            tabPage8.TabIndex = 1;
-            tabPage8.Text = "Lista";
-            // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.AutoScroll = true;
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Location = new Point(6, 6);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(613, 347);
-            tableLayoutPanel1.TabIndex = 0;
-            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
+            label1.Text = "Adicionar um novo administrador.\r\n";
             // 
             // navBar
             // 
@@ -1034,54 +1056,6 @@
             navBar.Size = new Size(933, 753);
             navBar.SizeMode = TabSizeMode.FillToRight;
             navBar.TabIndex = 0;
-            // 
-            // textBox25
-            // 
-            textBox25.Enabled = false;
-            textBox25.Location = new Point(639, 343);
-            textBox25.Name = "textBox25";
-            textBox25.ReadOnly = true;
-            textBox25.Size = new Size(256, 32);
-            textBox25.TabIndex = 18;
-            //textBox25.TextChanged += this.textBox25_TextChanged;
-            // 
-            // label34
-            // 
-            label34.AutoSize = true;
-            label34.Location = new Point(639, 315);
-            label34.Name = "label34";
-            label34.Size = new Size(84, 25);
-            label34.TabIndex = 17;
-            label34.Text = "Potência";
-            //label34.Click += this.label34_Click;
-            // 
-            // textBox26
-            // 
-            textBox26.Enabled = false;
-            textBox26.Location = new Point(335, 343);
-            textBox26.Name = "textBox26";
-            textBox26.ReadOnly = true;
-            textBox26.Size = new Size(256, 32);
-            textBox26.TabIndex = 20;
-            // 
-            // label35
-            // 
-            label35.AutoSize = true;
-            label35.Location = new Point(335, 315);
-            label35.Name = "label35";
-            label35.Size = new Size(99, 25);
-            label35.TabIndex = 19;
-            label35.Text = "Cilindrada";
-            label35.Click += label35_Click;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(335, 422);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(560, 224);
-            dataGridView1.TabIndex = 21;
             // 
             // Form1
             // 
@@ -1104,13 +1078,12 @@
             vehicleNav.ResumeLayout(false);
             VehicleAdd.ResumeLayout(false);
             VehicleAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             tabPage1.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
             tabPage7.ResumeLayout(false);
             tabPage7.PerformLayout();
-            tabPage8.ResumeLayout(false);
             navBar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -1163,14 +1136,14 @@
         private TabPage tabPage1;
         private TabControl tabControl2;
         private TabPage tabPage7;
-        private TextBox textBox6;
+        private TextBox Asal;
         private Label label8;
-        private Button button1;
-        private TextBox textBox5;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private Button Abutton;
+        private TextBox Acp;
+        private TextBox Aaddr;
+        private TextBox Abirth;
+        private TextBox Acc;
+        private TextBox Aname;
         private Label label7;
         private Label label6;
         private MonthCalendar monthCalendar1;
@@ -1180,7 +1153,6 @@
         private Label label2;
         private Label label1;
         private TabPage tabPage8;
-        private TableLayoutPanel tableLayoutPanel1;
         private TabControl navBar;
         private TabControl vehicleNav;
         private TabPage VehicleList;

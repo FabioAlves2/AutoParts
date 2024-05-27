@@ -22,12 +22,12 @@ namespace AutoParts
         private void button1_Click(object sender, EventArgs e, SqlConnection CN)
         {
             // Get the values from the textboxes
-            string adminName = textBox1.Text;
-            string adminCC = textBox2.Text;
-            string adminBirth = textBox3.Text;
-            string adminAddr = textBox4.Text;
-            string adminCp = textBox5.Text;
-            string adminSalary = textBox6.Text;
+            string adminName = Aname.Text;
+            string adminCC = Acc.Text;
+            string adminBirth = Abirth.Text;
+            string adminAddr = Aaddr.Text;
+            string adminCp = Acp.Text;
+            string adminSalary = Asal.Text;
             string adminStart = monthCalendar1.SelectionStart.ToShortDateString();
 
             // Query to insert the admin
@@ -66,11 +66,6 @@ namespace AutoParts
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void textBox19_TextChanged(object sender, EventArgs e)
@@ -122,6 +117,7 @@ namespace AutoParts
         {
 
         }
+
 
         //CUSTOMER CODE
     }
