@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tabControl3 = new TabControl();
             tabPage9 = new TabPage();
             textBox7 = new TextBox();
@@ -76,10 +76,9 @@
             vehicleNav = new TabControl();
             VehicleList = new TabPage();
             VehicleAdd = new TabPage();
-            dataGridView1 = new DataGridView();
+            label46 = new Label();
             textBox26 = new TextBox();
             label35 = new Label();
-            textBox25 = new TextBox();
             label34 = new Label();
             textBox24 = new TextBox();
             label33 = new Label();
@@ -154,7 +153,6 @@
             tabPage4.SuspendLayout();
             vehicleNav.SuspendLayout();
             VehicleAdd.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             tabPage2.SuspendLayout();
             ClientNav.SuspendLayout();
             ClientAdd.SuspendLayout();
@@ -568,7 +566,7 @@
             tabPage6.BackColor = Color.White;
             tabPage6.Location = new Point(4, 57);
             tabPage6.Name = "tabPage6";
-            tabPage6.Size = new Size(925, 692);
+            tabPage6.Size = new Size(998, 660);
             tabPage6.TabIndex = 5;
             tabPage6.Text = "tabPage6";
             // 
@@ -577,7 +575,7 @@
             tabPage5.BackColor = Color.White;
             tabPage5.Location = new Point(4, 57);
             tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(925, 692);
+            tabPage5.Size = new Size(998, 660);
             tabPage5.TabIndex = 4;
             tabPage5.Text = "Engine";
             // 
@@ -589,7 +587,7 @@
             tabPage4.Font = new Font("Segoe UI", 11F);
             tabPage4.Location = new Point(4, 57);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(925, 692);
+            tabPage4.Size = new Size(998, 660);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Vehicle";
             // 
@@ -601,7 +599,7 @@
             vehicleNav.Location = new Point(0, 0);
             vehicleNav.Name = "vehicleNav";
             vehicleNav.SelectedIndex = 0;
-            vehicleNav.Size = new Size(923, 690);
+            vehicleNav.Size = new Size(996, 658);
             vehicleNav.TabIndex = 0;
             // 
             // VehicleList
@@ -610,17 +608,16 @@
             VehicleList.Location = new Point(4, 34);
             VehicleList.Name = "VehicleList";
             VehicleList.Padding = new Padding(3);
-            VehicleList.Size = new Size(915, 652);
+            VehicleList.Size = new Size(988, 620);
             VehicleList.TabIndex = 0;
             VehicleList.Text = "Lista";
             VehicleList.UseVisualStyleBackColor = true;
             // 
             // VehicleAdd
             // 
-            VehicleAdd.Controls.Add(dataGridView1);
+            VehicleAdd.Controls.Add(label46);
             VehicleAdd.Controls.Add(textBox26);
             VehicleAdd.Controls.Add(label35);
-            VehicleAdd.Controls.Add(textBox25);
             VehicleAdd.Controls.Add(label34);
             VehicleAdd.Controls.Add(textBox24);
             VehicleAdd.Controls.Add(label33);
@@ -643,24 +640,26 @@
             VehicleAdd.Location = new Point(4, 34);
             VehicleAdd.Name = "VehicleAdd";
             VehicleAdd.Padding = new Padding(3);
-            VehicleAdd.Size = new Size(915, 652);
+            VehicleAdd.Size = new Size(988, 620);
             VehicleAdd.TabIndex = 1;
             VehicleAdd.Text = "Adicionar";
             VehicleAdd.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // label46
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(335, 422);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(560, 224);
-            dataGridView1.TabIndex = 21;
+            label46.Anchor = AnchorStyles.Top;
+            label46.AutoSize = true;
+            label46.BackColor = SystemColors.Control;
+            label46.Location = new Point(676, 340);
+            label46.Name = "label46";
+            label46.Size = new Size(108, 25);
+            label46.TabIndex = 22;
+            label46.Text = "------------";
             // 
             // textBox26
             // 
             textBox26.Enabled = false;
-            textBox26.Location = new Point(335, 343);
+            textBox26.Location = new Point(294, 564);
             textBox26.Name = "textBox26";
             textBox26.ReadOnly = true;
             textBox26.Size = new Size(256, 32);
@@ -669,21 +668,12 @@
             // label35
             // 
             label35.AutoSize = true;
-            label35.Location = new Point(335, 315);
+            label35.Location = new Point(294, 536);
             label35.Name = "label35";
             label35.Size = new Size(99, 25);
             label35.TabIndex = 19;
             label35.Text = "Cilindrada";
             label35.Click += label35_Click;
-            // 
-            // textBox25
-            // 
-            textBox25.Enabled = false;
-            textBox25.Location = new Point(639, 343);
-            textBox25.Name = "textBox25";
-            textBox25.ReadOnly = true;
-            textBox25.Size = new Size(256, 32);
-            textBox25.TabIndex = 18;
             // 
             // label34
             // 
@@ -732,7 +722,7 @@
             // 
             // textBox22
             // 
-            textBox22.Location = new Point(339, 94);
+            textBox22.Location = new Point(298, 315);
             textBox22.Name = "textBox22";
             textBox22.Size = new Size(256, 32);
             textBox22.TabIndex = 12;
@@ -740,7 +730,7 @@
             // label31
             // 
             label31.AutoSize = true;
-            label31.Location = new Point(339, 66);
+            label31.Location = new Point(298, 287);
             label31.Name = "label31";
             label31.Size = new Size(49, 25);
             label31.TabIndex = 11;
@@ -750,7 +740,7 @@
             // 
             dateTimePicker2.CustomFormat = "yyyy";
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
-            dateTimePicker2.Location = new Point(487, 250);
+            dateTimePicker2.Location = new Point(446, 471);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.ShowUpDown = true;
             dateTimePicker2.Size = new Size(108, 32);
@@ -759,7 +749,7 @@
             // label30
             // 
             label30.AutoSize = true;
-            label30.Location = new Point(339, 254);
+            label30.Location = new Point(298, 475);
             label30.Name = "label30";
             label30.Size = new Size(130, 25);
             label30.TabIndex = 9;
@@ -770,7 +760,7 @@
             // 
             dateTimePicker1.CustomFormat = "yyyy";
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(491, 170);
+            dateTimePicker1.Location = new Point(450, 391);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.ShowUpDown = true;
             dateTimePicker1.Size = new Size(108, 32);
@@ -780,7 +770,7 @@
             // label29
             // 
             label29.AutoSize = true;
-            label29.Location = new Point(339, 174);
+            label29.Location = new Point(298, 395);
             label29.Name = "label29";
             label29.Size = new Size(146, 25);
             label29.TabIndex = 7;
@@ -788,15 +778,17 @@
             // 
             // textBox21
             // 
-            textBox21.Location = new Point(31, 256);
+            textBox21.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBox21.Location = new Point(701, 94);
             textBox21.Name = "textBox21";
             textBox21.Size = new Size(256, 32);
             textBox21.TabIndex = 6;
             // 
             // label28
             // 
+            label28.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label28.AutoSize = true;
-            label28.Location = new Point(31, 228);
+            label28.Location = new Point(701, 66);
             label28.Name = "label28";
             label28.Size = new Size(69, 25);
             label28.TabIndex = 5;
@@ -804,8 +796,9 @@
             // 
             // label27
             // 
+            label27.Anchor = AnchorStyles.Top;
             label27.AutoSize = true;
-            label27.Location = new Point(31, 146);
+            label27.Location = new Point(363, 66);
             label27.Name = "label27";
             label27.Size = new Size(77, 25);
             label27.TabIndex = 4;
@@ -814,7 +807,8 @@
             // 
             // textBox20
             // 
-            textBox20.Location = new Point(31, 174);
+            textBox20.Anchor = AnchorStyles.Top;
+            textBox20.Location = new Point(363, 94);
             textBox20.Name = "textBox20";
             textBox20.Size = new Size(256, 32);
             textBox20.TabIndex = 3;
@@ -854,7 +848,7 @@
             tabPage3.BackColor = Color.White;
             tabPage3.Location = new Point(4, 57);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(925, 692);
+            tabPage3.Size = new Size(998, 660);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Parts";
             // 
@@ -865,7 +859,7 @@
             tabPage2.Location = new Point(4, 57);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(925, 692);
+            tabPage2.Size = new Size(998, 660);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Client";
             // 
@@ -878,7 +872,7 @@
             ClientNav.Location = new Point(3, 3);
             ClientNav.Name = "ClientNav";
             ClientNav.SelectedIndex = 0;
-            ClientNav.Size = new Size(919, 686);
+            ClientNav.Size = new Size(992, 654);
             ClientNav.TabIndex = 0;
             // 
             // ClientList
@@ -886,7 +880,7 @@
             ClientList.Location = new Point(4, 34);
             ClientList.Name = "ClientList";
             ClientList.Padding = new Padding(3);
-            ClientList.Size = new Size(911, 648);
+            ClientList.Size = new Size(984, 616);
             ClientList.TabIndex = 0;
             ClientList.Text = "Lista";
             ClientList.UseVisualStyleBackColor = true;
@@ -917,7 +911,7 @@
             ClientAdd.Location = new Point(4, 34);
             ClientAdd.Name = "ClientAdd";
             ClientAdd.Padding = new Padding(3);
-            ClientAdd.Size = new Size(911, 648);
+            ClientAdd.Size = new Size(984, 616);
             ClientAdd.TabIndex = 1;
             ClientAdd.Text = "Adicionar";
             ClientAdd.UseVisualStyleBackColor = true;
@@ -946,8 +940,8 @@
             // Column1
             // 
             Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column1.DefaultCellStyle = dataGridViewCellStyle1;
             Column1.HeaderText = "Tipo";
             Column1.MinimumWidth = 6;
             Column1.Name = "Column1";
@@ -955,8 +949,8 @@
             // Column2
             // 
             Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column2.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column2.DefaultCellStyle = dataGridViewCellStyle2;
             Column2.HeaderText = "Contacto";
             Column2.MinimumWidth = 6;
             Column2.Name = "Column2";
@@ -1132,7 +1126,7 @@
             tabPage1.Location = new Point(4, 57);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(925, 692);
+            tabPage1.Size = new Size(998, 660);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Admin";
             // 
@@ -1146,7 +1140,7 @@
             AdminNav.Name = "AdminNav";
             AdminNav.Padding = new Point(0, 0);
             AdminNav.SelectedIndex = 0;
-            AdminNav.Size = new Size(917, 684);
+            AdminNav.Size = new Size(990, 652);
             AdminNav.TabIndex = 0;
             // 
             // AdminList
@@ -1155,7 +1149,7 @@
             AdminList.Location = new Point(4, 34);
             AdminList.Name = "AdminList";
             AdminList.Padding = new Padding(3);
-            AdminList.Size = new Size(909, 646);
+            AdminList.Size = new Size(982, 614);
             AdminList.TabIndex = 1;
             AdminList.Text = "Lista";
             // 
@@ -1181,7 +1175,7 @@
             AdminAdd.Location = new Point(4, 34);
             AdminAdd.Name = "AdminAdd";
             AdminAdd.Padding = new Padding(3);
-            AdminAdd.Size = new Size(909, 646);
+            AdminAdd.Size = new Size(982, 614);
             AdminAdd.TabIndex = 0;
             AdminAdd.Text = "Adicionar";
             // 
@@ -1339,7 +1333,7 @@
             navBar.Name = "navBar";
             navBar.Padding = new Point(10, 10);
             navBar.SelectedIndex = 0;
-            navBar.Size = new Size(933, 753);
+            navBar.Size = new Size(1006, 721);
             navBar.SizeMode = TabSizeMode.FillToRight;
             navBar.TabIndex = 0;
             // 
@@ -1348,12 +1342,11 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(933, 753);
+            ClientSize = new Size(1006, 721);
             Controls.Add(navBar);
-            MinimumSize = new Size(800, 600);
+            MinimumSize = new Size(1024, 768);
             Name = "Form1";
             Text = "AutoParts";
-            WindowState = FormWindowState.Maximized;
             tabControl3.ResumeLayout(false);
             tabPage9.ResumeLayout(false);
             tabPage9.PerformLayout();
@@ -1364,7 +1357,6 @@
             vehicleNav.ResumeLayout(false);
             VehicleAdd.ResumeLayout(false);
             VehicleAdd.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             tabPage2.ResumeLayout(false);
             ClientNav.ResumeLayout(false);
             ClientAdd.ResumeLayout(false);
@@ -1465,11 +1457,9 @@
         private Label label32;
         private TextBox textBox24;
         private Label label33;
-        private TextBox textBox25;
         private Label label34;
         private TextBox textBox26;
         private Label label35;
-        private DataGridView dataGridView1;
         private TabControl ClientNav;
         private TabPage ClientList;
         private TabPage ClientAdd;
@@ -1496,5 +1486,6 @@
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private Button Cbutton;
+        private Label label46;
     }
 }
