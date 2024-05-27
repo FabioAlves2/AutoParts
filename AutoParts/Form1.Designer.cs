@@ -669,7 +669,6 @@
             label35.Size = new Size(99, 25);
             label35.TabIndex = 19;
             label35.Text = "Cilindrada";
-            label35.Click += label35_Click;
             // 
             // label34
             // 
@@ -697,7 +696,6 @@
             label33.Size = new Size(116, 25);
             label33.TabIndex = 15;
             label33.Text = "Combustível";
-            label33.Click += label33_Click;
             // 
             // textBox23
             // 
@@ -714,7 +712,6 @@
             label32.Size = new Size(64, 25);
             label32.TabIndex = 13;
             label32.Text = "Motor";
-            label32.Click += label32_Click;
             // 
             // textBox22
             // 
@@ -750,7 +747,6 @@
             label30.Size = new Size(130, 25);
             label30.TabIndex = 9;
             label30.Text = "Ano Fim Prod.";
-            label30.Click += label30_Click;
             // 
             // dateTimePicker1
             // 
@@ -761,7 +757,6 @@
             dateTimePicker1.ShowUpDown = true;
             dateTimePicker1.Size = new Size(108, 32);
             dateTimePicker1.TabIndex = 8;
-            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // label29
             // 
@@ -799,7 +794,6 @@
             label27.Size = new Size(77, 25);
             label27.TabIndex = 4;
             label27.Text = "Modelo";
-            label27.Click += label27_Click;
             // 
             // textBox20
             // 
@@ -808,7 +802,6 @@
             textBox20.Name = "textBox20";
             textBox20.Size = new Size(256, 32);
             textBox20.TabIndex = 3;
-            textBox20.TextChanged += textBox20_TextChanged;
             // 
             // label26
             // 
@@ -818,7 +811,6 @@
             label26.Size = new Size(65, 25);
             label26.TabIndex = 2;
             label26.Text = "Marca";
-            label26.Click += label26_Click;
             // 
             // label25
             // 
@@ -829,7 +821,6 @@
             label25.Size = new Size(217, 25);
             label25.TabIndex = 1;
             label25.Text = "Adicionar novo veículo";
-            label25.Click += label25_Click;
             // 
             // textBox19
             // 
@@ -837,7 +828,6 @@
             textBox19.Name = "textBox19";
             textBox19.Size = new Size(256, 32);
             textBox19.TabIndex = 0;
-            textBox19.TextChanged += textBox19_TextChanged;
             // 
             // tabPage3
             // 
