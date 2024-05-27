@@ -934,7 +934,7 @@
             // VmotorCombInput
             // 
             VmotorCombInput.FormattingEnabled = true;
-            VmotorCombInput.Items.AddRange(new object[] { "Diesel", "Gasolina" });
+            VmotorCombInput.Items.AddRange(new object[] { "Diesel", "Elétrico", "Gasolina", "Híbrido" });
             VmotorCombInput.Location = new Point(361, 339);
             VmotorCombInput.Name = "VmotorCombInput";
             VmotorCombInput.Size = new Size(177, 33);
@@ -1306,7 +1306,7 @@
             // 
             Encomenda.Location = new Point(4, 34);
             Encomenda.Name = "Encomenda";
-            Encomenda.Size = new Size(990, 622);
+            Encomenda.Size = new Size(988, 620);
             Encomenda.TabIndex = 2;
             Encomenda.Text = "Encomenda";
             Encomenda.UseVisualStyleBackColor = true;
@@ -1315,7 +1315,7 @@
             // 
             Avaliacao.Location = new Point(4, 34);
             Avaliacao.Name = "Avaliacao";
-            Avaliacao.Size = new Size(990, 622);
+            Avaliacao.Size = new Size(988, 620);
             Avaliacao.TabIndex = 3;
             Avaliacao.Text = "Avaliação";
             Avaliacao.UseVisualStyleBackColor = true;
