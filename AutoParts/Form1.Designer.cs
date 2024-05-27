@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             tabControl3 = new TabControl();
             tabPage9 = new TabPage();
             textBox7 = new TextBox();
@@ -98,10 +100,36 @@
             textBox19 = new TextBox();
             tabPage3 = new TabPage();
             tabPage2 = new TabPage();
+            ClientNav = new TabControl();
+            ClientList = new TabPage();
+            ClientAdd = new TabPage();
+            Cbutton = new Button();
+            dataGridView2 = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Ccontac = new TextBox();
+            Cdrop = new ComboBox();
+            Caddc = new Button();
+            label45 = new Label();
+            label44 = new Label();
+            label43 = new Label();
+            Id = new Label();
+            label42 = new Label();
+            Ccp = new TextBox();
+            label41 = new Label();
+            Caddr = new TextBox();
+            Cbirth = new TextBox();
+            Ccc = new TextBox();
+            Cnome = new TextBox();
+            label40 = new Label();
+            label39 = new Label();
+            label38 = new Label();
+            label37 = new Label();
+            label36 = new Label();
             tabPage1 = new TabPage();
-            tabControl2 = new TabControl();
-            tabPage8 = new TabPage();
-            tabPage7 = new TabPage();
+            AdminNav = new TabControl();
+            AdminList = new TabPage();
+            AdminAdd = new TabPage();
             Asal = new TextBox();
             label8 = new Label();
             Abutton = new Button();
@@ -127,9 +155,13 @@
             vehicleNav.SuspendLayout();
             VehicleAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            tabPage2.SuspendLayout();
+            ClientNav.SuspendLayout();
+            ClientAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             tabPage1.SuspendLayout();
-            tabControl2.SuspendLayout();
-            tabPage7.SuspendLayout();
+            AdminNav.SuspendLayout();
+            AdminAdd.SuspendLayout();
             navBar.SuspendLayout();
             SuspendLayout();
             // 
@@ -829,6 +861,7 @@
             // tabPage2
             // 
             tabPage2.BackColor = Color.White;
+            tabPage2.Controls.Add(ClientNav);
             tabPage2.Location = new Point(4, 57);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -836,11 +869,264 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Client";
             // 
+            // ClientNav
+            // 
+            ClientNav.Controls.Add(ClientList);
+            ClientNav.Controls.Add(ClientAdd);
+            ClientNav.Dock = DockStyle.Fill;
+            ClientNav.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ClientNav.Location = new Point(3, 3);
+            ClientNav.Name = "ClientNav";
+            ClientNav.SelectedIndex = 0;
+            ClientNav.Size = new Size(919, 686);
+            ClientNav.TabIndex = 0;
+            // 
+            // ClientList
+            // 
+            ClientList.Location = new Point(4, 34);
+            ClientList.Name = "ClientList";
+            ClientList.Padding = new Padding(3);
+            ClientList.Size = new Size(911, 648);
+            ClientList.TabIndex = 0;
+            ClientList.Text = "Lista";
+            ClientList.UseVisualStyleBackColor = true;
+            // 
+            // ClientAdd
+            // 
+            ClientAdd.Controls.Add(Cbutton);
+            ClientAdd.Controls.Add(dataGridView2);
+            ClientAdd.Controls.Add(Ccontac);
+            ClientAdd.Controls.Add(Cdrop);
+            ClientAdd.Controls.Add(Caddc);
+            ClientAdd.Controls.Add(label45);
+            ClientAdd.Controls.Add(label44);
+            ClientAdd.Controls.Add(label43);
+            ClientAdd.Controls.Add(Id);
+            ClientAdd.Controls.Add(label42);
+            ClientAdd.Controls.Add(Ccp);
+            ClientAdd.Controls.Add(label41);
+            ClientAdd.Controls.Add(Caddr);
+            ClientAdd.Controls.Add(Cbirth);
+            ClientAdd.Controls.Add(Ccc);
+            ClientAdd.Controls.Add(Cnome);
+            ClientAdd.Controls.Add(label40);
+            ClientAdd.Controls.Add(label39);
+            ClientAdd.Controls.Add(label38);
+            ClientAdd.Controls.Add(label37);
+            ClientAdd.Controls.Add(label36);
+            ClientAdd.Location = new Point(4, 34);
+            ClientAdd.Name = "ClientAdd";
+            ClientAdd.Padding = new Padding(3);
+            ClientAdd.Size = new Size(911, 648);
+            ClientAdd.TabIndex = 1;
+            ClientAdd.Text = "Adicionar";
+            ClientAdd.UseVisualStyleBackColor = true;
+            // 
+            // Cbutton
+            // 
+            Cbutton.Location = new Point(340, 558);
+            Cbutton.Name = "Cbutton";
+            Cbutton.Size = new Size(255, 60);
+            Cbutton.TabIndex = 20;
+            Cbutton.Text = "Adicionar Cliente";
+            Cbutton.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2 });
+            dataGridView2.Location = new Point(31, 414);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersWidth = 51;
+            dataGridView2.Size = new Size(564, 138);
+            dataGridView2.TabIndex = 19;
+            // 
+            // Column1
+            // 
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column1.DefaultCellStyle = dataGridViewCellStyle3;
+            Column1.HeaderText = "Tipo";
+            Column1.MinimumWidth = 6;
+            Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column2.DefaultCellStyle = dataGridViewCellStyle4;
+            Column2.HeaderText = "Contacto";
+            Column2.MinimumWidth = 6;
+            Column2.Name = "Column2";
+            // 
+            // Ccontac
+            // 
+            Ccontac.Location = new Point(203, 365);
+            Ccontac.Name = "Ccontac";
+            Ccontac.Size = new Size(256, 31);
+            Ccontac.TabIndex = 18;
+            // 
+            // Cdrop
+            // 
+            Cdrop.FormattingEnabled = true;
+            Cdrop.Items.AddRange(new object[] { "Telemóvel", "Email" });
+            Cdrop.Location = new Point(31, 363);
+            Cdrop.Name = "Cdrop";
+            Cdrop.Size = new Size(151, 33);
+            Cdrop.TabIndex = 17;
+            // 
+            // Caddc
+            // 
+            Caddc.Location = new Point(484, 365);
+            Caddc.Name = "Caddc";
+            Caddc.Size = new Size(111, 34);
+            Caddc.TabIndex = 16;
+            Caddc.Text = "Adicionar";
+            Caddc.UseVisualStyleBackColor = true;
+            // 
+            // label45
+            // 
+            label45.AutoSize = true;
+            label45.Location = new Point(203, 335);
+            label45.Name = "label45";
+            label45.Size = new Size(84, 25);
+            label45.TabIndex = 15;
+            label45.Text = "Contacto";
+            // 
+            // label44
+            // 
+            label44.AutoSize = true;
+            label44.Location = new Point(31, 335);
+            label44.Name = "label44";
+            label44.Size = new Size(47, 25);
+            label44.TabIndex = 14;
+            label44.Text = "Tipo";
+            // 
+            // label43
+            // 
+            label43.AutoSize = true;
+            label43.Location = new Point(31, 310);
+            label43.Name = "label43";
+            label43.Size = new Size(92, 25);
+            label43.TabIndex = 13;
+            label43.Text = "Contactos";
+            // 
+            // Id
+            // 
+            Id.AutoSize = true;
+            Id.BackColor = SystemColors.Control;
+            Id.Location = new Point(31, 101);
+            Id.Name = "Id";
+            Id.Size = new Size(96, 25);
+            Id.TabIndex = 12;
+            Id.Text = "------------";
+            // 
+            // label42
+            // 
+            label42.AutoSize = true;
+            label42.Location = new Point(31, 70);
+            label42.Name = "label42";
+            label42.Size = new Size(112, 25);
+            label42.TabIndex = 11;
+            label42.Text = "ID do cliente";
+            // 
+            // Ccp
+            // 
+            Ccp.Location = new Point(339, 256);
+            Ccp.Name = "Ccp";
+            Ccp.Size = new Size(256, 31);
+            Ccp.TabIndex = 10;
+            // 
+            // label41
+            // 
+            label41.AutoSize = true;
+            label41.Location = new Point(339, 228);
+            label41.Name = "label41";
+            label41.Size = new Size(125, 25);
+            label41.TabIndex = 9;
+            label41.Text = "Código-Postal";
+            // 
+            // Caddr
+            // 
+            Caddr.Location = new Point(31, 256);
+            Caddr.Name = "Caddr";
+            Caddr.Size = new Size(256, 31);
+            Caddr.TabIndex = 8;
+            // 
+            // Cbirth
+            // 
+            Cbirth.Location = new Point(31, 174);
+            Cbirth.Name = "Cbirth";
+            Cbirth.Size = new Size(256, 31);
+            Cbirth.TabIndex = 7;
+            // 
+            // Ccc
+            // 
+            Ccc.Location = new Point(339, 174);
+            Ccc.Name = "Ccc";
+            Ccc.Size = new Size(256, 31);
+            Ccc.TabIndex = 6;
+            // 
+            // Cnome
+            // 
+            Cnome.Location = new Point(339, 98);
+            Cnome.Name = "Cnome";
+            Cnome.Size = new Size(256, 31);
+            Cnome.TabIndex = 5;
+            // 
+            // label40
+            // 
+            label40.AutoSize = true;
+            label40.Location = new Point(31, 228);
+            label40.Name = "label40";
+            label40.Size = new Size(74, 25);
+            label40.TabIndex = 4;
+            label40.Text = "Morada";
+            // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.Location = new Point(31, 146);
+            label39.Name = "label39";
+            label39.Size = new Size(173, 25);
+            label39.TabIndex = 3;
+            label39.Text = "Data de Nascimento";
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Location = new Point(339, 146);
+            label38.Name = "label38";
+            label38.Size = new Size(34, 25);
+            label38.TabIndex = 2;
+            label38.Text = "CC";
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Location = new Point(339, 70);
+            label37.Name = "label37";
+            label37.Size = new Size(61, 25);
+            label37.TabIndex = 1;
+            label37.Text = "Nome\r\n";
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label36.Location = new Point(27, 19);
+            label36.Name = "label36";
+            label36.Size = new Size(251, 25);
+            label36.TabIndex = 0;
+            label36.Text = "Adicionar um novo cliente.\r\n";
+            // 
             // tabPage1
             // 
             tabPage1.BackColor = Color.White;
             tabPage1.BorderStyle = BorderStyle.FixedSingle;
-            tabPage1.Controls.Add(tabControl2);
+            tabPage1.Controls.Add(AdminNav);
             tabPage1.Font = new Font("Segoe UI", 11F);
             tabPage1.ForeColor = SystemColors.ControlText;
             tabPage1.Location = new Point(4, 57);
@@ -850,54 +1136,54 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Admin";
             // 
-            // tabControl2
+            // AdminNav
             // 
-            tabControl2.Controls.Add(tabPage8);
-            tabControl2.Controls.Add(tabPage7);
-            tabControl2.Dock = DockStyle.Fill;
-            tabControl2.Location = new Point(3, 3);
-            tabControl2.Margin = new Padding(0);
-            tabControl2.Name = "tabControl2";
-            tabControl2.Padding = new Point(0, 0);
-            tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(917, 684);
-            tabControl2.TabIndex = 0;
+            AdminNav.Controls.Add(AdminList);
+            AdminNav.Controls.Add(AdminAdd);
+            AdminNav.Dock = DockStyle.Fill;
+            AdminNav.Location = new Point(3, 3);
+            AdminNav.Margin = new Padding(0);
+            AdminNav.Name = "AdminNav";
+            AdminNav.Padding = new Point(0, 0);
+            AdminNav.SelectedIndex = 0;
+            AdminNav.Size = new Size(917, 684);
+            AdminNav.TabIndex = 0;
             // 
-            // tabPage8
+            // AdminList
             // 
-            tabPage8.BackColor = Color.Transparent;
-            tabPage8.Location = new Point(4, 34);
-            tabPage8.Name = "tabPage8";
-            tabPage8.Padding = new Padding(3);
-            tabPage8.Size = new Size(909, 646);
-            tabPage8.TabIndex = 1;
-            tabPage8.Text = "Lista";
+            AdminList.BackColor = Color.Transparent;
+            AdminList.Location = new Point(4, 34);
+            AdminList.Name = "AdminList";
+            AdminList.Padding = new Padding(3);
+            AdminList.Size = new Size(909, 646);
+            AdminList.TabIndex = 1;
+            AdminList.Text = "Lista";
             // 
-            // tabPage7
+            // AdminAdd
             // 
-            tabPage7.BackColor = Color.Transparent;
-            tabPage7.Controls.Add(Asal);
-            tabPage7.Controls.Add(label8);
-            tabPage7.Controls.Add(Abutton);
-            tabPage7.Controls.Add(Acp);
-            tabPage7.Controls.Add(Aaddr);
-            tabPage7.Controls.Add(Abirth);
-            tabPage7.Controls.Add(Acc);
-            tabPage7.Controls.Add(Aname);
-            tabPage7.Controls.Add(label7);
-            tabPage7.Controls.Add(label6);
-            tabPage7.Controls.Add(monthCalendar1);
-            tabPage7.Controls.Add(label5);
-            tabPage7.Controls.Add(label4);
-            tabPage7.Controls.Add(label3);
-            tabPage7.Controls.Add(label2);
-            tabPage7.Controls.Add(label1);
-            tabPage7.Location = new Point(4, 34);
-            tabPage7.Name = "tabPage7";
-            tabPage7.Padding = new Padding(3);
-            tabPage7.Size = new Size(909, 646);
-            tabPage7.TabIndex = 0;
-            tabPage7.Text = "Adicionar";
+            AdminAdd.BackColor = Color.Transparent;
+            AdminAdd.Controls.Add(Asal);
+            AdminAdd.Controls.Add(label8);
+            AdminAdd.Controls.Add(Abutton);
+            AdminAdd.Controls.Add(Acp);
+            AdminAdd.Controls.Add(Aaddr);
+            AdminAdd.Controls.Add(Abirth);
+            AdminAdd.Controls.Add(Acc);
+            AdminAdd.Controls.Add(Aname);
+            AdminAdd.Controls.Add(label7);
+            AdminAdd.Controls.Add(label6);
+            AdminAdd.Controls.Add(monthCalendar1);
+            AdminAdd.Controls.Add(label5);
+            AdminAdd.Controls.Add(label4);
+            AdminAdd.Controls.Add(label3);
+            AdminAdd.Controls.Add(label2);
+            AdminAdd.Controls.Add(label1);
+            AdminAdd.Location = new Point(4, 34);
+            AdminAdd.Name = "AdminAdd";
+            AdminAdd.Padding = new Padding(3);
+            AdminAdd.Size = new Size(909, 646);
+            AdminAdd.TabIndex = 0;
+            AdminAdd.Text = "Adicionar";
             // 
             // Asal
             // 
@@ -921,11 +1207,11 @@
             Abutton.BackColor = SystemColors.ActiveCaption;
             Abutton.FlatAppearance.BorderColor = Color.Black;
             Abutton.FlatAppearance.BorderSize = 3;
-            Abutton.Location = new Point(485, 432);
+            Abutton.Location = new Point(339, 410);
             Abutton.Name = "Abutton";
-            Abutton.Size = new Size(110, 37);
+            Abutton.Size = new Size(255, 60);
             Abutton.TabIndex = 13;
-            Abutton.Text = "Adicionar";
+            Abutton.Text = "Adicionar Administrador";
             Abutton.UseVisualStyleBackColor = false;
             // 
             // Acp
@@ -997,9 +1283,9 @@
             label5.AutoSize = true;
             label5.Location = new Point(31, 146);
             label5.Name = "label5";
-            label5.Size = new Size(156, 25);
+            label5.Size = new Size(182, 25);
             label5.TabIndex = 4;
-            label5.Text = "Data Nascimento";
+            label5.Text = "Data de Nascimento";
             // 
             // label4
             // 
@@ -1079,10 +1365,15 @@
             VehicleAdd.ResumeLayout(false);
             VehicleAdd.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            tabPage2.ResumeLayout(false);
+            ClientNav.ResumeLayout(false);
+            ClientAdd.ResumeLayout(false);
+            ClientAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             tabPage1.ResumeLayout(false);
-            tabControl2.ResumeLayout(false);
-            tabPage7.ResumeLayout(false);
-            tabPage7.PerformLayout();
+            AdminNav.ResumeLayout(false);
+            AdminAdd.ResumeLayout(false);
+            AdminAdd.PerformLayout();
             navBar.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -1134,8 +1425,8 @@
         private TabPage tabPage3;
         private TabPage tabPage2;
         private TabPage tabPage1;
-        private TabControl tabControl2;
-        private TabPage tabPage7;
+        private TabControl AdminNav;
+        private TabPage AdminAdd;
         private TextBox Asal;
         private Label label8;
         private Button Abutton;
@@ -1152,7 +1443,7 @@
         private Label label3;
         private Label label2;
         private Label label1;
-        private TabPage tabPage8;
+        private TabPage AdminList;
         private TabControl navBar;
         private TabControl vehicleNav;
         private TabPage VehicleList;
@@ -1179,5 +1470,31 @@
         private TextBox textBox26;
         private Label label35;
         private DataGridView dataGridView1;
+        private TabControl ClientNav;
+        private TabPage ClientList;
+        private TabPage ClientAdd;
+        private Label label39;
+        private Label label38;
+        private Label label37;
+        private Label label36;
+        private TextBox Ccp;
+        private Label label41;
+        private TextBox Caddr;
+        private TextBox Cbirth;
+        private TextBox Ccc;
+        private TextBox Cnome;
+        private Label label40;
+        private Label Id;
+        private Label label42;
+        private ComboBox Cdrop;
+        private Button Caddc;
+        private Label label45;
+        private Label label44;
+        private Label label43;
+        private DataGridView dataGridView2;
+        private TextBox Ccontac;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
+        private Button Cbutton;
     }
 }
