@@ -68,8 +68,8 @@
             tabPage12 = new TabPage();
             tableLayoutPanel3 = new TableLayoutPanel();
             tabControl4 = new TabControl();
-            tabPage6 = new TabPage();
-            tabPage5 = new TabPage();
+            StockNav = new TabPage();
+            MotorNav = new TabPage();
             tabPage4 = new TabPage();
             vehicleNav = new TabControl();
             VehicleList = new TabPage();
@@ -141,7 +141,27 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            navBar = new TabControl();
+            NavBar = new TabControl();
+            PecasNav = new TabControl();
+            PecasList = new TabPage();
+            PecasAdd = new TabPage();
+            label47 = new Label();
+            Encomenda = new TabPage();
+            Avaliacao = new TabPage();
+            label48 = new Label();
+            label49 = new Label();
+            label50 = new Label();
+            label51 = new Label();
+            label52 = new Label();
+            label53 = new Label();
+            label54 = new Label();
+            label55 = new Label();
+            comboBox1 = new ComboBox();
+            label56 = new Label();
+            textBox1 = new TextBox();
+            button1 = new Button();
+            button4 = new Button();
+            dataGridView1 = new DataGridView();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
@@ -149,6 +169,7 @@
             tabPage4.SuspendLayout();
             vehicleNav.SuspendLayout();
             VehicleAdd.SuspendLayout();
+            tabPage3.SuspendLayout();
             tabPage2.SuspendLayout();
             ClientNav.SuspendLayout();
             ClientAdd.SuspendLayout();
@@ -156,7 +177,10 @@
             tabPage1.SuspendLayout();
             AdminNav.SuspendLayout();
             AdminAdd.SuspendLayout();
-            navBar.SuspendLayout();
+            NavBar.SuspendLayout();
+            PecasNav.SuspendLayout();
+            PecasAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // tabControl3
@@ -557,23 +581,23 @@
             tabControl4.Size = new Size(200, 100);
             tabControl4.TabIndex = 0;
             // 
-            // tabPage6
+            // StockNav
             // 
-            tabPage6.BackColor = Color.White;
-            tabPage6.Location = new Point(4, 57);
-            tabPage6.Name = "tabPage6";
-            tabPage6.Size = new Size(998, 660);
-            tabPage6.TabIndex = 5;
-            tabPage6.Text = "tabPage6";
+            StockNav.BackColor = Color.White;
+            StockNav.Location = new Point(4, 57);
+            StockNav.Name = "StockNav";
+            StockNav.Size = new Size(998, 660);
+            StockNav.TabIndex = 5;
+            StockNav.Text = "Stock";
             // 
-            // tabPage5
+            // MotorNav
             // 
-            tabPage5.BackColor = Color.White;
-            tabPage5.Location = new Point(4, 57);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Size = new Size(998, 660);
-            tabPage5.TabIndex = 4;
-            tabPage5.Text = "Engine";
+            MotorNav.BackColor = Color.White;
+            MotorNav.Location = new Point(4, 57);
+            MotorNav.Name = "MotorNav";
+            MotorNav.Size = new Size(998, 660);
+            MotorNav.TabIndex = 4;
+            MotorNav.Text = "Motor";
             // 
             // tabPage4
             // 
@@ -585,7 +609,7 @@
             tabPage4.Name = "tabPage4";
             tabPage4.Size = new Size(998, 660);
             tabPage4.TabIndex = 3;
-            tabPage4.Text = "Vehicle";
+            tabPage4.Text = "Veículo";
             // 
             // vehicleNav
             // 
@@ -832,11 +856,12 @@
             // tabPage3
             // 
             tabPage3.BackColor = Color.White;
+            tabPage3.Controls.Add(PecasNav);
             tabPage3.Location = new Point(4, 57);
             tabPage3.Name = "tabPage3";
             tabPage3.Size = new Size(998, 660);
             tabPage3.TabIndex = 2;
-            tabPage3.Text = "Parts";
+            tabPage3.Text = "Peças";
             // 
             // tabPage2
             // 
@@ -847,7 +872,7 @@
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(998, 660);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "Client";
+            tabPage2.Text = "Cliente";
             // 
             // ClientNav
             // 
@@ -856,6 +881,7 @@
             ClientNav.Dock = DockStyle.Fill;
             ClientNav.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ClientNav.Location = new Point(3, 3);
+            ClientNav.Margin = new Padding(0);
             ClientNav.Name = "ClientNav";
             ClientNav.SelectedIndex = 0;
             ClientNav.Size = new Size(992, 654);
@@ -1292,24 +1318,226 @@
             label1.TabIndex = 0;
             label1.Text = "Adicionar um novo administrador.\r\n";
             // 
-            // navBar
+            // NavBar
             // 
-            navBar.Appearance = TabAppearance.FlatButtons;
-            navBar.Controls.Add(tabPage1);
-            navBar.Controls.Add(tabPage2);
-            navBar.Controls.Add(tabPage3);
-            navBar.Controls.Add(tabPage4);
-            navBar.Controls.Add(tabPage5);
-            navBar.Controls.Add(tabPage6);
-            navBar.Dock = DockStyle.Fill;
-            navBar.Font = new Font("Segoe UI", 14F);
-            navBar.Location = new Point(0, 0);
-            navBar.Name = "navBar";
-            navBar.Padding = new Point(10, 10);
-            navBar.SelectedIndex = 0;
-            navBar.Size = new Size(1006, 721);
-            navBar.SizeMode = TabSizeMode.FillToRight;
-            navBar.TabIndex = 0;
+            NavBar.Appearance = TabAppearance.FlatButtons;
+            NavBar.Controls.Add(tabPage1);
+            NavBar.Controls.Add(tabPage2);
+            NavBar.Controls.Add(tabPage3);
+            NavBar.Controls.Add(tabPage4);
+            NavBar.Controls.Add(MotorNav);
+            NavBar.Controls.Add(StockNav);
+            NavBar.Dock = DockStyle.Fill;
+            NavBar.Font = new Font("Segoe UI", 14F);
+            NavBar.Location = new Point(0, 0);
+            NavBar.Margin = new Padding(0);
+            NavBar.Name = "NavBar";
+            NavBar.Padding = new Point(10, 10);
+            NavBar.SelectedIndex = 0;
+            NavBar.Size = new Size(1006, 721);
+            NavBar.SizeMode = TabSizeMode.FillToRight;
+            NavBar.TabIndex = 0;
+            // 
+            // PecasNav
+            // 
+            PecasNav.Controls.Add(PecasList);
+            PecasNav.Controls.Add(PecasAdd);
+            PecasNav.Controls.Add(Encomenda);
+            PecasNav.Controls.Add(Avaliacao);
+            PecasNav.Dock = DockStyle.Fill;
+            PecasNav.Font = new Font("Segoe UI", 11F);
+            PecasNav.Location = new Point(0, 0);
+            PecasNav.Margin = new Padding(0);
+            PecasNav.Name = "PecasNav";
+            PecasNav.SelectedIndex = 0;
+            PecasNav.Size = new Size(998, 660);
+            PecasNav.TabIndex = 0;
+            // 
+            // PecasList
+            // 
+            PecasList.Location = new Point(4, 34);
+            PecasList.Name = "PecasList";
+            PecasList.Padding = new Padding(3);
+            PecasList.Size = new Size(990, 622);
+            PecasList.TabIndex = 0;
+            PecasList.Text = "Lista";
+            PecasList.UseVisualStyleBackColor = true;
+            // 
+            // PecasAdd
+            // 
+            PecasAdd.Controls.Add(dataGridView1);
+            PecasAdd.Controls.Add(button4);
+            PecasAdd.Controls.Add(button1);
+            PecasAdd.Controls.Add(textBox1);
+            PecasAdd.Controls.Add(label56);
+            PecasAdd.Controls.Add(comboBox1);
+            PecasAdd.Controls.Add(label55);
+            PecasAdd.Controls.Add(label54);
+            PecasAdd.Controls.Add(label53);
+            PecasAdd.Controls.Add(label52);
+            PecasAdd.Controls.Add(label51);
+            PecasAdd.Controls.Add(label50);
+            PecasAdd.Controls.Add(label49);
+            PecasAdd.Controls.Add(label48);
+            PecasAdd.Controls.Add(label47);
+            PecasAdd.Location = new Point(4, 34);
+            PecasAdd.Name = "PecasAdd";
+            PecasAdd.Padding = new Padding(3);
+            PecasAdd.Size = new Size(990, 622);
+            PecasAdd.TabIndex = 1;
+            PecasAdd.Text = "Adicionar";
+            PecasAdd.UseVisualStyleBackColor = true;
+            // 
+            // label47
+            // 
+            label47.AutoSize = true;
+            label47.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label47.Location = new Point(27, 19);
+            label47.Name = "label47";
+            label47.Size = new Size(193, 25);
+            label47.TabIndex = 0;
+            label47.Text = "Adicionar uma peça.";
+            // 
+            // Encomenda
+            // 
+            Encomenda.Location = new Point(4, 34);
+            Encomenda.Name = "Encomenda";
+            Encomenda.Size = new Size(990, 622);
+            Encomenda.TabIndex = 2;
+            Encomenda.Text = "Encomenda";
+            Encomenda.UseVisualStyleBackColor = true;
+            // 
+            // Avaliacao
+            // 
+            Avaliacao.Location = new Point(4, 34);
+            Avaliacao.Name = "Avaliacao";
+            Avaliacao.Size = new Size(990, 622);
+            Avaliacao.TabIndex = 3;
+            Avaliacao.Text = "Avaliação";
+            Avaliacao.UseVisualStyleBackColor = true;
+            // 
+            // label48
+            // 
+            label48.AutoSize = true;
+            label48.Location = new Point(27, 63);
+            label48.Name = "label48";
+            label48.Size = new Size(63, 25);
+            label48.TabIndex = 1;
+            label48.Text = "Nome";
+            // 
+            // label49
+            // 
+            label49.AutoSize = true;
+            label49.Location = new Point(27, 123);
+            label49.Name = "label49";
+            label49.Size = new Size(94, 25);
+            label49.TabIndex = 2;
+            label49.Text = "Descrição";
+            // 
+            // label50
+            // 
+            label50.AutoSize = true;
+            label50.Location = new Point(458, 64);
+            label50.Name = "label50";
+            label50.Size = new Size(65, 25);
+            label50.TabIndex = 3;
+            label50.Text = "Marca";
+            // 
+            // label51
+            // 
+            label51.AutoSize = true;
+            label51.Location = new Point(458, 123);
+            label51.Name = "label51";
+            label51.Size = new Size(94, 25);
+            label51.TabIndex = 4;
+            label51.Text = "Categoria";
+            // 
+            // label52
+            // 
+            label52.AutoSize = true;
+            label52.Location = new Point(27, 174);
+            label52.Name = "label52";
+            label52.Size = new Size(60, 25);
+            label52.TabIndex = 5;
+            label52.Text = "Preço";
+            // 
+            // label53
+            // 
+            label53.AutoSize = true;
+            label53.Location = new Point(458, 174);
+            label53.Name = "label53";
+            label53.Size = new Size(30, 25);
+            label53.TabIndex = 6;
+            label53.Text = "ID";
+            // 
+            // label54
+            // 
+            label54.AutoSize = true;
+            label54.Location = new Point(27, 228);
+            label54.Name = "label54";
+            label54.Size = new Size(133, 25);
+            label54.TabIndex = 7;
+            label54.Text = "Especificações";
+            // 
+            // label55
+            // 
+            label55.AutoSize = true;
+            label55.Location = new Point(27, 263);
+            label55.Name = "label55";
+            label55.Size = new Size(49, 25);
+            label55.TabIndex = 8;
+            label55.Text = "Tipo";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(27, 291);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 33);
+            comboBox1.TabIndex = 9;
+            // 
+            // label56
+            // 
+            label56.AutoSize = true;
+            label56.Location = new Point(233, 263);
+            label56.Name = "label56";
+            label56.Size = new Size(118, 25);
+            label56.TabIndex = 10;
+            label56.Text = "Medida (cm)";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(233, 291);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(179, 32);
+            textBox1.TabIndex = 11;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(477, 285);
+            button1.Name = "button1";
+            button1.Size = new Size(107, 41);
+            button1.TabIndex = 12;
+            button1.Text = "Adicionar";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(710, 392);
+            button4.Name = "button4";
+            button4.Size = new Size(218, 72);
+            button4.TabIndex = 13;
+            button4.Text = "Adicionar Peça";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(27, 348);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(557, 191);
+            dataGridView1.TabIndex = 14;
             // 
             // Form1
             // 
@@ -1317,7 +1545,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1006, 721);
-            Controls.Add(navBar);
+            Controls.Add(NavBar);
             MinimumSize = new Size(1024, 768);
             Name = "Form1";
             Text = "AutoParts";
@@ -1331,6 +1559,7 @@
             vehicleNav.ResumeLayout(false);
             VehicleAdd.ResumeLayout(false);
             VehicleAdd.PerformLayout();
+            tabPage3.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
             ClientNav.ResumeLayout(false);
             ClientAdd.ResumeLayout(false);
@@ -1340,7 +1569,11 @@
             AdminNav.ResumeLayout(false);
             AdminAdd.ResumeLayout(false);
             AdminAdd.PerformLayout();
-            navBar.ResumeLayout(false);
+            NavBar.ResumeLayout(false);
+            PecasNav.ResumeLayout(false);
+            PecasAdd.ResumeLayout(false);
+            PecasAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -1385,8 +1618,8 @@
         private TabPage tabPage12;
         private TableLayoutPanel tableLayoutPanel3;
         private TabControl tabControl4;
-        private TabPage tabPage6;
-        private TabPage tabPage5;
+        private TabPage StockNav;
+        private TabPage MotorNav;
         private TabPage tabPage4;
         private TabPage tabPage3;
         private TabPage tabPage2;
@@ -1410,7 +1643,7 @@
         private Label label2;
         private Label label1;
         private TabPage AdminList;
-        private TabControl navBar;
+        private TabControl NavBar;
         private TabControl vehicleNav;
         private TabPage VehicleList;
         private TabPage VehicleAdd;
@@ -1459,5 +1692,25 @@
         private TextBox Ccontact;
         private Button Cbutton;
         private DataGridView ClientContactData;
+        private TabControl PecasNav;
+        private TabPage PecasList;
+        private TabPage PecasAdd;
+        private Label label47;
+        private TabPage Encomenda;
+        private TabPage Avaliacao;
+        private Label label51;
+        private Label label50;
+        private Label label49;
+        private Label label48;
+        private Label label53;
+        private Label label52;
+        private Label label56;
+        private ComboBox comboBox1;
+        private Label label55;
+        private Label label54;
+        private DataGridView dataGridView1;
+        private Button button4;
+        private Button button1;
+        private TextBox textBox1;
     }
 }
