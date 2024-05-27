@@ -1,9 +1,11 @@
+using System.Data;
 using System.Data.SqlClient;
 
 namespace AutoParts
 {
     public partial class Form1 : Form
     {
+        DataTable dt = new DataTable();
         public Form1()
         {
             InitializeComponent();
@@ -17,9 +19,8 @@ namespace AutoParts
             return CN;
         }
 
-
         //ADMIN CODE
-        private void button1_Click(object sender, EventArgs e, SqlConnection CN)
+        private void AddAdmin(SqlConnection CN)
         {
             // Get the values from the textboxes
             string adminName = Aname.Text;
@@ -66,6 +67,12 @@ namespace AutoParts
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
+        }
+
+        private void Abutton_Click(object sender, EventArgs e)
+        {
+            //SqlConnection CN = GetDbConnection();
+            //AddAdmin(CN);
         }
 
         private void textBox19_TextChanged(object sender, EventArgs e)
@@ -121,5 +128,55 @@ namespace AutoParts
 
 
         //CUSTOMER CODE
+        private void Contact_Load(object sender, EventArgs e)
+        {
+            dt.Columns.Add("Tipo", typeof(string));
+            dt.Columns.Add("Contacto", typeof(string));
+            ClientContactData.DataSource = dt;
+        }
+
+        private void Caddc_Click(object sender, EventArgs e)
+        {
+            if (Cdrop.Text == "" || Ccontact.Text == "")
+            {
+                MessageBox.Show("Por favor preencha todos os campos.");
+                return;
+            }
+            else if (Cdrop.Text == "Email" && !Ccontact.Text.Contains("@"))
+            {
+                MessageBox.Show("Por favor insira um email válido.");
+                return;
+            }
+            else if (Cdrop.Text == "Telemóvel" && Ccontact.Text.Length != 9 && !Ccontact.Text.StartsWith("9"))
+            {
+                MessageBox.Show("Por favor insira um número de telemóvel válido.");
+                return;
+            }
+            else
+            {
+                dt.Rows.Add(Cdrop.Text, Ccontact.Text);
+            }
+        }
+        private void AddCustomer(SqlConnection CN)
+        {
+            // Get the values from the textboxes
+            string customerName = Cnome.Text;
+            string customerCC = Ccc.Text;
+            string customerBirth = Cbirth.Text;
+            string customerAddr = Caddr.Text;
+            string customerCp = Ccp.Text;
+            string customerContacts = "";
+            foreach (DataRow row in dt.Rows)
+            {
+                customerContacts += row["Tipo"].ToString() + ": " + row["Contacto"].ToString() + "|";
+            }
+
+        }
+
+        private void Cbutton_Click(object sender, EventArgs e)
+        {
+            //SqlConnection CN = GetDbConnection();
+            //AddCustomer(CN);
+        }
     }
 }

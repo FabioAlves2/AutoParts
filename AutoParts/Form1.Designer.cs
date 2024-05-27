@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             tabControl3 = new TabControl();
             tabPage9 = new TabPage();
             textBox7 = new TextBox();
@@ -103,17 +101,15 @@
             ClientNav = new TabControl();
             ClientList = new TabPage();
             ClientAdd = new TabPage();
+            ClientContactData = new DataGridView();
             Cbutton = new Button();
-            dataGridView2 = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Ccontac = new TextBox();
+            Ccontact = new TextBox();
             Cdrop = new ComboBox();
             Caddc = new Button();
             label45 = new Label();
             label44 = new Label();
             label43 = new Label();
-            Id = new Label();
+            Cid = new Label();
             label42 = new Label();
             Ccp = new TextBox();
             label41 = new Label();
@@ -158,7 +154,7 @@
             tabPage2.SuspendLayout();
             ClientNav.SuspendLayout();
             ClientAdd.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ClientContactData).BeginInit();
             tabPage1.SuspendLayout();
             AdminNav.SuspendLayout();
             AdminAdd.SuspendLayout();
@@ -880,6 +876,7 @@
             ClientNav.SelectedIndex = 0;
             ClientNav.Size = new Size(919, 686);
             ClientNav.TabIndex = 0;
+            ClientNav.Click += Contact_Load;
             // 
             // ClientList
             // 
@@ -893,15 +890,15 @@
             // 
             // ClientAdd
             // 
+            ClientAdd.Controls.Add(ClientContactData);
             ClientAdd.Controls.Add(Cbutton);
-            ClientAdd.Controls.Add(dataGridView2);
-            ClientAdd.Controls.Add(Ccontac);
+            ClientAdd.Controls.Add(Ccontact);
             ClientAdd.Controls.Add(Cdrop);
             ClientAdd.Controls.Add(Caddc);
             ClientAdd.Controls.Add(label45);
             ClientAdd.Controls.Add(label44);
             ClientAdd.Controls.Add(label43);
-            ClientAdd.Controls.Add(Id);
+            ClientAdd.Controls.Add(Cid);
             ClientAdd.Controls.Add(label42);
             ClientAdd.Controls.Add(Ccp);
             ClientAdd.Controls.Add(label41);
@@ -922,6 +919,19 @@
             ClientAdd.Text = "Adicionar";
             ClientAdd.UseVisualStyleBackColor = true;
             // 
+            // ClientContactData
+            // 
+            ClientContactData.AllowUserToAddRows = false;
+            ClientContactData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ClientContactData.BackgroundColor = SystemColors.ControlLight;
+            ClientContactData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ClientContactData.GridColor = SystemColors.ScrollBar;
+            ClientContactData.Location = new Point(31, 402);
+            ClientContactData.Name = "ClientContactData";
+            ClientContactData.RowHeadersWidth = 51;
+            ClientContactData.Size = new Size(564, 150);
+            ClientContactData.TabIndex = 21;
+            // 
             // Cbutton
             // 
             Cbutton.Location = new Point(340, 558);
@@ -930,43 +940,14 @@
             Cbutton.TabIndex = 20;
             Cbutton.Text = "Adicionar Cliente";
             Cbutton.UseVisualStyleBackColor = true;
+            Cbutton.Click += Cbutton_Click;
             // 
-            // dataGridView2
+            // Ccontact
             // 
-            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2 });
-            dataGridView2.Location = new Point(31, 414);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(564, 138);
-            dataGridView2.TabIndex = 19;
-            // 
-            // Column1
-            // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column1.DefaultCellStyle = dataGridViewCellStyle3;
-            Column1.HeaderText = "Tipo";
-            Column1.MinimumWidth = 6;
-            Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column2.DefaultCellStyle = dataGridViewCellStyle4;
-            Column2.HeaderText = "Contacto";
-            Column2.MinimumWidth = 6;
-            Column2.Name = "Column2";
-            // 
-            // Ccontac
-            // 
-            Ccontac.Location = new Point(203, 365);
-            Ccontac.Name = "Ccontac";
-            Ccontac.Size = new Size(256, 31);
-            Ccontac.TabIndex = 18;
+            Ccontact.Location = new Point(203, 365);
+            Ccontact.Name = "Ccontact";
+            Ccontact.Size = new Size(256, 31);
+            Ccontact.TabIndex = 18;
             // 
             // Cdrop
             // 
@@ -985,6 +966,7 @@
             Caddc.TabIndex = 16;
             Caddc.Text = "Adicionar";
             Caddc.UseVisualStyleBackColor = true;
+            Caddc.Click += Caddc_Click;
             // 
             // label45
             // 
@@ -1013,15 +995,15 @@
             label43.TabIndex = 13;
             label43.Text = "Contactos";
             // 
-            // Id
+            // Cid
             // 
-            Id.AutoSize = true;
-            Id.BackColor = SystemColors.Control;
-            Id.Location = new Point(31, 101);
-            Id.Name = "Id";
-            Id.Size = new Size(96, 25);
-            Id.TabIndex = 12;
-            Id.Text = "------------";
+            Cid.AutoSize = true;
+            Cid.BackColor = SystemColors.Control;
+            Cid.Location = new Point(31, 101);
+            Cid.Name = "Cid";
+            Cid.Size = new Size(96, 25);
+            Cid.TabIndex = 12;
+            Cid.Text = "------------";
             // 
             // label42
             // 
@@ -1213,6 +1195,7 @@
             Abutton.TabIndex = 13;
             Abutton.Text = "Adicionar Administrador";
             Abutton.UseVisualStyleBackColor = false;
+            Abutton.Click += Abutton_Click;
             // 
             // Acp
             // 
@@ -1369,7 +1352,7 @@
             ClientNav.ResumeLayout(false);
             ClientAdd.ResumeLayout(false);
             ClientAdd.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ClientContactData).EndInit();
             tabPage1.ResumeLayout(false);
             AdminNav.ResumeLayout(false);
             AdminAdd.ResumeLayout(false);
@@ -1484,17 +1467,15 @@
         private TextBox Ccc;
         private TextBox Cnome;
         private Label label40;
-        private Label Id;
+        private Label Cid;
         private Label label42;
         private ComboBox Cdrop;
         private Button Caddc;
         private Label label45;
         private Label label44;
         private Label label43;
-        private DataGridView dataGridView2;
-        private TextBox Ccontac;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
+        private TextBox Ccontact;
         private Button Cbutton;
+        private DataGridView ClientContactData;
     }
 }
