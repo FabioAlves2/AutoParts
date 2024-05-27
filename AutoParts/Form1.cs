@@ -78,9 +78,12 @@ namespace AutoParts
         //CUSTOMER CODE
         private void Contact_Load(object sender, EventArgs e)
         {
-            dt.Columns.Add("Tipo", typeof(string));
-            dt.Columns.Add("Contacto", typeof(string));
-            ClientContactData.DataSource = dt;
+            if (dt.Columns.Count == 0)
+            {
+                dt.Columns.Add("Tipo", typeof(string));
+                dt.Columns.Add("Contacto", typeof(string));
+                ClientContactData.DataSource = dt;
+            }
         }
 
         private void Caddc_Click(object sender, EventArgs e)
@@ -95,17 +98,37 @@ namespace AutoParts
                 MessageBox.Show("Por favor insira um email válido.");
                 return;
             }
-            else if (Cdrop.Text == "Telemóvel" && Ccontact.Text.Length != 9 && !Ccontact.Text.StartsWith("9"))
+            else if (Cdrop.Text == "Telemóvel" && (Ccontact.Text.Length != 9 || !Ccontact.Text.StartsWith("9")))
             {
                 MessageBox.Show("Por favor insira um número de telemóvel válido.");
                 return;
             }
             else
             {
-                dt.Rows.Add(Cdrop.Text, Ccontact.Text);
+                if (dt.Rows.Count == 0)
+                {
+                    dt.Rows.Add(Cdrop.Text, Ccontact.Text);
+                }
+                else if (dt.Rows.Count == 1)
+                {
+                    if (dt.Rows[0]["Tipo"].ToString() == Cdrop.Text)
+                    {
+                        MessageBox.Show("Já inseriu um contacto do mesmo tipo.");
+                        return;
+                    }
+                    else
+                    {
+                        dt.Rows.Add(Cdrop.Text, Ccontact.Text);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Só pode inserir dois contactos.");
+                    return;
+                }
             }
         }
-        private void AddCustomer(SqlConnection CN)
+        private void AddClient(SqlConnection CN)
         {
             // Get the values from the textboxes
             string customerName = Cnome.Text;
@@ -114,17 +137,103 @@ namespace AutoParts
             string customerAddr = Caddr.Text;
             string customerCp = Ccp.Text;
             string customerContacts = "";
+            string contact0 = string.Empty;
+            string contact1 = string.Empty;
+            string? customerEmail = null;
+            string? customerTelm = null;
             foreach (DataRow row in dt.Rows)
             {
                 customerContacts += row["Tipo"].ToString() + ": " + row["Contacto"].ToString() + "|";
             }
+            if (customerContacts.Contains("Email") && customerContacts.Contains("Telemóvel"))
+            {
+                contact0 = customerContacts.Split("|")[0];
+                contact1 = customerContacts.Split("|")[1];
+            }
+            else if (customerContacts == "")
+            {
+                MessageBox.Show("O cliente deve ter pelo menos um contacto!");
+                return;
+            }
+            else
+            {
+                contact1 = customerContacts.Split("|")[0];
+            }
 
+            if (contact0.StartsWith("Email"))
+            {
+                customerEmail = contact0.Split(":")[1];
+            }
+            else if (contact0.StartsWith("Telemóvel"))
+            {
+                customerTelm = contact0.Split(":")[1];
+            }
+            if (contact1.StartsWith("Email"))
+            {
+                customerEmail = contact1.Split(":")[1];
+            }
+            else if (contact1.StartsWith("Telemóvel"))
+            {
+                customerTelm = contact1.Split(":")[1];
+            }
+
+            // Query to insert the customer
+            string query = "INSERT INTO Customers (Name, CC, Birth, Address, PostalCode, Email, Telm) VALUES (@Name, @CC, @Birth, @Address, @PostalCode, @Contacts)";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                cmd.Parameters.AddWithValue("@Name", customerName);
+                cmd.Parameters.AddWithValue("@CC", customerCC);
+                cmd.Parameters.AddWithValue("@Birth", customerBirth);
+                cmd.Parameters.AddWithValue("@Address", customerAddr);
+                cmd.Parameters.AddWithValue("@PostalCode", customerCp);
+                cmd.Parameters.AddWithValue("@Email", customerEmail);
+                cmd.Parameters.AddWithValue("@Telm", customerTelm);
+                cmd.Parameters.AddWithValue("@Contacts", customerContacts);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Customer added successfully.");
+                        //ClientAdd_Clear(sender, e);
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the customer.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+        }
+        private void ClientAdd_Clear(object sender, EventArgs e)
+        {
+            Cnome.Text = "";
+            Ccc.Text = "";
+            Cbirth.Text = "";
+            Caddr.Text = "";
+            Ccp.Text = "";
+            Cdrop.Text = "";
+            Ccontact.Text = "";
+            dt.Clear();
         }
 
         private void Cbutton_Click(object sender, EventArgs e)
         {
             //SqlConnection CN = GetDbConnection();
-            //AddCustomer(CN);
+            //AddClient(CN);
         }
+
     }
 }

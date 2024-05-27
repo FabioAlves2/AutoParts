@@ -1102,7 +1102,6 @@
             ClientNav.SelectedIndex = 0;
             ClientNav.Size = new Size(992, 654);
             ClientNav.TabIndex = 0;
-            ClientNav.Click += Contact_Load;
             // 
             // ClientList
             // 
@@ -1144,6 +1143,8 @@
             ClientAdd.TabIndex = 1;
             ClientAdd.Text = "Adicionar";
             ClientAdd.UseVisualStyleBackColor = true;
+            ClientAdd.Enter += Contact_Load;
+            ClientAdd.Leave += ClientAdd_Clear;
             // 
             // ClientContactData
             // 
