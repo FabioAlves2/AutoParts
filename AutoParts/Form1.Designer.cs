@@ -120,12 +120,18 @@
             PecasNav = new TabControl();
             PecasList = new TabPage();
             PecasAdd = new TabPage();
+            Pcategoria = new ComboBox();
+            Ppreco = new TextBox();
+            Pid = new TextBox();
+            Pdescri = new TextBox();
+            Pmarca = new TextBox();
+            Pname = new TextBox();
             SpecsGrid = new DataGridView();
-            button4 = new Button();
-            button1 = new Button();
-            textBox1 = new TextBox();
+            Pbutton = new Button();
+            SpecBtn = new Button();
+            Psize = new TextBox();
             label56 = new Label();
-            comboBox1 = new ComboBox();
+            Pdrop = new ComboBox();
             label55 = new Label();
             label54 = new Label();
             label53 = new Label();
@@ -1146,12 +1152,18 @@
             // 
             // PecasAdd
             // 
+            PecasAdd.Controls.Add(Pcategoria);
+            PecasAdd.Controls.Add(Ppreco);
+            PecasAdd.Controls.Add(Pid);
+            PecasAdd.Controls.Add(Pdescri);
+            PecasAdd.Controls.Add(Pmarca);
+            PecasAdd.Controls.Add(Pname);
             PecasAdd.Controls.Add(SpecsGrid);
-            PecasAdd.Controls.Add(button4);
-            PecasAdd.Controls.Add(button1);
-            PecasAdd.Controls.Add(textBox1);
+            PecasAdd.Controls.Add(Pbutton);
+            PecasAdd.Controls.Add(SpecBtn);
+            PecasAdd.Controls.Add(Psize);
             PecasAdd.Controls.Add(label56);
-            PecasAdd.Controls.Add(comboBox1);
+            PecasAdd.Controls.Add(Pdrop);
             PecasAdd.Controls.Add(label55);
             PecasAdd.Controls.Add(label54);
             PecasAdd.Controls.Add(label53);
@@ -1168,9 +1180,59 @@
             PecasAdd.TabIndex = 1;
             PecasAdd.Text = "Adicionar";
             PecasAdd.UseVisualStyleBackColor = true;
+            PecasAdd.Enter += Specs_Load;
+            PecasAdd.Leave += PartAdd_Clear;
+            // 
+            // Pcategoria
+            // 
+            Pcategoria.DropDownStyle = ComboBoxStyle.DropDownList;
+            Pcategoria.FormattingEnabled = true;
+            Pcategoria.Items.AddRange(new object[] { "Exterior", "Interior", "Motor", "Suspensão", "Transmissão", "Travagem" });
+            Pcategoria.Location = new Point(458, 151);
+            Pcategoria.Name = "Pcategoria";
+            Pcategoria.Size = new Size(151, 33);
+            Pcategoria.TabIndex = 21;
+            // 
+            // Ppreco
+            // 
+            Ppreco.Location = new Point(710, 228);
+            Ppreco.Name = "Ppreco";
+            Ppreco.Size = new Size(125, 32);
+            Ppreco.TabIndex = 20;
+            // 
+            // Pid
+            // 
+            Pid.Location = new Point(462, 224);
+            Pid.Name = "Pid";
+            Pid.Size = new Size(125, 32);
+            Pid.TabIndex = 19;
+            // 
+            // Pdescri
+            // 
+            Pdescri.Location = new Point(27, 151);
+            Pdescri.Name = "Pdescri";
+            Pdescri.Size = new Size(256, 32);
+            Pdescri.TabIndex = 17;
+            // 
+            // Pmarca
+            // 
+            Pmarca.Location = new Point(458, 88);
+            Pmarca.Name = "Pmarca";
+            Pmarca.Size = new Size(272, 32);
+            Pmarca.TabIndex = 16;
+            // 
+            // Pname
+            // 
+            Pname.Location = new Point(27, 83);
+            Pname.Name = "Pname";
+            Pname.Size = new Size(256, 32);
+            Pname.TabIndex = 15;
             // 
             // SpecsGrid
             // 
+            SpecsGrid.AllowUserToAddRows = false;
+            SpecsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            SpecsGrid.BackgroundColor = SystemColors.Control;
             SpecsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             SpecsGrid.Location = new Point(27, 341);
             SpecsGrid.Name = "SpecsGrid";
@@ -1178,30 +1240,32 @@
             SpecsGrid.Size = new Size(627, 206);
             SpecsGrid.TabIndex = 14;
             // 
-            // button4
+            // Pbutton
             // 
-            button4.Location = new Point(710, 392);
-            button4.Name = "button4";
-            button4.Size = new Size(218, 72);
-            button4.TabIndex = 13;
-            button4.Text = "Adicionar Peça";
-            button4.UseVisualStyleBackColor = true;
+            Pbutton.Location = new Point(674, 475);
+            Pbutton.Name = "Pbutton";
+            Pbutton.Size = new Size(218, 72);
+            Pbutton.TabIndex = 13;
+            Pbutton.Text = "Adicionar Peça";
+            Pbutton.UseVisualStyleBackColor = true;
+            Pbutton.Click += Pbutton_Click;
             // 
-            // button1
+            // SpecBtn
             // 
-            button1.Location = new Point(477, 285);
-            button1.Name = "button1";
-            button1.Size = new Size(107, 41);
-            button1.TabIndex = 12;
-            button1.Text = "Adicionar";
-            button1.UseVisualStyleBackColor = true;
+            SpecBtn.Location = new Point(477, 285);
+            SpecBtn.Name = "SpecBtn";
+            SpecBtn.Size = new Size(107, 41);
+            SpecBtn.TabIndex = 12;
+            SpecBtn.Text = "Adicionar";
+            SpecBtn.UseVisualStyleBackColor = true;
+            SpecBtn.Click += SpecBtn_Click;
             // 
-            // textBox1
+            // Psize
             // 
-            textBox1.Location = new Point(233, 291);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(179, 32);
-            textBox1.TabIndex = 11;
+            Psize.Location = new Point(233, 291);
+            Psize.Name = "Psize";
+            Psize.Size = new Size(179, 32);
+            Psize.TabIndex = 11;
             // 
             // label56
             // 
@@ -1212,13 +1276,15 @@
             label56.TabIndex = 10;
             label56.Text = "Medida (cm)";
             // 
-            // comboBox1
+            // Pdrop
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(27, 291);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 33);
-            comboBox1.TabIndex = 9;
+            Pdrop.DropDownStyle = ComboBoxStyle.DropDownList;
+            Pdrop.FormattingEnabled = true;
+            Pdrop.Items.AddRange(new object[] { "Altura", "Comprimento", "Diâmetro", "Largura", "Peso" });
+            Pdrop.Location = new Point(27, 291);
+            Pdrop.Name = "Pdrop";
+            Pdrop.Size = new Size(151, 33);
+            Pdrop.TabIndex = 9;
             // 
             // label55
             // 
@@ -1241,7 +1307,7 @@
             // label53
             // 
             label53.AutoSize = true;
-            label53.Location = new Point(458, 174);
+            label53.Location = new Point(458, 196);
             label53.Name = "label53";
             label53.Size = new Size(30, 25);
             label53.TabIndex = 6;
@@ -1250,7 +1316,7 @@
             // label52
             // 
             label52.AutoSize = true;
-            label52.Location = new Point(27, 174);
+            label52.Location = new Point(710, 196);
             label52.Name = "label52";
             label52.Size = new Size(60, 25);
             label52.TabIndex = 5;
@@ -1286,7 +1352,7 @@
             // label48
             // 
             label48.AutoSize = true;
-            label48.Location = new Point(27, 63);
+            label48.Location = new Point(27, 55);
             label48.Name = "label48";
             label48.Size = new Size(63, 25);
             label48.TabIndex = 1;
@@ -1420,6 +1486,7 @@
             // 
             // Cdrop
             // 
+            Cdrop.DropDownStyle = ComboBoxStyle.DropDownList;
             Cdrop.FormattingEnabled = true;
             Cdrop.Items.AddRange(new object[] { "Telemóvel", "Email" });
             Cdrop.Location = new Point(31, 363);
@@ -1986,13 +2053,19 @@
         private Label label53;
         private Label label52;
         private Label label56;
-        private ComboBox comboBox1;
+        private ComboBox Pdrop;
         private Label label55;
         private Label label54;
         private DataGridView VLista;
-        private Button button4;
-        private Button button1;
-        private TextBox textBox1;
+        private Button Pbutton;
+        private Button SpecBtn;
+        private TextBox Psize;
         private DataGridView SpecsGrid;
+        private TextBox Pdescri;
+        private TextBox Pmarca;
+        private TextBox Pname;
+        private TextBox Ppreco;
+        private TextBox Pid;
+        private ComboBox Pcategoria;
     }
 }

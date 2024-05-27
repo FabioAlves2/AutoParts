@@ -6,6 +6,7 @@ namespace AutoParts
     public partial class Form1 : Form
     {
         DataTable dt = new DataTable();
+        DataTable dt2 = new DataTable();
         public Form1()
         {
             InitializeComponent();
@@ -203,7 +204,6 @@ namespace AutoParts
                     if (rowsAffected > 0)
                     {
                         MessageBox.Show("Customer added successfully.");
-                        //ClientAdd_Clear(sender, e);
                     }
                     else
                     {
@@ -224,7 +224,7 @@ namespace AutoParts
             Cbirth.Text = "";
             Caddr.Text = "";
             Ccp.Text = "";
-            Cdrop.Text = "";
+            Cdrop.SelectedIndex = -1;
             Ccontact.Text = "";
             dt.Clear();
         }
@@ -235,5 +235,189 @@ namespace AutoParts
             //AddClient(CN);
         }
 
+
+        //PEÇAS CODE
+        private void Specs_Load(object sender, EventArgs e)
+        {
+            if (dt2.Columns.Count == 0)
+            {
+                dt2.Columns.Add("Tipo", typeof(string));
+                dt2.Columns.Add("Medida", typeof(string));
+                SpecsGrid.DataSource = dt2;
+            }
+        }
+
+        private void SpecBtn_Click(object sender, EventArgs e)
+        {
+            if (Pdrop.Text == "" || Psize.Text == "")
+            {
+                MessageBox.Show("Por favor preencha todos os campos.");
+                return;
+            }
+            if (!double.TryParse(Psize.Text, out double psizeValue) || psizeValue <= 0)
+            {
+                MessageBox.Show("O valor da medida deve ser númerico e positivo.");
+                return;
+            }
+
+            if (dt2.Rows.Count == 0)
+            {
+                dt2.Rows.Add(Pdrop.Text, Psize.Text);
+            }
+            else if (dt2.Rows.Count > 0 && dt2.Rows.Count < 5)
+            {
+                //verificar se já existe um tipo igual em qualquer linha
+                foreach (DataRow row in dt2.Rows)
+                {
+                    if (row["Tipo"].ToString() == Pdrop.Text)
+                    {
+                        MessageBox.Show("Já inseriu uma especificação do mesmo tipo.");
+                        return;
+                    }
+                }
+                dt2.Rows.Add(Pdrop.Text, Psize.Text);
+
+            }
+            else
+            {
+                MessageBox.Show("Só pode inserir até 5 especificações.");
+                return;
+            }
+
+        }
+        private void AddPart(SqlConnection CN)
+        {
+            // Get the values from the textboxes
+            string partName = Pname.Text;
+            string partPrice = Ppreco.Text;
+            string partdesc = Pdescri.Text;
+            string partMarca = Pmarca.Text;
+            string partCategotia = Pcategoria.Text;
+            string partId = Pid.Text;
+            string? specWeight = null;
+            string? specHeight = null;
+            string? specWidth = null;
+            string? specLength = null;
+            string? specDiameter = null;
+            foreach (DataRow row in dt2.Rows)
+            {
+                if (row["Tipo"].ToString() == "Peso")
+                {
+                    specWeight = row["Medida"].ToString();
+                }
+                else if (row["Tipo"].ToString() == "Altura")
+                {
+                    specHeight = row["Medida"].ToString();
+                }
+                else if (row["Tipo"].ToString() == "Largura")
+                {
+                    specWidth = row["Medida"].ToString();
+                }
+                else if (row["Tipo"].ToString() == "Comprimento")
+                {
+                    specLength = row["Medida"].ToString();
+                }
+                else if (row["Tipo"].ToString() == "Diâmetro")
+                {
+                    specDiameter = row["Medida"].ToString();
+                }   
+            }
+
+            // Query to insert the part
+            string query = "INSERT INTO Parts (Name, Price, Description, Manufacturer, Category, Part_id) VALUES (@Name, @Price, @Description, @Brand, @Category, @Part_id)";
+
+            // Query to insert the specs
+            string query2 = "INSERT INTO Specs (Part_id, Weight, Height, Width, Length, Diameter) VALUES (@Part_id, @Weight, @Height, @Width, @Length, @Diameter)";
+
+            // Execute the query to the parts table
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                cmd.Parameters.AddWithValue("@Name", partName);
+                cmd.Parameters.AddWithValue("@Price", partPrice);
+                cmd.Parameters.AddWithValue("@Description", partdesc);
+                cmd.Parameters.AddWithValue("@Brand", partMarca);
+                cmd.Parameters.AddWithValue("@Category", partCategotia);
+                cmd.Parameters.AddWithValue("@Part_id", partId);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Part added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the part.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            // Execute the query to the specs table
+
+            using (SqlCommand cmd = new SqlCommand(query2, CN))
+            {
+                cmd.Parameters.AddWithValue("@Part_id", partId);
+                cmd.Parameters.AddWithValue("@Weight", specWeight);
+                cmd.Parameters.AddWithValue("@Height", specHeight);
+                cmd.Parameters.AddWithValue("@Width", specWidth);
+                cmd.Parameters.AddWithValue("@Length", specLength);
+                cmd.Parameters.AddWithValue("@Diameter", specDiameter);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Specs added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the specs.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+
+        }
+
+        private void Pbutton_Click(object sender, EventArgs e)
+        {
+            //SqlConnection CN = GetDbConnection();
+            //AddPart(CN);
+        }
+        private void PartAdd_Clear(object sender, EventArgs e)
+        {
+            Pname.Text = "";
+            Ppreco.Text = "";
+            Pdescri.Text = "";
+            Pmarca.Text = "";
+            Pid.Text = "";
+            Pcategoria.SelectedIndex = -1;
+            Pdrop.SelectedIndex = -1;
+            Psize.Text = "";
+            dt2.Clear();
+        }
     }
 }
