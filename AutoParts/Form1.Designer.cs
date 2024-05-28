@@ -73,6 +73,7 @@
             tabControl1 = new TabControl();
             MotorLista = new TabPage();
             MotorAdicionar = new TabPage();
+            Madd = new Button();
             Malimentacao = new ComboBox();
             label35 = new Label();
             Msobrealimentacao = new ComboBox();
@@ -146,6 +147,23 @@
             PecasNav = new TabControl();
             PecasList = new TabPage();
             PecasAdd = new TabPage();
+            label63 = new Label();
+            comboBox1 = new ComboBox();
+            PVehiclePesquisaBtn = new Button();
+            PVehicleFimInput = new DateTimePicker();
+            PVehicleInicioInput = new DateTimePicker();
+            label62 = new Label();
+            PVehiclePesquisa = new DataGridView();
+            label61 = new Label();
+            PVehicleVersaoInput = new TextBox();
+            PVehicleModeloInput = new TextBox();
+            PVehicleMarcaInput = new TextBox();
+            PVehicleIDInput = new TextBox();
+            label60 = new Label();
+            label59 = new Label();
+            label58 = new Label();
+            label57 = new Label();
+            label46 = new Label();
             Pcategoria = new ComboBox();
             Ppreco = new TextBox();
             Pid = new TextBox();
@@ -169,6 +187,16 @@
             label47 = new Label();
             Encomenda = new TabPage();
             Avaliacao = new TabPage();
+            AvaliacaoPecas = new DataGridView();
+            label68 = new Label();
+            button1 = new Button();
+            label67 = new Label();
+            label66 = new Label();
+            labelAvalicao = new Label();
+            trackBar1 = new TrackBar();
+            AvalicaoClient = new ComboBox();
+            label65 = new Label();
+            label64 = new Label();
             tabPage2 = new TabPage();
             ClientNav = new TabControl();
             ClientList = new TabPage();
@@ -215,7 +243,6 @@
             label2 = new Label();
             label1 = new Label();
             NavBar = new TabControl();
-            Madd = new Button();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
@@ -235,7 +262,11 @@
             tabPage3.SuspendLayout();
             PecasNav.SuspendLayout();
             PecasAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PVehiclePesquisa).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SpecsGrid).BeginInit();
+            Avaliacao.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)AvaliacaoPecas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             tabPage2.SuspendLayout();
             ClientNav.SuspendLayout();
             ClientAdd.SuspendLayout();
@@ -720,6 +751,18 @@
             MotorAdicionar.TabIndex = 1;
             MotorAdicionar.Text = "Adicionar";
             MotorAdicionar.UseVisualStyleBackColor = true;
+            // 
+            // Madd
+            // 
+            Madd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Madd.BackColor = Color.Transparent;
+            Madd.ForeColor = SystemColors.ControlText;
+            Madd.Location = new Point(706, 317);
+            Madd.Name = "Madd";
+            Madd.Size = new Size(255, 40);
+            Madd.TabIndex = 58;
+            Madd.Text = "Adicionar Motor";
+            Madd.UseVisualStyleBackColor = false;
             // 
             // Malimentacao
             // 
@@ -1443,6 +1486,23 @@
             // 
             // PecasAdd
             // 
+            PecasAdd.Controls.Add(label63);
+            PecasAdd.Controls.Add(comboBox1);
+            PecasAdd.Controls.Add(PVehiclePesquisaBtn);
+            PecasAdd.Controls.Add(PVehicleFimInput);
+            PecasAdd.Controls.Add(PVehicleInicioInput);
+            PecasAdd.Controls.Add(label62);
+            PecasAdd.Controls.Add(PVehiclePesquisa);
+            PecasAdd.Controls.Add(label61);
+            PecasAdd.Controls.Add(PVehicleVersaoInput);
+            PecasAdd.Controls.Add(PVehicleModeloInput);
+            PecasAdd.Controls.Add(PVehicleMarcaInput);
+            PecasAdd.Controls.Add(PVehicleIDInput);
+            PecasAdd.Controls.Add(label60);
+            PecasAdd.Controls.Add(label59);
+            PecasAdd.Controls.Add(label58);
+            PecasAdd.Controls.Add(label57);
+            PecasAdd.Controls.Add(label46);
             PecasAdd.Controls.Add(Pcategoria);
             PecasAdd.Controls.Add(Ppreco);
             PecasAdd.Controls.Add(Pid);
@@ -1474,47 +1534,196 @@
             PecasAdd.Enter += Specs_Load;
             PecasAdd.Leave += PartAdd_Clear;
             // 
+            // label63
+            // 
+            label63.AutoSize = true;
+            label63.Location = new Point(448, 497);
+            label63.Name = "label63";
+            label63.Size = new Size(151, 25);
+            label63.TabIndex = 38;
+            label63.Text = "Compatibilidade";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Original", "Compatível" });
+            comboBox1.Location = new Point(448, 525);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 33);
+            comboBox1.TabIndex = 37;
+            // 
+            // PVehiclePesquisaBtn
+            // 
+            PVehiclePesquisaBtn.Location = new Point(448, 452);
+            PVehiclePesquisaBtn.Name = "PVehiclePesquisaBtn";
+            PVehiclePesquisaBtn.Size = new Size(146, 33);
+            PVehiclePesquisaBtn.TabIndex = 36;
+            PVehiclePesquisaBtn.Text = "Pesquisa";
+            PVehiclePesquisaBtn.UseVisualStyleBackColor = true;
+            // 
+            // PVehicleFimInput
+            // 
+            PVehicleFimInput.CustomFormat = "yyyy";
+            PVehicleFimInput.Format = DateTimePickerFormat.Custom;
+            PVehicleFimInput.Location = new Point(448, 404);
+            PVehicleFimInput.Name = "PVehicleFimInput";
+            PVehicleFimInput.ShowUpDown = true;
+            PVehicleFimInput.Size = new Size(146, 32);
+            PVehicleFimInput.TabIndex = 35;
+            // 
+            // PVehicleInicioInput
+            // 
+            PVehicleInicioInput.CustomFormat = "yyyy";
+            PVehicleInicioInput.Format = DateTimePickerFormat.Custom;
+            PVehicleInicioInput.Location = new Point(448, 339);
+            PVehicleInicioInput.Name = "PVehicleInicioInput";
+            PVehicleInicioInput.ShowUpDown = true;
+            PVehicleInicioInput.Size = new Size(146, 32);
+            PVehicleInicioInput.TabIndex = 34;
+            // 
+            // label62
+            // 
+            label62.AutoSize = true;
+            label62.Location = new Point(448, 376);
+            label62.Name = "label62";
+            label62.Size = new Size(130, 25);
+            label62.TabIndex = 33;
+            label62.Text = "Ano Fim Prod.";
+            // 
+            // PVehiclePesquisa
+            // 
+            PVehiclePesquisa.BackgroundColor = SystemColors.Control;
+            PVehiclePesquisa.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            PVehiclePesquisa.Location = new Point(27, 376);
+            PVehiclePesquisa.Name = "PVehiclePesquisa";
+            PVehiclePesquisa.RowHeadersWidth = 51;
+            PVehiclePesquisa.Size = new Size(414, 228);
+            PVehiclePesquisa.TabIndex = 32;
+            // 
+            // label61
+            // 
+            label61.AutoSize = true;
+            label61.Location = new Point(448, 310);
+            label61.Name = "label61";
+            label61.Size = new Size(146, 25);
+            label61.TabIndex = 31;
+            label61.Text = "Ano Inicio Prod.";
+            // 
+            // PVehicleVersaoInput
+            // 
+            PVehicleVersaoInput.Location = new Point(347, 338);
+            PVehicleVersaoInput.Name = "PVehicleVersaoInput";
+            PVehicleVersaoInput.Size = new Size(94, 32);
+            PVehicleVersaoInput.TabIndex = 30;
+            // 
+            // PVehicleModeloInput
+            // 
+            PVehicleModeloInput.Location = new Point(243, 338);
+            PVehicleModeloInput.Name = "PVehicleModeloInput";
+            PVehicleModeloInput.Size = new Size(94, 32);
+            PVehicleModeloInput.TabIndex = 29;
+            // 
+            // PVehicleMarcaInput
+            // 
+            PVehicleMarcaInput.Location = new Point(134, 338);
+            PVehicleMarcaInput.Name = "PVehicleMarcaInput";
+            PVehicleMarcaInput.Size = new Size(94, 32);
+            PVehicleMarcaInput.TabIndex = 28;
+            // 
+            // PVehicleIDInput
+            // 
+            PVehicleIDInput.Location = new Point(27, 338);
+            PVehicleIDInput.Name = "PVehicleIDInput";
+            PVehicleIDInput.Size = new Size(94, 32);
+            PVehicleIDInput.TabIndex = 27;
+            // 
+            // label60
+            // 
+            label60.AutoSize = true;
+            label60.Location = new Point(347, 310);
+            label60.Name = "label60";
+            label60.Size = new Size(69, 25);
+            label60.TabIndex = 26;
+            label60.Text = "Versão";
+            // 
+            // label59
+            // 
+            label59.AutoSize = true;
+            label59.Location = new Point(243, 310);
+            label59.Name = "label59";
+            label59.Size = new Size(77, 25);
+            label59.TabIndex = 25;
+            label59.Text = "Modelo";
+            // 
+            // label58
+            // 
+            label58.AutoSize = true;
+            label58.Location = new Point(134, 310);
+            label58.Name = "label58";
+            label58.Size = new Size(65, 25);
+            label58.TabIndex = 24;
+            label58.Text = "Marca";
+            // 
+            // label57
+            // 
+            label57.AutoSize = true;
+            label57.Location = new Point(27, 310);
+            label57.Name = "label57";
+            label57.Size = new Size(30, 25);
+            label57.TabIndex = 23;
+            label57.Text = "ID";
+            // 
+            // label46
+            // 
+            label46.AutoSize = true;
+            label46.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label46.Location = new Point(27, 275);
+            label46.Name = "label46";
+            label46.Size = new Size(258, 25);
+            label46.TabIndex = 22;
+            label46.Text = "Veículo - Filtros de Pesquisa";
+            // 
             // Pcategoria
             // 
             Pcategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             Pcategoria.FormattingEnabled = true;
             Pcategoria.Items.AddRange(new object[] { "Exterior", "Interior", "Motor", "Suspensão", "Transmissão", "Travagem" });
-            Pcategoria.Location = new Point(458, 151);
+            Pcategoria.Location = new Point(338, 151);
             Pcategoria.Name = "Pcategoria";
-            Pcategoria.Size = new Size(151, 33);
+            Pcategoria.Size = new Size(256, 33);
             Pcategoria.TabIndex = 21;
             // 
             // Ppreco
             // 
-            Ppreco.Location = new Point(710, 228);
+            Ppreco.Location = new Point(338, 224);
             Ppreco.Name = "Ppreco";
-            Ppreco.Size = new Size(125, 32);
+            Ppreco.Size = new Size(256, 32);
             Ppreco.TabIndex = 20;
             // 
             // Pid
             // 
-            Pid.Location = new Point(462, 224);
+            Pid.Location = new Point(27, 83);
             Pid.Name = "Pid";
-            Pid.Size = new Size(125, 32);
+            Pid.Size = new Size(256, 32);
             Pid.TabIndex = 19;
             // 
             // Pdescri
             // 
-            Pdescri.Location = new Point(27, 151);
+            Pdescri.Location = new Point(27, 224);
             Pdescri.Name = "Pdescri";
             Pdescri.Size = new Size(256, 32);
             Pdescri.TabIndex = 17;
             // 
             // Pmarca
             // 
-            Pmarca.Location = new Point(458, 88);
+            Pmarca.Location = new Point(27, 150);
             Pmarca.Name = "Pmarca";
-            Pmarca.Size = new Size(272, 32);
+            Pmarca.Size = new Size(256, 32);
             Pmarca.TabIndex = 16;
             // 
             // Pname
             // 
-            Pname.Location = new Point(27, 83);
+            Pname.Location = new Point(338, 83);
             Pname.Name = "Pname";
             Pname.Size = new Size(256, 32);
             Pname.TabIndex = 15;
@@ -1525,17 +1734,17 @@
             SpecsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             SpecsGrid.BackgroundColor = SystemColors.Control;
             SpecsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            SpecsGrid.Location = new Point(27, 341);
+            SpecsGrid.Location = new Point(674, 235);
             SpecsGrid.Name = "SpecsGrid";
             SpecsGrid.RowHeadersWidth = 51;
-            SpecsGrid.Size = new Size(627, 206);
+            SpecsGrid.Size = new Size(299, 323);
             SpecsGrid.TabIndex = 14;
             // 
             // Pbutton
             // 
-            Pbutton.Location = new Point(674, 475);
+            Pbutton.Location = new Point(781, 564);
             Pbutton.Name = "Pbutton";
-            Pbutton.Size = new Size(218, 72);
+            Pbutton.Size = new Size(192, 40);
             Pbutton.TabIndex = 13;
             Pbutton.Text = "Adicionar Peça";
             Pbutton.UseVisualStyleBackColor = true;
@@ -1543,7 +1752,7 @@
             // 
             // SpecBtn
             // 
-            SpecBtn.Location = new Point(477, 285);
+            SpecBtn.Location = new Point(674, 188);
             SpecBtn.Name = "SpecBtn";
             SpecBtn.Size = new Size(107, 41);
             SpecBtn.TabIndex = 12;
@@ -1553,7 +1762,7 @@
             // 
             // Psize
             // 
-            Psize.Location = new Point(233, 291);
+            Psize.Location = new Point(674, 150);
             Psize.Name = "Psize";
             Psize.Size = new Size(179, 32);
             Psize.TabIndex = 11;
@@ -1561,7 +1770,7 @@
             // label56
             // 
             label56.AutoSize = true;
-            label56.Location = new Point(233, 263);
+            label56.Location = new Point(674, 123);
             label56.Name = "label56";
             label56.Size = new Size(118, 25);
             label56.TabIndex = 10;
@@ -1572,7 +1781,7 @@
             Pdrop.DropDownStyle = ComboBoxStyle.DropDownList;
             Pdrop.FormattingEnabled = true;
             Pdrop.Items.AddRange(new object[] { "Altura", "Comprimento", "Diâmetro", "Largura", "Peso" });
-            Pdrop.Location = new Point(27, 291);
+            Pdrop.Location = new Point(674, 83);
             Pdrop.Name = "Pdrop";
             Pdrop.Size = new Size(151, 33);
             Pdrop.TabIndex = 9;
@@ -1580,7 +1789,7 @@
             // label55
             // 
             label55.AutoSize = true;
-            label55.Location = new Point(27, 263);
+            label55.Location = new Point(674, 55);
             label55.Name = "label55";
             label55.Size = new Size(49, 25);
             label55.TabIndex = 8;
@@ -1589,7 +1798,7 @@
             // label54
             // 
             label54.AutoSize = true;
-            label54.Location = new Point(27, 228);
+            label54.Location = new Point(674, 19);
             label54.Name = "label54";
             label54.Size = new Size(133, 25);
             label54.TabIndex = 7;
@@ -1598,7 +1807,7 @@
             // label53
             // 
             label53.AutoSize = true;
-            label53.Location = new Point(458, 196);
+            label53.Location = new Point(27, 55);
             label53.Name = "label53";
             label53.Size = new Size(30, 25);
             label53.TabIndex = 6;
@@ -1607,7 +1816,7 @@
             // label52
             // 
             label52.AutoSize = true;
-            label52.Location = new Point(710, 196);
+            label52.Location = new Point(338, 196);
             label52.Name = "label52";
             label52.Size = new Size(60, 25);
             label52.TabIndex = 5;
@@ -1616,7 +1825,7 @@
             // label51
             // 
             label51.AutoSize = true;
-            label51.Location = new Point(458, 123);
+            label51.Location = new Point(338, 123);
             label51.Name = "label51";
             label51.Size = new Size(94, 25);
             label51.TabIndex = 4;
@@ -1625,7 +1834,7 @@
             // label50
             // 
             label50.AutoSize = true;
-            label50.Location = new Point(458, 64);
+            label50.Location = new Point(27, 123);
             label50.Name = "label50";
             label50.Size = new Size(65, 25);
             label50.TabIndex = 3;
@@ -1634,7 +1843,7 @@
             // label49
             // 
             label49.AutoSize = true;
-            label49.Location = new Point(27, 123);
+            label49.Location = new Point(27, 196);
             label49.Name = "label49";
             label49.Size = new Size(94, 25);
             label49.TabIndex = 2;
@@ -1643,7 +1852,7 @@
             // label48
             // 
             label48.AutoSize = true;
-            label48.Location = new Point(27, 55);
+            label48.Location = new Point(338, 55);
             label48.Name = "label48";
             label48.Size = new Size(63, 25);
             label48.TabIndex = 1;
@@ -1670,12 +1879,116 @@
             // 
             // Avaliacao
             // 
+            Avaliacao.Controls.Add(AvaliacaoPecas);
+            Avaliacao.Controls.Add(label68);
+            Avaliacao.Controls.Add(button1);
+            Avaliacao.Controls.Add(label67);
+            Avaliacao.Controls.Add(label66);
+            Avaliacao.Controls.Add(labelAvalicao);
+            Avaliacao.Controls.Add(trackBar1);
+            Avaliacao.Controls.Add(AvalicaoClient);
+            Avaliacao.Controls.Add(label65);
+            Avaliacao.Controls.Add(label64);
             Avaliacao.Location = new Point(4, 34);
             Avaliacao.Name = "Avaliacao";
             Avaliacao.Size = new Size(988, 620);
             Avaliacao.TabIndex = 3;
             Avaliacao.Text = "Avaliação";
             Avaliacao.UseVisualStyleBackColor = true;
+            Avaliacao.Enter += AvaliacaoLoad;
+            // 
+            // AvaliacaoPecas
+            // 
+            AvaliacaoPecas.BackgroundColor = SystemColors.Control;
+            AvaliacaoPecas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            AvaliacaoPecas.Location = new Point(42, 385);
+            AvaliacaoPecas.Name = "AvaliacaoPecas";
+            AvaliacaoPecas.RowHeadersWidth = 51;
+            AvaliacaoPecas.Size = new Size(689, 202);
+            AvaliacaoPecas.TabIndex = 9;
+            // 
+            // label68
+            // 
+            label68.AutoSize = true;
+            label68.Location = new Point(497, 71);
+            label68.Name = "label68";
+            label68.Size = new Size(471, 25);
+            label68.TabIndex = 8;
+            label68.Text = "Arraste a barra para selecionar a avaliação pretendida.";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(776, 547);
+            button1.Name = "button1";
+            button1.Size = new Size(192, 40);
+            button1.TabIndex = 7;
+            button1.Text = "Adicionar Avaliação";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // label67
+            // 
+            label67.AutoSize = true;
+            label67.Location = new Point(863, 130);
+            label67.Name = "label67";
+            label67.Size = new Size(32, 25);
+            label67.TabIndex = 6;
+            label67.Text = "10";
+            // 
+            // label66
+            // 
+            label66.AutoSize = true;
+            label66.Location = new Point(573, 130);
+            label66.Name = "label66";
+            label66.Size = new Size(22, 25);
+            label66.TabIndex = 5;
+            label66.Text = "0";
+            // 
+            // labelAvalicao
+            // 
+            labelAvalicao.AutoSize = true;
+            labelAvalicao.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelAvalicao.Location = new Point(721, 174);
+            labelAvalicao.Name = "labelAvalicao";
+            labelAvalicao.Size = new Size(23, 31);
+            labelAvalicao.TabIndex = 4;
+            labelAvalicao.Text = "-";
+            // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(601, 115);
+            trackBar1.Name = "trackBar1";
+            trackBar1.Size = new Size(256, 56);
+            trackBar1.TabIndex = 3;
+            trackBar1.Tag = "";
+            trackBar1.Value = 5;
+            trackBar1.Scroll += trackBar1_Scroll;
+            // 
+            // AvalicaoClient
+            // 
+            AvalicaoClient.FormattingEnabled = true;
+            AvalicaoClient.Location = new Point(42, 99);
+            AvalicaoClient.Name = "AvalicaoClient";
+            AvalicaoClient.Size = new Size(282, 33);
+            AvalicaoClient.TabIndex = 2;
+            // 
+            // label65
+            // 
+            label65.AutoSize = true;
+            label65.Location = new Point(42, 71);
+            label65.Name = "label65";
+            label65.Size = new Size(71, 25);
+            label65.TabIndex = 1;
+            label65.Text = "Cliente";
+            // 
+            // label64
+            // 
+            label64.AutoSize = true;
+            label64.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label64.Location = new Point(42, 23);
+            label64.Name = "label64";
+            label64.Size = new Size(282, 25);
+            label64.TabIndex = 0;
+            label64.Text = "Adicionar uma nova avaliação.";
             // 
             // tabPage2
             // 
@@ -2154,18 +2467,6 @@
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
             // 
-            // Madd
-            // 
-            Madd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            Madd.BackColor = Color.Transparent;
-            Madd.ForeColor = SystemColors.ControlText;
-            Madd.Location = new Point(706, 317);
-            Madd.Name = "Madd";
-            Madd.Size = new Size(255, 40);
-            Madd.TabIndex = 58;
-            Madd.Text = "Adicionar Motor";
-            Madd.UseVisualStyleBackColor = false;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -2200,7 +2501,12 @@
             PecasNav.ResumeLayout(false);
             PecasAdd.ResumeLayout(false);
             PecasAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PVehiclePesquisa).EndInit();
             ((System.ComponentModel.ISupportInitialize)SpecsGrid).EndInit();
+            Avaliacao.ResumeLayout(false);
+            Avaliacao.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)AvaliacaoPecas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             tabPage2.ResumeLayout(false);
             ClientNav.ResumeLayout(false);
             ClientAdd.ResumeLayout(false);
@@ -2403,5 +2709,32 @@
         private TextBox Ppreco;
         private TextBox Pid;
         private ComboBox Pcategoria;
+        private Label label46;
+        private Label label59;
+        private Label label58;
+        private Label label57;
+        private Label label61;
+        private TextBox PVehicleVersaoInput;
+        private TextBox PVehicleModeloInput;
+        private TextBox PVehicleMarcaInput;
+        private TextBox PVehicleIDInput;
+        private Label label60;
+        private Label label62;
+        private DataGridView PVehiclePesquisa;
+        private DateTimePicker PVehicleInicioInput;
+        private Button PVehiclePesquisaBtn;
+        private DateTimePicker PVehicleFimInput;
+        private Label label63;
+        private ComboBox comboBox1;
+        private Label label64;
+        private ComboBox AvalicaoClient;
+        private Label label65;
+        private TrackBar trackBar1;
+        private Label labelAvalicao;
+        private Label label68;
+        private Button button1;
+        private Label label67;
+        private Label label66;
+        private DataGridView AvaliacaoPecas;
     }
 }

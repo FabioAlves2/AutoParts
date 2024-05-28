@@ -320,7 +320,7 @@ namespace AutoParts
                 else if (row["Tipo"].ToString() == "Diâmetro")
                 {
                     specDiameter = row["Medida"].ToString();
-                }   
+                }
             }
 
             // Query to insert the part
@@ -418,6 +418,55 @@ namespace AutoParts
             Pdrop.SelectedIndex = -1;
             Psize.Text = "";
             dt2.Clear();
+        }
+
+        //AVALIAÇÃO CODE
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            labelAvalicao.Text = trackBar1.Value.ToString();
+        }
+        private void AvaliacaoLoad(object sender, EventArgs e)
+        {
+            trackBar1.Value = 5;
+            labelAvalicao.Text = "5";
+            //SqlConnection CN = GetDbConnection();
+            //CustomerLoad(CN);
+        }
+        private void CustomerLoad(SqlConnection CN)
+        {
+            string query = "SELECT * FROM Customer";
+            //
+            //
+            //Vamos buscar aos clientes ou a pessoa?
+            //
+            //
+
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string customerName = reader["Nome"].ToString();
+                        string customerCC = reader["CC"].ToString();
+
+                        Cdrop.Items.Add(customerName+" - "+customerCC);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
         }
     }
 }
