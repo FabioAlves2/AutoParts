@@ -1,6 +1,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace AutoParts
 {
@@ -8,6 +9,7 @@ namespace AutoParts
     {
         DataTable dt = new DataTable();
         DataTable dt2 = new DataTable();
+        DataTable dt3 = new DataTable();
         SqlConnection CN = GetDbConnection();
 
         public Form1()
@@ -105,13 +107,43 @@ namespace AutoParts
         }
 
         //CUSTOMER CODE
-        private void Contact_Load(object sender, EventArgs e)
+        private void Customer_Load(object sender, EventArgs e)
         {
             if (dt.Columns.Count == 0)
             {
                 dt.Columns.Add("Tipo", typeof(string));
                 dt.Columns.Add("Contacto", typeof(string));
                 ClientContactData.DataSource = dt;
+            }
+            //read the last id from the database
+            string query = "SELECT MAX(Id) FROM AP_Customer";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != DBNull.Value && result != null)
+                    {
+                        int maxId = Convert.ToInt32(result);
+                        Cid.Text = (maxId + 1).ToString();
+                    }
+                    else
+                    {
+                        // This handles the case where there are no rows in the table
+                        Cid.Text = "1";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
             }
         }
 
@@ -162,9 +194,10 @@ namespace AutoParts
             // Get the values from the textboxes
             string customerName = Cnome.Text;
             string customerCC = Ccc.Text;
-            string customerBirth = Cbirth.Text;
+            DateTime.TryParse(Cbirth.Text, out DateTime customerBirth);
             string customerAddr = Caddr.Text;
             string customerCp = Ccp.Text;
+            int customerId = int.Parse(Cid.Text);
             string customerContacts = "";
             string contact0 = string.Empty;
             string contact1 = string.Empty;
@@ -172,7 +205,7 @@ namespace AutoParts
             string? customerTelm = null;
             foreach (DataRow row in dt.Rows)
             {
-                customerContacts += row["Tipo"].ToString() + ": " + row["Contacto"].ToString() + "|";
+                customerContacts += row["Tipo"].ToString() + ":" + row["Contacto"].ToString() + "|";
             }
             if (customerContacts.Contains("Email") && customerContacts.Contains("Telemóvel"))
             {
@@ -206,19 +239,56 @@ namespace AutoParts
                 customerTelm = contact1.Split(":")[1];
             }
 
-            // Query to insert the customer
-            string query = "INSERT INTO Customers (Name, CC, Birth, Address, PostalCode, Email, Telm) VALUES (@Name, @CC, @Birth, @Address, @PostalCode, @Contacts)";
+            // Query to insert the Person
+            string queryPerson = "INSERT INTO AP_Person (Name, CC, Birth, Address, Postal) VALUES (@Name, @CC, @Birth, @Address, @Postal)";
 
-            using (SqlCommand cmd = new SqlCommand(query, CN))
+            using (SqlCommand cmd = new SqlCommand(queryPerson, CN))
             {
                 cmd.Parameters.AddWithValue("@Name", customerName);
                 cmd.Parameters.AddWithValue("@CC", customerCC);
                 cmd.Parameters.AddWithValue("@Birth", customerBirth);
                 cmd.Parameters.AddWithValue("@Address", customerAddr);
-                cmd.Parameters.AddWithValue("@PostalCode", customerCp);
-                cmd.Parameters.AddWithValue("@Email", customerEmail);
-                cmd.Parameters.AddWithValue("@Telm", customerTelm);
-                cmd.Parameters.AddWithValue("@Contacts", customerContacts);
+                cmd.Parameters.AddWithValue("@Postal", customerCp);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            // Query to insert the customer
+            string query = "INSERT INTO AP_Customer (CC, Id, Email, Phone) VALUES (@CC, @Id, @Email, @Phone)";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                cmd.Parameters.AddWithValue("@CC", customerCC);
+                cmd.Parameters.AddWithValue("@Id", customerId);
+                if (customerEmail == null)
+                {
+                    cmd.Parameters.AddWithValue("@Email", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Email", customerEmail);
+                }
+                if (customerTelm == null)
+                {
+                    cmd.Parameters.AddWithValue("@Phone", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Phone", customerTelm);
+                }
 
                 try
                 {
@@ -259,8 +329,7 @@ namespace AutoParts
 
         private void Cbutton_Click(object sender, EventArgs e)
         {
-            //SqlConnection CN = GetDbConnection();
-            //AddClient(CN);
+            AddClient(CN);
         }
 
 
@@ -272,6 +341,18 @@ namespace AutoParts
                 dt2.Columns.Add("Tipo", typeof(string));
                 dt2.Columns.Add("Medida", typeof(string));
                 SpecsGrid.DataSource = dt2;
+            }
+            if (dt3.Columns.Count == 0)
+            {
+                dt3.Columns.Add("Id", typeof(string));
+                dt3.Columns.Add("Marca", typeof(string));
+                dt3.Columns.Add("Modelo", typeof(string));
+                dt3.Columns.Add("Versão", typeof(string));
+                dt3.Columns.Add("Ano", typeof(DateTime));
+                dt3.Columns.Add("Combustível", typeof(string));
+                dt3.Columns.Add("Hp", typeof(int));
+                dt3.Columns.Add("Binário", typeof(int));
+                PVehiclePesquisa.DataSource = dt3;
             }
         }
 
@@ -313,6 +394,63 @@ namespace AutoParts
             }
 
         }
+        private void PVehiclePesquisaBtn_Click(object sender, EventArgs e)
+        {
+            Load_Vehicles(CN);
+        }
+        private void Load_Vehicles(SqlConnection CN)
+        {
+            //read the values from the textboxes
+            string vehicleId = PVehicleIDInput.Text;
+            string vehicleMarca = PVehicleMarcaInput.Text;
+            string vehicleModel = PVehicleModeloInput.Text;
+            string vehicleVersion = PVehicleVersaoInput.Text;
+            //Query to get the vehicles and engines based on the filters or one of them or all
+            string query = "SELECT AP_Vehicle.Vehicle_id, AP_Vehicle.Make, AP_Vehicle.Model, AP_Vehicle.Sub_model, AP_Vehicle.Manuf_stat, AP_Engine.Fuel_type, AP_Engine.Horsepower, AP_Engine.Torque " +
+               "FROM AP_Vehicle JOIN AP_Engine ON AP_Vehicle.Vengine_id = AP_Engine.Engine_id " +
+               "WHERE AP_Vehicle.Vehicle_id LIKE %@Id% AND AP_Vehicle.Make LIKE %@Make% " +
+               "AND AP_Vehicle.Model LIKE %@Model% AND AP_Vehicle.Sub_model LIKE %@Sub_model%";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                cmd.Parameters.AddWithValue("@Id", vehicleId);
+                cmd.Parameters.AddWithValue("@Make", vehicleMarca);
+                cmd.Parameters.AddWithValue("@Model", vehicleModel);
+                cmd.Parameters.AddWithValue("@Sub_model", vehicleVersion);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string vehicleIdValue = reader["Vehicle_id"].ToString();
+                        string vehicleMarcaValue = reader["Make"].ToString();
+                        string vehicleModelValue = reader["Model"].ToString();
+                        string vehicleVersionValue = reader["Sub_model"].ToString();
+                        string vehicleAnoValue = reader["Manuf_stat"].ToString();
+                        string vehicleCombustivelValue = reader["Fuel_type"].ToString();
+                        string vehicleHpValue = reader["Horsepower"].ToString();
+                        string vehicleBinarioValue = reader["Torque"].ToString();
+
+                        dt3.Rows.Add(vehicleIdValue, vehicleMarcaValue, vehicleModelValue, vehicleVersionValue, vehicleAnoValue, vehicleCombustivelValue, vehicleHpValue, vehicleBinarioValue);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foram encontrados veículos com os filtros inseridos.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
         private void AddPart(SqlConnection CN)
         {
             // Get the values from the textboxes
@@ -327,6 +465,7 @@ namespace AutoParts
             string? specWidth = null;
             string? specLength = null;
             string? specDiameter = null;
+            string Compatibility = Pcompatibilidade.Text;
             foreach (DataRow row in dt2.Rows)
             {
                 if (row["Tipo"].ToString() == "Peso")
@@ -352,20 +491,13 @@ namespace AutoParts
             }
 
             // Query to insert the part
-            string query = "INSERT INTO Parts (Name, Price, Description, Manufacturer, Category, Part_id) VALUES (@Name, @Price, @Description, @Brand, @Category, @Part_id)";
-
-            // Query to insert the specs
-            string query2 = "INSERT INTO Specs (Part_id, Weight, Height, Width, Length, Diameter) VALUES (@Part_id, @Weight, @Height, @Width, @Length, @Diameter)";
-
-            // Execute the query to the parts table
-
+            string query = "INSERT INTO AP_Part (Name, Price, Description, Manufacturer, Part_id) VALUES (@Name, @Price, @Description, @Brand, @Part_id)";
             using (SqlCommand cmd = new SqlCommand(query, CN))
             {
                 cmd.Parameters.AddWithValue("@Name", partName);
                 cmd.Parameters.AddWithValue("@Price", partPrice);
                 cmd.Parameters.AddWithValue("@Description", partdesc);
                 cmd.Parameters.AddWithValue("@Brand", partMarca);
-                cmd.Parameters.AddWithValue("@Category", partCategotia);
                 cmd.Parameters.AddWithValue("@Part_id", partId);
 
                 try
@@ -392,8 +524,8 @@ namespace AutoParts
                 }
             }
 
-            // Execute the query to the specs table
-
+            // Query to insert the specs
+            string query2 = "INSERT INTO AP_Specs (Part_id, Weight, Height, Width, Length, Diameter) VALUES (@Part_id, @Weight, @Height, @Width, @Length, @Diameter)";
             using (SqlCommand cmd = new SqlCommand(query2, CN))
             {
                 cmd.Parameters.AddWithValue("@Part_id", partId);
@@ -427,8 +559,71 @@ namespace AutoParts
                 }
             }
 
+            // query to insert the category
+            string query3 = "INSERT INTO AP_Category (Part_id, Category) VALUES (@Part_id, @Category)";
+            using (SqlCommand cmd = new SqlCommand(query3, CN))
+            {
+                cmd.Parameters.AddWithValue("@Part_id", partId);
+                cmd.Parameters.AddWithValue("@Category", partCategotia);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Category added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the category.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            // Query to insert the compatibility with the vehicle
+            string query4 = "INSERT INTO AP_Compatibility (CPart_id, CVehicle_id, Type) VALUES (@CPart_id, @Cvehicle_id, @Type)";
+            using (SqlCommand cmd = new SqlCommand(query4, CN))
+            {
+                cmd.Parameters.AddWithValue("@CPart_id", partId);
+                cmd.Parameters.AddWithValue("@Cvehicle_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Type", Compatibility);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Compatibility added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the compatibility.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
 
         }
+
 
         private void Pbutton_Click(object sender, EventArgs e)
         {
@@ -458,18 +653,12 @@ namespace AutoParts
         {
             trackBar1.Value = 5;
             labelAvalicao.Text = "5";
-            //SqlConnection CN = GetDbConnection();
-            //CustomerLoad(CN);
+            CustomerLoad(CN);
         }
         private void CustomerLoad(SqlConnection CN)
         {
-            string query = "SELECT * FROM Customer";
-            //
-            //
-            //Vamos buscar aos clientes ou a pessoa?
-            //
-            //
-
+            // Query to get the customers join the Person table
+            string query = "SELECT AP_Person.Name, AP_Customer.CC, AP_Customer.Id FROM AP_Person JOIN AP_Customer ON AP_Person.CC = AP_Customer.CC";
 
             using (SqlCommand cmd = new SqlCommand(query, CN))
             {
@@ -484,10 +673,11 @@ namespace AutoParts
 
                     while (reader.Read())
                     {
-                        string customerName = reader["Nome"].ToString();
+                        string customerName = reader["Name"].ToString();
                         string customerCC = reader["CC"].ToString();
+                        string customerId = reader["Id"].ToString();
 
-                        Cdrop.Items.Add(customerName + " - " + customerCC);
+                        AvalicaoClient.Items.Add(customerId + " - " + customerName + " - " + customerCC);
                     }
                 }
                 catch (Exception ex)
@@ -496,6 +686,5 @@ namespace AutoParts
                 }
             }
         }
-
     }
 }

@@ -148,7 +148,7 @@
             PecasList = new TabPage();
             PecasAdd = new TabPage();
             label63 = new Label();
-            comboBox1 = new ComboBox();
+            Pcompatibilidade = new ComboBox();
             PVehiclePesquisaBtn = new Button();
             PVehicleFimInput = new DateTimePicker();
             PVehicleInicioInput = new DateTimePicker();
@@ -201,6 +201,7 @@
             ClientNav = new TabControl();
             ClientList = new TabPage();
             ClientAdd = new TabPage();
+            Cbirth = new DateTimePicker();
             ClientContactData = new DataGridView();
             Cbutton = new Button();
             Ccontact = new TextBox();
@@ -214,7 +215,6 @@
             Ccp = new TextBox();
             label41 = new Label();
             Caddr = new TextBox();
-            Cbirth = new TextBox();
             Ccc = new TextBox();
             Cnome = new TextBox();
             label40 = new Label();
@@ -225,8 +225,8 @@
             tabPage1 = new TabPage();
             AdminNav = new TabControl();
             AdminList = new TabPage();
-            button4 = new Button();
             AdminAdd = new TabPage();
+            Abirth = new DateTimePicker();
             Asal = new TextBox();
             label8 = new Label();
             Abutton = new Button();
@@ -243,7 +243,6 @@
             label2 = new Label();
             label1 = new Label();
             NavBar = new TabControl();
-            Abirth = new DateTimePicker();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
@@ -274,7 +273,6 @@
             ((System.ComponentModel.ISupportInitialize)ClientContactData).BeginInit();
             tabPage1.SuspendLayout();
             AdminNav.SuspendLayout();
-            AdminList.SuspendLayout();
             AdminAdd.SuspendLayout();
             NavBar.SuspendLayout();
             SuspendLayout();
@@ -1489,7 +1487,7 @@
             // PecasAdd
             // 
             PecasAdd.Controls.Add(label63);
-            PecasAdd.Controls.Add(comboBox1);
+            PecasAdd.Controls.Add(Pcompatibilidade);
             PecasAdd.Controls.Add(PVehiclePesquisaBtn);
             PecasAdd.Controls.Add(PVehicleFimInput);
             PecasAdd.Controls.Add(PVehicleInicioInput);
@@ -1539,35 +1537,36 @@
             // label63
             // 
             label63.AutoSize = true;
-            label63.Location = new Point(448, 497);
+            label63.Location = new Point(522, 485);
             label63.Name = "label63";
             label63.Size = new Size(151, 25);
             label63.TabIndex = 38;
             label63.Text = "Compatibilidade";
             // 
-            // comboBox1
+            // Pcompatibilidade
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Original", "Compatível" });
-            comboBox1.Location = new Point(448, 525);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 33);
-            comboBox1.TabIndex = 37;
+            Pcompatibilidade.FormattingEnabled = true;
+            Pcompatibilidade.Items.AddRange(new object[] { "Original", "Compatível" });
+            Pcompatibilidade.Location = new Point(522, 513);
+            Pcompatibilidade.Name = "Pcompatibilidade";
+            Pcompatibilidade.Size = new Size(146, 33);
+            Pcompatibilidade.TabIndex = 37;
             // 
             // PVehiclePesquisaBtn
             // 
-            PVehiclePesquisaBtn.Location = new Point(448, 452);
+            PVehiclePesquisaBtn.Location = new Point(522, 440);
             PVehiclePesquisaBtn.Name = "PVehiclePesquisaBtn";
             PVehiclePesquisaBtn.Size = new Size(146, 33);
             PVehiclePesquisaBtn.TabIndex = 36;
             PVehiclePesquisaBtn.Text = "Pesquisa";
             PVehiclePesquisaBtn.UseVisualStyleBackColor = true;
+            PVehiclePesquisaBtn.Click += PVehiclePesquisaBtn_Click;
             // 
             // PVehicleFimInput
             // 
             PVehicleFimInput.CustomFormat = "yyyy";
             PVehicleFimInput.Format = DateTimePickerFormat.Custom;
-            PVehicleFimInput.Location = new Point(448, 404);
+            PVehicleFimInput.Location = new Point(522, 392);
             PVehicleFimInput.Name = "PVehicleFimInput";
             PVehicleFimInput.ShowUpDown = true;
             PVehicleFimInput.Size = new Size(146, 32);
@@ -1577,7 +1576,7 @@
             // 
             PVehicleInicioInput.CustomFormat = "yyyy";
             PVehicleInicioInput.Format = DateTimePickerFormat.Custom;
-            PVehicleInicioInput.Location = new Point(448, 339);
+            PVehicleInicioInput.Location = new Point(522, 327);
             PVehicleInicioInput.Name = "PVehicleInicioInput";
             PVehicleInicioInput.ShowUpDown = true;
             PVehicleInicioInput.Size = new Size(146, 32);
@@ -1586,7 +1585,7 @@
             // label62
             // 
             label62.AutoSize = true;
-            label62.Location = new Point(448, 376);
+            label62.Location = new Point(522, 364);
             label62.Name = "label62";
             label62.Size = new Size(130, 25);
             label62.TabIndex = 33;
@@ -1594,18 +1593,19 @@
             // 
             // PVehiclePesquisa
             // 
+            PVehiclePesquisa.AllowUserToAddRows = false;
             PVehiclePesquisa.BackgroundColor = SystemColors.Control;
             PVehiclePesquisa.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            PVehiclePesquisa.Location = new Point(27, 376);
+            PVehiclePesquisa.Location = new Point(27, 368);
             PVehiclePesquisa.Name = "PVehiclePesquisa";
             PVehiclePesquisa.RowHeadersWidth = 51;
-            PVehiclePesquisa.Size = new Size(414, 228);
+            PVehiclePesquisa.Size = new Size(489, 236);
             PVehiclePesquisa.TabIndex = 32;
             // 
             // label61
             // 
             label61.AutoSize = true;
-            label61.Location = new Point(448, 310);
+            label61.Location = new Point(522, 298);
             label61.Name = "label61";
             label61.Size = new Size(146, 25);
             label61.TabIndex = 31;
@@ -1613,36 +1613,36 @@
             // 
             // PVehicleVersaoInput
             // 
-            PVehicleVersaoInput.Location = new Point(347, 338);
+            PVehicleVersaoInput.Location = new Point(387, 330);
             PVehicleVersaoInput.Name = "PVehicleVersaoInput";
-            PVehicleVersaoInput.Size = new Size(94, 32);
+            PVehicleVersaoInput.Size = new Size(114, 32);
             PVehicleVersaoInput.TabIndex = 30;
             // 
             // PVehicleModeloInput
             // 
-            PVehicleModeloInput.Location = new Point(243, 338);
+            PVehicleModeloInput.Location = new Point(267, 330);
             PVehicleModeloInput.Name = "PVehicleModeloInput";
-            PVehicleModeloInput.Size = new Size(94, 32);
+            PVehicleModeloInput.Size = new Size(114, 32);
             PVehicleModeloInput.TabIndex = 29;
             // 
             // PVehicleMarcaInput
             // 
-            PVehicleMarcaInput.Location = new Point(134, 338);
+            PVehicleMarcaInput.Location = new Point(147, 330);
             PVehicleMarcaInput.Name = "PVehicleMarcaInput";
-            PVehicleMarcaInput.Size = new Size(94, 32);
+            PVehicleMarcaInput.Size = new Size(114, 32);
             PVehicleMarcaInput.TabIndex = 28;
             // 
             // PVehicleIDInput
             // 
-            PVehicleIDInput.Location = new Point(27, 338);
+            PVehicleIDInput.Location = new Point(27, 330);
             PVehicleIDInput.Name = "PVehicleIDInput";
-            PVehicleIDInput.Size = new Size(94, 32);
+            PVehicleIDInput.Size = new Size(114, 32);
             PVehicleIDInput.TabIndex = 27;
             // 
             // label60
             // 
             label60.AutoSize = true;
-            label60.Location = new Point(347, 310);
+            label60.Location = new Point(387, 298);
             label60.Name = "label60";
             label60.Size = new Size(69, 25);
             label60.TabIndex = 26;
@@ -1651,7 +1651,7 @@
             // label59
             // 
             label59.AutoSize = true;
-            label59.Location = new Point(243, 310);
+            label59.Location = new Point(267, 298);
             label59.Name = "label59";
             label59.Size = new Size(77, 25);
             label59.TabIndex = 25;
@@ -1660,7 +1660,7 @@
             // label58
             // 
             label58.AutoSize = true;
-            label58.Location = new Point(134, 310);
+            label58.Location = new Point(147, 302);
             label58.Name = "label58";
             label58.Size = new Size(65, 25);
             label58.TabIndex = 24;
@@ -1669,7 +1669,7 @@
             // label57
             // 
             label57.AutoSize = true;
-            label57.Location = new Point(27, 310);
+            label57.Location = new Point(27, 302);
             label57.Name = "label57";
             label57.Size = new Size(30, 25);
             label57.TabIndex = 23;
@@ -2029,6 +2029,7 @@
             // 
             // ClientAdd
             // 
+            ClientAdd.Controls.Add(Cbirth);
             ClientAdd.Controls.Add(ClientContactData);
             ClientAdd.Controls.Add(Cbutton);
             ClientAdd.Controls.Add(Ccontact);
@@ -2042,7 +2043,6 @@
             ClientAdd.Controls.Add(Ccp);
             ClientAdd.Controls.Add(label41);
             ClientAdd.Controls.Add(Caddr);
-            ClientAdd.Controls.Add(Cbirth);
             ClientAdd.Controls.Add(Ccc);
             ClientAdd.Controls.Add(Cnome);
             ClientAdd.Controls.Add(label40);
@@ -2057,8 +2057,15 @@
             ClientAdd.TabIndex = 1;
             ClientAdd.Text = "Adicionar";
             ClientAdd.UseVisualStyleBackColor = true;
-            ClientAdd.Enter += Contact_Load;
+            ClientAdd.Enter += Customer_Load;
             ClientAdd.Leave += ClientAdd_Clear;
+            // 
+            // Cbirth
+            // 
+            Cbirth.Location = new Point(31, 174);
+            Cbirth.Name = "Cbirth";
+            Cbirth.Size = new Size(250, 31);
+            Cbirth.TabIndex = 22;
             // 
             // ClientContactData
             // 
@@ -2179,13 +2186,6 @@
             Caddr.Size = new Size(256, 31);
             Caddr.TabIndex = 8;
             // 
-            // Cbirth
-            // 
-            Cbirth.Location = new Point(31, 174);
-            Cbirth.Name = "Cbirth";
-            Cbirth.Size = new Size(256, 31);
-            Cbirth.TabIndex = 7;
-            // 
             // Ccc
             // 
             Ccc.Location = new Point(339, 174);
@@ -2276,22 +2276,12 @@
             // AdminList
             // 
             AdminList.BackColor = Color.Transparent;
-            AdminList.Controls.Add(button4);
             AdminList.Location = new Point(4, 34);
             AdminList.Name = "AdminList";
             AdminList.Padding = new Padding(3);
             AdminList.Size = new Size(982, 614);
             AdminList.TabIndex = 1;
             AdminList.Text = "Lista";
-            // 
-            // button4
-            // 
-            button4.Location = new Point(302, 66);
-            button4.Name = "button4";
-            button4.Size = new Size(129, 56);
-            button4.TabIndex = 0;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
             // 
             // AdminAdd
             // 
@@ -2318,6 +2308,13 @@
             AdminAdd.Size = new Size(982, 614);
             AdminAdd.TabIndex = 0;
             AdminAdd.Text = "Adicionar";
+            // 
+            // Abirth
+            // 
+            Abirth.Location = new Point(31, 174);
+            Abirth.Name = "Abirth";
+            Abirth.Size = new Size(250, 31);
+            Abirth.TabIndex = 17;
             // 
             // Asal
             // 
@@ -2471,13 +2468,6 @@
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
             // 
-            // Abirth
-            // 
-            Abirth.Location = new Point(31, 174);
-            Abirth.Name = "Abirth";
-            Abirth.Size = new Size(250, 31);
-            Abirth.TabIndex = 17;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -2525,7 +2515,6 @@
             ((System.ComponentModel.ISupportInitialize)ClientContactData).EndInit();
             tabPage1.ResumeLayout(false);
             AdminNav.ResumeLayout(false);
-            AdminList.ResumeLayout(false);
             AdminAdd.ResumeLayout(false);
             AdminAdd.PerformLayout();
             NavBar.ResumeLayout(false);
@@ -2629,7 +2618,6 @@
         private TextBox Ccp;
         private Label label41;
         private TextBox Caddr;
-        private TextBox Cbirth;
         private TextBox Ccc;
         private TextBox Cnome;
         private Label label40;
@@ -2736,7 +2724,7 @@
         private Button PVehiclePesquisaBtn;
         private DateTimePicker PVehicleFimInput;
         private Label label63;
-        private ComboBox comboBox1;
+        private ComboBox Pcompatibilidade;
         private Label label64;
         private ComboBox AvalicaoClient;
         private Label label65;
@@ -2747,7 +2735,7 @@
         private Label label67;
         private Label label66;
         private DataGridView AvaliacaoPecas;
-        private Button button4;
         private DateTimePicker Abirth;
+        private DateTimePicker Cbirth;
     }
 }
