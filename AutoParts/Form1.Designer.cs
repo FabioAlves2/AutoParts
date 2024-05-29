@@ -926,6 +926,7 @@
             // 
             // Mlista
             // 
+            Mlista.AllowUserToAddRows = false;
             Mlista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Mlista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             Mlista.Location = new Point(27, 126);
