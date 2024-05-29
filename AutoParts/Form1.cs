@@ -1,5 +1,6 @@
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 
 namespace AutoParts
 {
@@ -7,15 +8,18 @@ namespace AutoParts
     {
         DataTable dt = new DataTable();
         DataTable dt2 = new DataTable();
+        SqlConnection CN = GetDbConnection();
+
         public Form1()
         {
             InitializeComponent();
+
         }
 
         //Connect to the database
-        private SqlConnection GetDbConnection()
+        private static SqlConnection GetDbConnection()
         {
-            string connectionString = "FALTA LIGAR";
+            string connectionString = "Data Source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; uid = REDACTED_UID; password = REDACTED_PASSWORD";
             SqlConnection CN = new SqlConnection(connectionString);
             return CN;
         }
@@ -26,24 +30,49 @@ namespace AutoParts
             // Get the values from the textboxes
             string adminName = Aname.Text;
             string adminCC = Acc.Text;
-            string adminBirth = Abirth.Text;
+            DateTime.TryParse(Abirth.Text, out DateTime adminBirth);
             string adminAddr = Aaddr.Text;
             string adminCp = Acp.Text;
-            string adminSalary = Asal.Text;
-            string adminStart = monthCalendar1.SelectionStart.ToShortDateString();
+            double.TryParse(Asal.Text, out double adminSalary);
+            DateTime adminStart = monthCalendar1.SelectionStart.Date;
+
+            //Query to insert the Person
+            string queryPerson = "INSERT INTO AP_Person (Name, CC, Birth, Address, Postal) VALUES (@Name, @CC, @Birth, @Address, @Postal)";
 
             // Query to insert the admin
-            string query = "INSERT INTO Admins (Name, CC, Birth, Address, PostalCode, Salary, StartDate) VALUES (@Name, @CC, @Birth, @Address, @PostalCode, @Salary, @StartDate)";
+            string queryAdmin = "INSERT INTO AP_Administrator (CC,Contract_Start,Contract_End,Work_id, Salary) VALUES (@CC, @Contract_Start, @Contract_End, @Work_id, @Salary)";
 
-            using (SqlCommand cmd = new SqlCommand(query, CN))
+            using (SqlCommand cmd = new SqlCommand(queryPerson, CN))
             {
                 cmd.Parameters.AddWithValue("@Name", adminName);
                 cmd.Parameters.AddWithValue("@CC", adminCC);
                 cmd.Parameters.AddWithValue("@Birth", adminBirth);
                 cmd.Parameters.AddWithValue("@Address", adminAddr);
-                cmd.Parameters.AddWithValue("@PostalCode", adminCp);
+                cmd.Parameters.AddWithValue("@Postal", adminCp);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            using (SqlCommand cmd = new SqlCommand(queryAdmin, CN))
+            {
+                cmd.Parameters.AddWithValue("@CC", adminCC);
+                cmd.Parameters.AddWithValue("@Contract_Start", adminStart);
+                cmd.Parameters.AddWithValue("@Contract_End", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Work_id", 0);
                 cmd.Parameters.AddWithValue("@Salary", adminSalary);
-                cmd.Parameters.AddWithValue("@StartDate", adminStart);
 
                 try
                 {
@@ -72,8 +101,7 @@ namespace AutoParts
 
         private void Abutton_Click(object sender, EventArgs e)
         {
-            //SqlConnection CN = GetDbConnection();
-            //AddAdmin(CN);
+            AddAdmin(CN);
         }
 
         //CUSTOMER CODE
@@ -459,7 +487,7 @@ namespace AutoParts
                         string customerName = reader["Nome"].ToString();
                         string customerCC = reader["CC"].ToString();
 
-                        Cdrop.Items.Add(customerName+" - "+customerCC);
+                        Cdrop.Items.Add(customerName + " - " + customerCC);
                     }
                 }
                 catch (Exception ex)
@@ -468,5 +496,6 @@ namespace AutoParts
                 }
             }
         }
+
     }
 }

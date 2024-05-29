@@ -225,13 +225,13 @@
             tabPage1 = new TabPage();
             AdminNav = new TabControl();
             AdminList = new TabPage();
+            button4 = new Button();
             AdminAdd = new TabPage();
             Asal = new TextBox();
             label8 = new Label();
             Abutton = new Button();
             Acp = new TextBox();
             Aaddr = new TextBox();
-            Abirth = new TextBox();
             Acc = new TextBox();
             Aname = new TextBox();
             label7 = new Label();
@@ -243,6 +243,7 @@
             label2 = new Label();
             label1 = new Label();
             NavBar = new TabControl();
+            Abirth = new DateTimePicker();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
@@ -273,6 +274,7 @@
             ((System.ComponentModel.ISupportInitialize)ClientContactData).BeginInit();
             tabPage1.SuspendLayout();
             AdminNav.SuspendLayout();
+            AdminList.SuspendLayout();
             AdminAdd.SuspendLayout();
             NavBar.SuspendLayout();
             SuspendLayout();
@@ -2274,6 +2276,7 @@
             // AdminList
             // 
             AdminList.BackColor = Color.Transparent;
+            AdminList.Controls.Add(button4);
             AdminList.Location = new Point(4, 34);
             AdminList.Name = "AdminList";
             AdminList.Padding = new Padding(3);
@@ -2281,15 +2284,24 @@
             AdminList.TabIndex = 1;
             AdminList.Text = "Lista";
             // 
+            // button4
+            // 
+            button4.Location = new Point(302, 66);
+            button4.Name = "button4";
+            button4.Size = new Size(129, 56);
+            button4.TabIndex = 0;
+            button4.Text = "button4";
+            button4.UseVisualStyleBackColor = true;
+            // 
             // AdminAdd
             // 
             AdminAdd.BackColor = Color.Transparent;
+            AdminAdd.Controls.Add(Abirth);
             AdminAdd.Controls.Add(Asal);
             AdminAdd.Controls.Add(label8);
             AdminAdd.Controls.Add(Abutton);
             AdminAdd.Controls.Add(Acp);
             AdminAdd.Controls.Add(Aaddr);
-            AdminAdd.Controls.Add(Abirth);
             AdminAdd.Controls.Add(Acc);
             AdminAdd.Controls.Add(Aname);
             AdminAdd.Controls.Add(label7);
@@ -2352,14 +2364,6 @@
             Aaddr.Name = "Aaddr";
             Aaddr.Size = new Size(256, 31);
             Aaddr.TabIndex = 11;
-            // 
-            // Abirth
-            // 
-            Abirth.BackColor = SystemColors.Window;
-            Abirth.Location = new Point(31, 174);
-            Abirth.Name = "Abirth";
-            Abirth.Size = new Size(252, 31);
-            Abirth.TabIndex = 10;
             // 
             // Acc
             // 
@@ -2467,6 +2471,13 @@
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
             // 
+            // Abirth
+            // 
+            Abirth.Location = new Point(31, 174);
+            Abirth.Name = "Abirth";
+            Abirth.Size = new Size(250, 31);
+            Abirth.TabIndex = 17;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -2514,6 +2525,7 @@
             ((System.ComponentModel.ISupportInitialize)ClientContactData).EndInit();
             tabPage1.ResumeLayout(false);
             AdminNav.ResumeLayout(false);
+            AdminList.ResumeLayout(false);
             AdminAdd.ResumeLayout(false);
             AdminAdd.PerformLayout();
             NavBar.ResumeLayout(false);
@@ -2574,7 +2586,6 @@
         private Button Abutton;
         private TextBox Acp;
         private TextBox Aaddr;
-        private TextBox Abirth;
         private TextBox Acc;
         private TextBox Aname;
         private Label label7;
@@ -2736,5 +2747,7 @@
         private Label label67;
         private Label label66;
         private DataGridView AvaliacaoPecas;
+        private Button button4;
+        private DateTimePicker Abirth;
     }
 }
