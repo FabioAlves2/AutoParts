@@ -497,5 +497,267 @@ namespace AutoParts
             }
         }
 
+        // ADD ENGINE CODE
+        private void AddEngine(SqlConnection CN)
+        {
+            // Get the values from the textboxes
+            string engineID = Mid.Text;
+            string engineMake = Mmarca.Text;
+            string engineFuel = Mcomb.Text;
+            string engineFuelSystem = Malimentacao.Text;
+            string engineAspiration = Msobrealimentacao.Text;
+            string enginePower = Mhp.Text;
+            string engineCC = Mcilindrada.Text;
+            string engineTorque = Mbin.Text;
+            string engineCylinders = MNcil.Text;
+            string engineValves = MNval.Text;
+            string engineType = Mtipo.Text;
+
+            // Query to insert the engine
+            string query = "INSERT INTO AP_Engine (Engine_id, Make, Fuel_type, Fuel_system, Aspiration, Horsepower, Cubic_cpt, Torque, Cylinder, Valves, Type) VALUES (@ID, @Make, @Fuel, @FuelSys, @Aspiration, @HP, @CC, @Torque, @Cylinder, @Valves, @Type)";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+
+                cmd.Parameters.AddWithValue("@ID", engineID);
+                cmd.Parameters.AddWithValue("@Make", engineMake);
+                cmd.Parameters.AddWithValue("@Fuel", engineFuel);
+                cmd.Parameters.AddWithValue("@FuelSys", engineFuelSystem);
+                cmd.Parameters.AddWithValue("@Aspiration", engineAspiration);
+                cmd.Parameters.AddWithValue("@HP", enginePower);
+                cmd.Parameters.AddWithValue("@CC", engineCC);
+                cmd.Parameters.AddWithValue("@Torque", engineTorque);
+                cmd.Parameters.AddWithValue("@Cylinder", engineCylinders);
+                cmd.Parameters.AddWithValue("@Valves", engineValves);
+                cmd.Parameters.AddWithValue("@Type", engineType);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Engine added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the engine.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        private void Madd_Click(object sender, EventArgs e)
+        {
+            AddEngine(CN);
+        }
+
+        // ENGINE LIST
+        private void EngineList(SqlConnection CN)
+        {
+            string query = "SELECT * FROM AP_Engine";
+
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable engineDt = new DataTable();
+                adapter.Fill(engineDt);
+                Mlista.DataSource = engineDt;
+            }
+        }
+        private void MotorLista_Enter(object sender, EventArgs e)
+        {
+            EngineList(CN);
+        }
+
+        // ENGINE FILTERS
+        private void MlistaID_TextChanged(object sender, EventArgs e)
+        {
+            MlistaFilters();
+        }
+
+        private void MlistaMarca_TextChanged(object sender, EventArgs e)
+        {
+            MlistaFilters();
+        }
+
+        private void MlistaCil_ValueChanged(object sender, EventArgs e)
+        {
+            MlistaFilters();
+        }
+
+        private void MlistaVal_ValueChanged(object sender, EventArgs e)
+        {
+            MlistaFilters();
+        }
+
+        private void MlistaHP_TextChanged(object sender, EventArgs e)
+        {
+            MlistaFilters();
+        }
+
+        private void MlistaCC_TextChanged(object sender, EventArgs e)
+        {
+            MlistaFilters();
+        }
+
+        private void MlistaTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MlistaFilters();
+        }
+
+        private void MlistaComb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MlistaFilters();
+        }
+
+        private void Mlista_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (Mlista.IsCurrentCellDirty)
+            {
+                Mlista.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void MlistaFilters()
+        {
+            string filterID = MlistaID.Text;
+            string filterMake = MlistaMarca.Text;
+            string filterCil = MlistaCil.Value.ToString();
+            string filterVal = MlistaVal.Value.ToString();
+            string filterPower = MlistaHP.Text;
+            string filterCC = MlistaCC.Text;
+            string filterType = MlistaTipo.SelectedItem?.ToString();
+            string filterFuel = MlistaComb.SelectedItem?.ToString();
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterID))
+            {
+                filterExpression += string.Format("Engine_Id LIKE '%{0}%'", filterID);
+            }
+
+            if (!string.IsNullOrEmpty(filterMake))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Make LIKE '{0}%'", filterMake);
+            }
+
+            if (MlistaCil.Value != 0 )
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Cylinder = {0}", filterCil);
+            }
+
+            if (MlistaVal.Value != 0)
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Valves = {0}", filterVal);
+            }
+
+            if (!string.IsNullOrEmpty(filterPower))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Horsepower = {0}", filterPower);
+            }
+
+            if (!string.IsNullOrEmpty(filterCC))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Cubic_cpt = {0}", filterCC);
+            }
+
+            if (!string.IsNullOrEmpty(filterType))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Type LIKE '{0}%'", filterType);
+            }
+
+            if (!string.IsNullOrEmpty(filterFuel))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Fuel_type LIKE '{0}%'", filterFuel);
+            }
+
+            (Mlista.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+
+
+        }
+
+        // ENGINE REMOVE
+        private void Mremover_Click(object sender, EventArgs e)
+        {
+            if(Mlista.SelectedRows.Count > 0)
+            {
+                var confirmResult = MessageBox.Show("Tem a certeza que deseja remover o motor selecionado?", "Confirmar", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    string engineID = Mlista.SelectedRows[0].Cells["Engine_id"].Value.ToString();
+                    string query = "DELETE FROM AP_Engine WHERE Engine_id = @ID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, CN))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", engineID);
+
+                        try
+                        {
+                            if (CN.State == System.Data.ConnectionState.Closed)
+                            {
+                                CN.Open();
+                            }
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Engine removed successfully.");
+                                EngineList(CN);
+                            }
+                            else
+                            {
+                                MessageBox.Show("An error occurred while removing the engine.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("An error occurred: " + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione um motor para remover.");
+            }
+        }
     }
 }

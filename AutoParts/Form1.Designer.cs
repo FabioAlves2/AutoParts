@@ -72,6 +72,26 @@
             tabPage5 = new TabPage();
             tabControl1 = new TabControl();
             MotorLista = new TabPage();
+            MlistaVal = new NumericUpDown();
+            label76 = new Label();
+            MlistaTipo = new ComboBox();
+            MlistaCil = new NumericUpDown();
+            label70 = new Label();
+            label71 = new Label();
+            MlistaHP = new TextBox();
+            label72 = new Label();
+            MlistaCC = new TextBox();
+            label73 = new Label();
+            label74 = new Label();
+            MlistaMarca = new TextBox();
+            label75 = new Label();
+            MlistaComb = new ComboBox();
+            MlistaID = new TextBox();
+            label69 = new Label();
+            Mremover = new Button();
+            Meditar = new Button();
+            Mlista = new DataGridView();
+            Mlistat = new Label();
             MotorAdicionar = new TabPage();
             Madd = new Button();
             Malimentacao = new ComboBox();
@@ -227,6 +247,7 @@
             AdminList = new TabPage();
             button4 = new Button();
             AdminAdd = new TabPage();
+            Abirth = new DateTimePicker();
             Asal = new TextBox();
             label8 = new Label();
             Abutton = new Button();
@@ -243,13 +264,16 @@
             label2 = new Label();
             label1 = new Label();
             NavBar = new TabControl();
-            Abirth = new DateTimePicker();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
             tabControl4.SuspendLayout();
             tabPage5.SuspendLayout();
             tabControl1.SuspendLayout();
+            MotorLista.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)MlistaVal).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)MlistaCil).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Mlista).BeginInit();
             MotorAdicionar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MNval).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MNcil).BeginInit();
@@ -712,6 +736,26 @@
             // 
             // MotorLista
             // 
+            MotorLista.Controls.Add(MlistaVal);
+            MotorLista.Controls.Add(label76);
+            MotorLista.Controls.Add(MlistaTipo);
+            MotorLista.Controls.Add(MlistaCil);
+            MotorLista.Controls.Add(label70);
+            MotorLista.Controls.Add(label71);
+            MotorLista.Controls.Add(MlistaHP);
+            MotorLista.Controls.Add(label72);
+            MotorLista.Controls.Add(MlistaCC);
+            MotorLista.Controls.Add(label73);
+            MotorLista.Controls.Add(label74);
+            MotorLista.Controls.Add(MlistaMarca);
+            MotorLista.Controls.Add(label75);
+            MotorLista.Controls.Add(MlistaComb);
+            MotorLista.Controls.Add(MlistaID);
+            MotorLista.Controls.Add(label69);
+            MotorLista.Controls.Add(Mremover);
+            MotorLista.Controls.Add(Meditar);
+            MotorLista.Controls.Add(Mlista);
+            MotorLista.Controls.Add(Mlistat);
             MotorLista.Location = new Point(4, 34);
             MotorLista.Name = "MotorLista";
             MotorLista.Padding = new Padding(3);
@@ -719,6 +763,189 @@
             MotorLista.TabIndex = 0;
             MotorLista.Text = "Lista";
             MotorLista.UseVisualStyleBackColor = true;
+            MotorLista.Enter += MotorLista_Enter;
+            // 
+            // MlistaVal
+            // 
+            MlistaVal.Location = new Point(439, 88);
+            MlistaVal.Name = "MlistaVal";
+            MlistaVal.Size = new Size(74, 32);
+            MlistaVal.TabIndex = 62;
+            MlistaVal.ValueChanged += MlistaVal_ValueChanged;
+            // 
+            // label76
+            // 
+            label76.AutoSize = true;
+            label76.Location = new Point(439, 60);
+            label76.Name = "label76";
+            label76.Size = new Size(69, 25);
+            label76.TabIndex = 61;
+            label76.Text = "Nº Val.";
+            // 
+            // MlistaTipo
+            // 
+            MlistaTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            MlistaTipo.FormattingEnabled = true;
+            MlistaTipo.Items.AddRange(new object[] { "", "Boxer", "Linha", "Flat", "Rotativo", "V", "W" });
+            MlistaTipo.Location = new Point(709, 86);
+            MlistaTipo.Name = "MlistaTipo";
+            MlistaTipo.Size = new Size(91, 33);
+            MlistaTipo.TabIndex = 60;
+            MlistaTipo.SelectedIndexChanged += MlistaTipo_SelectedIndexChanged;
+            // 
+            // MlistaCil
+            // 
+            MlistaCil.Location = new Point(347, 88);
+            MlistaCil.Name = "MlistaCil";
+            MlistaCil.Size = new Size(74, 32);
+            MlistaCil.TabIndex = 59;
+            MlistaCil.ValueChanged += MlistaCil_ValueChanged;
+            // 
+            // label70
+            // 
+            label70.AutoSize = true;
+            label70.Location = new Point(709, 60);
+            label70.Name = "label70";
+            label70.Size = new Size(49, 25);
+            label70.TabIndex = 58;
+            label70.Text = "Tipo";
+            // 
+            // label71
+            // 
+            label71.AutoSize = true;
+            label71.Location = new Point(347, 60);
+            label71.Name = "label71";
+            label71.Size = new Size(65, 25);
+            label71.TabIndex = 57;
+            label71.Text = "Nº Cil.";
+            // 
+            // MlistaHP
+            // 
+            MlistaHP.Location = new Point(531, 87);
+            MlistaHP.Name = "MlistaHP";
+            MlistaHP.Size = new Size(71, 32);
+            MlistaHP.TabIndex = 56;
+            MlistaHP.TextChanged += MlistaHP_TextChanged;
+            // 
+            // label72
+            // 
+            label72.AutoSize = true;
+            label72.Location = new Point(620, 60);
+            label72.Name = "label72";
+            label72.Size = new Size(33, 25);
+            label72.TabIndex = 55;
+            label72.Text = "Cc";
+            // 
+            // MlistaCC
+            // 
+            MlistaCC.Location = new Point(620, 87);
+            MlistaCC.Name = "MlistaCC";
+            MlistaCC.Size = new Size(71, 32);
+            MlistaCC.TabIndex = 54;
+            MlistaCC.TextChanged += MlistaCC_TextChanged;
+            // 
+            // label73
+            // 
+            label73.AutoSize = true;
+            label73.Location = new Point(531, 60);
+            label73.Name = "label73";
+            label73.Size = new Size(36, 25);
+            label73.TabIndex = 53;
+            label73.Text = "HP";
+            // 
+            // label74
+            // 
+            label74.AutoSize = true;
+            label74.Location = new Point(818, 60);
+            label74.Name = "label74";
+            label74.Size = new Size(116, 25);
+            label74.TabIndex = 52;
+            label74.Text = "Combustível";
+            // 
+            // MlistaMarca
+            // 
+            MlistaMarca.Location = new Point(187, 88);
+            MlistaMarca.Name = "MlistaMarca";
+            MlistaMarca.Size = new Size(142, 32);
+            MlistaMarca.TabIndex = 51;
+            MlistaMarca.TextChanged += MlistaMarca_TextChanged;
+            // 
+            // label75
+            // 
+            label75.AutoSize = true;
+            label75.Location = new Point(181, 60);
+            label75.Name = "label75";
+            label75.Size = new Size(65, 25);
+            label75.TabIndex = 50;
+            label75.Text = "Marca";
+            // 
+            // MlistaComb
+            // 
+            MlistaComb.DropDownStyle = ComboBoxStyle.DropDownList;
+            MlistaComb.FormattingEnabled = true;
+            MlistaComb.Items.AddRange(new object[] { "", "Diesel", "Elétrico", "Gasolina", "Híbrido" });
+            MlistaComb.Location = new Point(818, 86);
+            MlistaComb.Name = "MlistaComb";
+            MlistaComb.Size = new Size(142, 33);
+            MlistaComb.TabIndex = 49;
+            MlistaComb.SelectedIndexChanged += MlistaComb_SelectedIndexChanged;
+            // 
+            // MlistaID
+            // 
+            MlistaID.Location = new Point(27, 88);
+            MlistaID.Name = "MlistaID";
+            MlistaID.Size = new Size(142, 32);
+            MlistaID.TabIndex = 36;
+            MlistaID.TextChanged += MlistaID_TextChanged;
+            // 
+            // label69
+            // 
+            label69.AutoSize = true;
+            label69.Location = new Point(27, 60);
+            label69.Name = "label69";
+            label69.Size = new Size(30, 25);
+            label69.TabIndex = 35;
+            label69.Text = "ID";
+            // 
+            // Mremover
+            // 
+            Mremover.Location = new Point(200, 574);
+            Mremover.Name = "Mremover";
+            Mremover.Size = new Size(167, 40);
+            Mremover.TabIndex = 6;
+            Mremover.Text = "Remover";
+            Mremover.UseVisualStyleBackColor = true;
+            Mremover.Click += Mremover_Click;
+            // 
+            // Meditar
+            // 
+            Meditar.Location = new Point(27, 574);
+            Meditar.Name = "Meditar";
+            Meditar.Size = new Size(167, 40);
+            Meditar.TabIndex = 5;
+            Meditar.Text = "Editar";
+            Meditar.UseVisualStyleBackColor = true;
+            // 
+            // Mlista
+            // 
+            Mlista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            Mlista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            Mlista.Location = new Point(27, 126);
+            Mlista.Name = "Mlista";
+            Mlista.RowHeadersWidth = 51;
+            Mlista.Size = new Size(935, 442);
+            Mlista.TabIndex = 4;
+            Mlista.CurrentCellDirtyStateChanged += Mlista_CurrentCellDirtyStateChanged;
+            // 
+            // Mlistat
+            // 
+            Mlistat.AutoSize = true;
+            Mlistat.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Mlistat.Location = new Point(27, 19);
+            Mlistat.Name = "Mlistat";
+            Mlistat.Size = new Size(264, 25);
+            Mlistat.TabIndex = 3;
+            Mlistat.Text = "Procurar na lista de motores";
             // 
             // MotorAdicionar
             // 
@@ -765,6 +992,7 @@
             Madd.TabIndex = 58;
             Madd.Text = "Adicionar Motor";
             Madd.UseVisualStyleBackColor = false;
+            Madd.Click += Madd_Click;
             // 
             // Malimentacao
             // 
@@ -789,7 +1017,7 @@
             // 
             Msobrealimentacao.DropDownStyle = ComboBoxStyle.DropDownList;
             Msobrealimentacao.FormattingEnabled = true;
-            Msobrealimentacao.Items.AddRange(new object[] { "Atmosférico", "Supercharger", "Turbo + Intercooler", "Twin Turbo" });
+            Msobrealimentacao.Items.AddRange(new object[] { "Atmosférico", "Supercharger", "Turbo + Intercooler", "TwinTurbo" });
             Msobrealimentacao.Location = new Point(705, 249);
             Msobrealimentacao.Name = "Msobrealimentacao";
             Msobrealimentacao.Size = new Size(255, 33);
@@ -2319,6 +2547,13 @@
             AdminAdd.TabIndex = 0;
             AdminAdd.Text = "Adicionar";
             // 
+            // Abirth
+            // 
+            Abirth.Location = new Point(31, 174);
+            Abirth.Name = "Abirth";
+            Abirth.Size = new Size(250, 31);
+            Abirth.TabIndex = 17;
+            // 
             // Asal
             // 
             Asal.BackColor = SystemColors.Window;
@@ -2471,13 +2706,6 @@
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
             // 
-            // Abirth
-            // 
-            Abirth.Location = new Point(31, 174);
-            Abirth.Name = "Abirth";
-            Abirth.Size = new Size(250, 31);
-            Abirth.TabIndex = 17;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -2496,6 +2724,11 @@
             tabControl4.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
+            MotorLista.ResumeLayout(false);
+            MotorLista.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)MlistaVal).EndInit();
+            ((System.ComponentModel.ISupportInitialize)MlistaCil).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Mlista).EndInit();
             MotorAdicionar.ResumeLayout(false);
             MotorAdicionar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)MNval).EndInit();
@@ -2749,5 +2982,25 @@
         private DataGridView AvaliacaoPecas;
         private Button button4;
         private DateTimePicker Abirth;
+        private Label Mlistat;
+        private DataGridView Mlista;
+        private Button Mremover;
+        private Button Meditar;
+        private ComboBox MlistaTipo;
+        private NumericUpDown MlistaCil;
+        private Label label70;
+        private Label label71;
+        private TextBox MlistaHP;
+        private Label label72;
+        private TextBox MlistaCC;
+        private Label label73;
+        private Label label74;
+        private TextBox MlistaMarca;
+        private Label label75;
+        private ComboBox MlistaComb;
+        private TextBox MlistaID;
+        private Label label69;
+        private NumericUpDown MlistaVal;
+        private Label label76;
     }
 }
