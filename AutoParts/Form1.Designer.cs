@@ -120,7 +120,24 @@
             tabPage4 = new TabPage();
             vehicleNav = new TabControl();
             VehicleList = new TabPage();
-            VLista = new DataGridView();
+            VlistaEngineID = new TextBox();
+            VlistaEngineIDLbl = new Label();
+            VlistaModelo = new TextBox();
+            VlistaModeloLbl = new Label();
+            VlistaTipo = new ComboBox();
+            VlistaTipoLbl = new Label();
+            VlistaVersao = new TextBox();
+            VlistaVersaoLbl = new Label();
+            VlistaCombLbl = new Label();
+            VlistaMarca = new TextBox();
+            VlistaMarcaLbl = new Label();
+            VlistaComb = new ComboBox();
+            VlistaID = new TextBox();
+            VlistaIDLbl = new Label();
+            VlistaRemove = new Button();
+            VlistaEdit = new Button();
+            VlistaTitle = new Label();
+            VlistaData = new DataGridView();
             VehicleAdd = new TabPage();
             VmotorVal = new NumericUpDown();
             VmotorValLbl = new Label();
@@ -296,7 +313,7 @@
             tabPage4.SuspendLayout();
             vehicleNav.SuspendLayout();
             VehicleList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)VLista).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)VlistaData).BeginInit();
             VehicleAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)VmotorVal).BeginInit();
             ((System.ComponentModel.ISupportInitialize)VmotorCil).BeginInit();
@@ -1241,7 +1258,24 @@
             // 
             // VehicleList
             // 
-            VehicleList.Controls.Add(VLista);
+            VehicleList.Controls.Add(VlistaEngineID);
+            VehicleList.Controls.Add(VlistaEngineIDLbl);
+            VehicleList.Controls.Add(VlistaModelo);
+            VehicleList.Controls.Add(VlistaModeloLbl);
+            VehicleList.Controls.Add(VlistaTipo);
+            VehicleList.Controls.Add(VlistaTipoLbl);
+            VehicleList.Controls.Add(VlistaVersao);
+            VehicleList.Controls.Add(VlistaVersaoLbl);
+            VehicleList.Controls.Add(VlistaCombLbl);
+            VehicleList.Controls.Add(VlistaMarca);
+            VehicleList.Controls.Add(VlistaMarcaLbl);
+            VehicleList.Controls.Add(VlistaComb);
+            VehicleList.Controls.Add(VlistaID);
+            VehicleList.Controls.Add(VlistaIDLbl);
+            VehicleList.Controls.Add(VlistaRemove);
+            VehicleList.Controls.Add(VlistaEdit);
+            VehicleList.Controls.Add(VlistaTitle);
+            VehicleList.Controls.Add(VlistaData);
             VehicleList.Font = new Font("Segoe UI", 11F);
             VehicleList.Location = new Point(4, 34);
             VehicleList.Name = "VehicleList";
@@ -1250,17 +1284,175 @@
             VehicleList.TabIndex = 0;
             VehicleList.Text = "Lista";
             VehicleList.UseVisualStyleBackColor = true;
+            VehicleList.Enter += VehicleList_Enter;
             // 
-            // VLista
+            // VlistaEngineID
             // 
-            VLista.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            VLista.BackgroundColor = SystemColors.Control;
-            VLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            VLista.Location = new Point(31, 58);
-            VLista.Name = "VLista";
-            VLista.RowHeadersWidth = 51;
-            VLista.Size = new Size(928, 189);
-            VLista.TabIndex = 25;
+            VlistaEngineID.Location = new Point(129, 89);
+            VlistaEngineID.Name = "VlistaEngineID";
+            VlistaEngineID.Size = new Size(115, 32);
+            VlistaEngineID.TabIndex = 85;
+            VlistaEngineID.TextChanged += VlistaEngineID_TextChanged;
+            // 
+            // VlistaEngineIDLbl
+            // 
+            VlistaEngineIDLbl.AutoSize = true;
+            VlistaEngineIDLbl.Location = new Point(129, 61);
+            VlistaEngineIDLbl.Name = "VlistaEngineIDLbl";
+            VlistaEngineIDLbl.Size = new Size(93, 25);
+            VlistaEngineIDLbl.TabIndex = 84;
+            VlistaEngineIDLbl.Text = "Engine ID";
+            // 
+            // VlistaModelo
+            // 
+            VlistaModelo.Location = new Point(402, 89);
+            VlistaModelo.Name = "VlistaModelo";
+            VlistaModelo.Size = new Size(142, 32);
+            VlistaModelo.TabIndex = 83;
+            VlistaModelo.TextChanged += VlistaModelo_TextChanged;
+            // 
+            // VlistaModeloLbl
+            // 
+            VlistaModeloLbl.AutoSize = true;
+            VlistaModeloLbl.Location = new Point(402, 61);
+            VlistaModeloLbl.Name = "VlistaModeloLbl";
+            VlistaModeloLbl.Size = new Size(77, 25);
+            VlistaModeloLbl.TabIndex = 82;
+            VlistaModeloLbl.Text = "Modelo";
+            // 
+            // VlistaTipo
+            // 
+            VlistaTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            VlistaTipo.FormattingEnabled = true;
+            VlistaTipo.Items.AddRange(new object[] { "", "Camião", "Carrinha", "Citadino", "Comercial", "Coupé", "Descapotável", "Hatchback", "Minivan", "Sedan", "SUV" });
+            VlistaTipo.Location = new Point(808, 88);
+            VlistaTipo.Name = "VlistaTipo";
+            VlistaTipo.Size = new Size(152, 33);
+            VlistaTipo.TabIndex = 81;
+            VlistaTipo.SelectedIndexChanged += VlistaTipo_SelectedIndexChanged;
+            // 
+            // VlistaTipoLbl
+            // 
+            VlistaTipoLbl.AutoSize = true;
+            VlistaTipoLbl.Location = new Point(808, 61);
+            VlistaTipoLbl.Name = "VlistaTipoLbl";
+            VlistaTipoLbl.Size = new Size(49, 25);
+            VlistaTipoLbl.TabIndex = 79;
+            VlistaTipoLbl.Text = "Tipo";
+            // 
+            // VlistaVersao
+            // 
+            VlistaVersao.Location = new Point(552, 89);
+            VlistaVersao.Name = "VlistaVersao";
+            VlistaVersao.Size = new Size(92, 32);
+            VlistaVersao.TabIndex = 77;
+            VlistaVersao.TextChanged += VlistaVersao_TextChanged;
+            // 
+            // VlistaVersaoLbl
+            // 
+            VlistaVersaoLbl.AutoSize = true;
+            VlistaVersaoLbl.Location = new Point(552, 61);
+            VlistaVersaoLbl.Name = "VlistaVersaoLbl";
+            VlistaVersaoLbl.Size = new Size(69, 25);
+            VlistaVersaoLbl.TabIndex = 74;
+            VlistaVersaoLbl.Text = "Versão";
+            // 
+            // VlistaCombLbl
+            // 
+            VlistaCombLbl.AutoSize = true;
+            VlistaCombLbl.Location = new Point(652, 61);
+            VlistaCombLbl.Name = "VlistaCombLbl";
+            VlistaCombLbl.Size = new Size(116, 25);
+            VlistaCombLbl.TabIndex = 73;
+            VlistaCombLbl.Text = "Combustível";
+            // 
+            // VlistaMarca
+            // 
+            VlistaMarca.Location = new Point(252, 89);
+            VlistaMarca.Name = "VlistaMarca";
+            VlistaMarca.Size = new Size(142, 32);
+            VlistaMarca.TabIndex = 72;
+            VlistaMarca.TextChanged += VlistaMarca_TextChanged;
+            // 
+            // VlistaMarcaLbl
+            // 
+            VlistaMarcaLbl.AutoSize = true;
+            VlistaMarcaLbl.Location = new Point(252, 61);
+            VlistaMarcaLbl.Name = "VlistaMarcaLbl";
+            VlistaMarcaLbl.Size = new Size(65, 25);
+            VlistaMarcaLbl.TabIndex = 71;
+            VlistaMarcaLbl.Text = "Marca";
+            // 
+            // VlistaComb
+            // 
+            VlistaComb.DropDownStyle = ComboBoxStyle.DropDownList;
+            VlistaComb.FormattingEnabled = true;
+            VlistaComb.Items.AddRange(new object[] { "", "Diesel", "Elétrico", "Gasolina", "Híbrido" });
+            VlistaComb.Location = new Point(652, 88);
+            VlistaComb.Name = "VlistaComb";
+            VlistaComb.Size = new Size(148, 33);
+            VlistaComb.TabIndex = 70;
+            VlistaComb.SelectedIndexChanged += VlistaComb_SelectedIndexChanged;
+            // 
+            // VlistaID
+            // 
+            VlistaID.Location = new Point(29, 89);
+            VlistaID.Name = "VlistaID";
+            VlistaID.Size = new Size(92, 32);
+            VlistaID.TabIndex = 69;
+            VlistaID.TextChanged += VlistaID_TextChanged;
+            // 
+            // VlistaIDLbl
+            // 
+            VlistaIDLbl.AutoSize = true;
+            VlistaIDLbl.Location = new Point(29, 61);
+            VlistaIDLbl.Name = "VlistaIDLbl";
+            VlistaIDLbl.Size = new Size(30, 25);
+            VlistaIDLbl.TabIndex = 68;
+            VlistaIDLbl.Text = "ID";
+            // 
+            // VlistaRemove
+            // 
+            VlistaRemove.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            VlistaRemove.Location = new Point(200, 574);
+            VlistaRemove.Name = "VlistaRemove";
+            VlistaRemove.Size = new Size(167, 40);
+            VlistaRemove.TabIndex = 67;
+            VlistaRemove.Text = "Remover";
+            VlistaRemove.UseVisualStyleBackColor = true;
+            VlistaRemove.Click += VlistaRemove_Click;
+            // 
+            // VlistaEdit
+            // 
+            VlistaEdit.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            VlistaEdit.Location = new Point(27, 574);
+            VlistaEdit.Name = "VlistaEdit";
+            VlistaEdit.Size = new Size(167, 40);
+            VlistaEdit.TabIndex = 66;
+            VlistaEdit.Text = "Editar";
+            VlistaEdit.UseVisualStyleBackColor = true;
+            // 
+            // VlistaTitle
+            // 
+            VlistaTitle.AutoSize = true;
+            VlistaTitle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            VlistaTitle.Location = new Point(27, 19);
+            VlistaTitle.Name = "VlistaTitle";
+            VlistaTitle.Size = new Size(261, 25);
+            VlistaTitle.TabIndex = 65;
+            VlistaTitle.Text = "Procurar na lista de veículos";
+            // 
+            // VlistaData
+            // 
+            VlistaData.AllowUserToAddRows = false;
+            VlistaData.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            VlistaData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            VlistaData.Location = new Point(27, 127);
+            VlistaData.Name = "VlistaData";
+            VlistaData.RowHeadersWidth = 51;
+            VlistaData.Size = new Size(935, 441);
+            VlistaData.TabIndex = 64;
+            VlistaData.CurrentCellDirtyStateChanged += VlistaData_CurrentCellDirtyStateChanged;
             // 
             // VehicleAdd
             // 
@@ -2935,7 +3127,8 @@
             tabPage4.ResumeLayout(false);
             vehicleNav.ResumeLayout(false);
             VehicleList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)VLista).EndInit();
+            VehicleList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)VlistaData).EndInit();
             VehicleAdd.ResumeLayout(false);
             VehicleAdd.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)VmotorVal).EndInit();
@@ -3103,7 +3296,6 @@
         private ComboBox Pdrop;
         private Label label55;
         private Label label54;
-        private DataGridView VLista;
         private Button Pbutton;
         private Button SpecBtn;
         private TextBox Psize;
@@ -3223,5 +3415,23 @@
         private TextBox ClientNamefilter;
         private TextBox ClientIDfilter;
         private Button ClientRemove;
+        private Label VlistaTitle;
+        private DataGridView VlistaData;
+        private ComboBox VlistaTipo;
+        private Label VlistaTipoLbl;
+        private TextBox VlistaVersao;
+        private Label VlistaVersaoLbl;
+        private Label VlistaCombLbl;
+        private TextBox VlistaMarca;
+        private Label VlistaMarcaLbl;
+        private ComboBox VlistaComb;
+        private TextBox VlistaID;
+        private Label VlistaIDLbl;
+        private Button VlistaRemove;
+        private Button VlistaEdit;
+        private TextBox VlistaModelo;
+        private Label VlistaModeloLbl;
+        private TextBox VlistaEngineID;
+        private Label VlistaEngineIDLbl;
     }
 }
