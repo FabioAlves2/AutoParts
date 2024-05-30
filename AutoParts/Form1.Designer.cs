@@ -170,12 +170,7 @@
             PecasAdd = new TabPage();
             label63 = new Label();
             Pcompatibilidade = new ComboBox();
-            PVehiclePesquisaBtn = new Button();
-            PVehicleFimInput = new DateTimePicker();
-            PVehicleInicioInput = new DateTimePicker();
-            label62 = new Label();
             PVehiclePesquisa = new DataGridView();
-            label61 = new Label();
             PVehicleVersaoInput = new TextBox();
             PVehicleModeloInput = new TextBox();
             PVehicleMarcaInput = new TextBox();
@@ -221,6 +216,7 @@
             tabPage2 = new TabPage();
             ClientNav = new TabControl();
             ClientList = new TabPage();
+            ClientRemove = new Button();
             label85 = new Label();
             ClientEmailfilter = new TextBox();
             ClientTlmfilter = new TextBox();
@@ -284,7 +280,6 @@
             label2 = new Label();
             label1 = new Label();
             NavBar = new TabControl();
-            ClientRemove = new Button();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
@@ -1764,12 +1759,7 @@
             // 
             PecasAdd.Controls.Add(label63);
             PecasAdd.Controls.Add(Pcompatibilidade);
-            PecasAdd.Controls.Add(PVehiclePesquisaBtn);
-            PecasAdd.Controls.Add(PVehicleFimInput);
-            PecasAdd.Controls.Add(PVehicleInicioInput);
-            PecasAdd.Controls.Add(label62);
             PecasAdd.Controls.Add(PVehiclePesquisa);
-            PecasAdd.Controls.Add(label61);
             PecasAdd.Controls.Add(PVehicleVersaoInput);
             PecasAdd.Controls.Add(PVehicleModeloInput);
             PecasAdd.Controls.Add(PVehicleMarcaInput);
@@ -1813,7 +1803,7 @@
             // label63
             // 
             label63.AutoSize = true;
-            label63.Location = new Point(522, 485);
+            label63.Location = new Point(507, 302);
             label63.Name = "label63";
             label63.Size = new Size(151, 25);
             label63.TabIndex = 38;
@@ -1823,49 +1813,10 @@
             // 
             Pcompatibilidade.FormattingEnabled = true;
             Pcompatibilidade.Items.AddRange(new object[] { "Original", "Compatível" });
-            Pcompatibilidade.Location = new Point(522, 513);
+            Pcompatibilidade.Location = new Point(507, 330);
             Pcompatibilidade.Name = "Pcompatibilidade";
-            Pcompatibilidade.Size = new Size(146, 33);
+            Pcompatibilidade.Size = new Size(161, 33);
             Pcompatibilidade.TabIndex = 37;
-            // 
-            // PVehiclePesquisaBtn
-            // 
-            PVehiclePesquisaBtn.Location = new Point(522, 440);
-            PVehiclePesquisaBtn.Name = "PVehiclePesquisaBtn";
-            PVehiclePesquisaBtn.Size = new Size(146, 33);
-            PVehiclePesquisaBtn.TabIndex = 36;
-            PVehiclePesquisaBtn.Text = "Pesquisa";
-            PVehiclePesquisaBtn.UseVisualStyleBackColor = true;
-            PVehiclePesquisaBtn.Click += PVehiclePesquisaBtn_Click;
-            // 
-            // PVehicleFimInput
-            // 
-            PVehicleFimInput.CustomFormat = "yyyy";
-            PVehicleFimInput.Format = DateTimePickerFormat.Custom;
-            PVehicleFimInput.Location = new Point(522, 392);
-            PVehicleFimInput.Name = "PVehicleFimInput";
-            PVehicleFimInput.ShowUpDown = true;
-            PVehicleFimInput.Size = new Size(146, 32);
-            PVehicleFimInput.TabIndex = 35;
-            // 
-            // PVehicleInicioInput
-            // 
-            PVehicleInicioInput.CustomFormat = "yyyy";
-            PVehicleInicioInput.Format = DateTimePickerFormat.Custom;
-            PVehicleInicioInput.Location = new Point(522, 327);
-            PVehicleInicioInput.Name = "PVehicleInicioInput";
-            PVehicleInicioInput.ShowUpDown = true;
-            PVehicleInicioInput.Size = new Size(146, 32);
-            PVehicleInicioInput.TabIndex = 34;
-            // 
-            // label62
-            // 
-            label62.AutoSize = true;
-            label62.Location = new Point(522, 364);
-            label62.Name = "label62";
-            label62.Size = new Size(130, 25);
-            label62.TabIndex = 33;
-            label62.Text = "Ano Fim Prod.";
             // 
             // PVehiclePesquisa
             // 
@@ -1875,17 +1826,8 @@
             PVehiclePesquisa.Location = new Point(27, 368);
             PVehiclePesquisa.Name = "PVehiclePesquisa";
             PVehiclePesquisa.RowHeadersWidth = 51;
-            PVehiclePesquisa.Size = new Size(489, 236);
+            PVehiclePesquisa.Size = new Size(641, 236);
             PVehiclePesquisa.TabIndex = 32;
-            // 
-            // label61
-            // 
-            label61.AutoSize = true;
-            label61.Location = new Point(522, 298);
-            label61.Name = "label61";
-            label61.Size = new Size(146, 25);
-            label61.TabIndex = 31;
-            label61.Text = "Ano Inicio Prod.";
             // 
             // PVehicleVersaoInput
             // 
@@ -1893,6 +1835,7 @@
             PVehicleVersaoInput.Name = "PVehicleVersaoInput";
             PVehicleVersaoInput.Size = new Size(114, 32);
             PVehicleVersaoInput.TabIndex = 30;
+            PVehicleVersaoInput.TextChanged += PVehicleVersaoInput_TextChanged;
             // 
             // PVehicleModeloInput
             // 
@@ -1900,6 +1843,7 @@
             PVehicleModeloInput.Name = "PVehicleModeloInput";
             PVehicleModeloInput.Size = new Size(114, 32);
             PVehicleModeloInput.TabIndex = 29;
+            PVehicleModeloInput.TextChanged += PVehicleModeloInput_TextChanged;
             // 
             // PVehicleMarcaInput
             // 
@@ -1907,6 +1851,7 @@
             PVehicleMarcaInput.Name = "PVehicleMarcaInput";
             PVehicleMarcaInput.Size = new Size(114, 32);
             PVehicleMarcaInput.TabIndex = 28;
+            PVehicleMarcaInput.TextChanged += PVehicleMarcaInput_TextChanged;
             // 
             // PVehicleIDInput
             // 
@@ -1914,6 +1859,7 @@
             PVehicleIDInput.Name = "PVehicleIDInput";
             PVehicleIDInput.Size = new Size(114, 32);
             PVehicleIDInput.TabIndex = 27;
+            PVehicleIDInput.TextChanged += PVehicleIDInput_TextChanged;
             // 
             // label60
             // 
@@ -2316,6 +2262,16 @@
             ClientList.Text = "Lista";
             ClientList.UseVisualStyleBackColor = true;
             ClientList.Enter += Client_Load;
+            // 
+            // ClientRemove
+            // 
+            ClientRemove.Location = new Point(735, 558);
+            ClientRemove.Name = "ClientRemove";
+            ClientRemove.Size = new Size(219, 40);
+            ClientRemove.TabIndex = 12;
+            ClientRemove.Text = "Remover Cliente";
+            ClientRemove.UseVisualStyleBackColor = true;
+            ClientRemove.Click += ClientRemove_Click;
             // 
             // label85
             // 
@@ -2949,16 +2905,6 @@
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
             // 
-            // ClientRemove
-            // 
-            ClientRemove.Location = new Point(735, 558);
-            ClientRemove.Name = "ClientRemove";
-            ClientRemove.Size = new Size(219, 40);
-            ClientRemove.TabIndex = 12;
-            ClientRemove.Text = "Remover Cliente";
-            ClientRemove.UseVisualStyleBackColor = true;
-            ClientRemove.Click += ClientRemove_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -3199,17 +3145,12 @@
         private Label label59;
         private Label label58;
         private Label label57;
-        private Label label61;
         private TextBox PVehicleVersaoInput;
         private TextBox PVehicleModeloInput;
         private TextBox PVehicleMarcaInput;
         private TextBox PVehicleIDInput;
         private Label label60;
-        private Label label62;
         private DataGridView PVehiclePesquisa;
-        private DateTimePicker PVehicleInicioInput;
-        private Button PVehiclePesquisaBtn;
-        private DateTimePicker PVehicleFimInput;
         private Label label63;
         private ComboBox Pcompatibilidade;
         private Label label64;

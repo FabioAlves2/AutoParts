@@ -1,6 +1,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace AutoParts
@@ -9,7 +10,6 @@ namespace AutoParts
     {
         DataTable dt = new DataTable();
         DataTable dt2 = new DataTable();
-        DataTable dt3 = new DataTable();
         SqlConnection CN = GetDbConnection();
 
         private string engineID;
@@ -622,18 +622,18 @@ namespace AutoParts
                 dt2.Columns.Add("Tipo", typeof(string));
                 dt2.Columns.Add("Medida", typeof(string));
                 SpecsGrid.DataSource = dt2;
+                PVehicleLoad(CN);
             }
-            if (dt3.Columns.Count == 0)
+        }
+        private void PVehicleLoad(SqlConnection CN)
+        {
+            string query = "SELECT AP_Vehicle.Vehicle_id, AP_Vehicle.Make, AP_Vehicle.Model, AP_Vehicle.Sub_model, AP_Vehicle.Manuf_start, AP_Engine.Fuel_type, AP_Engine.Horsepower, AP_Engine.Torque FROM AP_Vehicle JOIN AP_Engine ON AP_Vehicle.Vengine_id = AP_Engine.Engine_id";
+
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
             {
-                dt3.Columns.Add("Id", typeof(string));
-                dt3.Columns.Add("Marca", typeof(string));
-                dt3.Columns.Add("Modelo", typeof(string));
-                dt3.Columns.Add("Versão", typeof(string));
-                dt3.Columns.Add("Ano", typeof(DateTime));
-                dt3.Columns.Add("Combustível", typeof(string));
-                dt3.Columns.Add("Hp", typeof(int));
-                dt3.Columns.Add("Binário", typeof(int));
-                PVehiclePesquisa.DataSource = dt3;
+                DataTable PVehicleDt = new DataTable();
+                adapter.Fill(PVehicleDt);
+                PVehiclePesquisa.DataSource = PVehicleDt;
             }
         }
 
@@ -675,10 +675,6 @@ namespace AutoParts
             }
 
         }
-        private void PVehiclePesquisaBtn_Click(object sender, EventArgs e)
-        {
-            Load_Vehicles(CN);
-        }
         private void Load_Vehicles(SqlConnection CN)
         {
             //read the values from the textboxes
@@ -686,50 +682,59 @@ namespace AutoParts
             string vehicleMarca = PVehicleMarcaInput.Text;
             string vehicleModel = PVehicleModeloInput.Text;
             string vehicleVersion = PVehicleVersaoInput.Text;
-            //Query to get the vehicles and engines based on the filters or one of them or all
-            string query = "SELECT AP_Vehicle.Vehicle_id, AP_Vehicle.Make, AP_Vehicle.Model, AP_Vehicle.Sub_model, AP_Vehicle.Manuf_stat, AP_Engine.Fuel_type, AP_Engine.Horsepower, AP_Engine.Torque " +
-               "FROM AP_Vehicle JOIN AP_Engine ON AP_Vehicle.Vengine_id = AP_Engine.Engine_id " +
-               "WHERE AP_Vehicle.Vehicle_id LIKE %@Id% AND AP_Vehicle.Make LIKE %@Make% " +
-               "AND AP_Vehicle.Model LIKE %@Model% AND AP_Vehicle.Sub_model LIKE %@Sub_model%";
 
-            using (SqlCommand cmd = new SqlCommand(query, CN))
+            string filterExpression = string.Empty;
+            if (!string.IsNullOrEmpty(vehicleId))
             {
-                cmd.Parameters.AddWithValue("@Id", vehicleId);
-                cmd.Parameters.AddWithValue("@Make", vehicleMarca);
-                cmd.Parameters.AddWithValue("@Model", vehicleModel);
-                cmd.Parameters.AddWithValue("@Sub_model", vehicleVersion);
-
-                try
-                {
-                    if (CN.State == System.Data.ConnectionState.Closed)
-                    {
-                        CN.Open();
-                    }
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        string vehicleIdValue = reader["Vehicle_id"].ToString();
-                        string vehicleMarcaValue = reader["Make"].ToString();
-                        string vehicleModelValue = reader["Model"].ToString();
-                        string vehicleVersionValue = reader["Sub_model"].ToString();
-                        string vehicleAnoValue = reader["Manuf_stat"].ToString();
-                        string vehicleCombustivelValue = reader["Fuel_type"].ToString();
-                        string vehicleHpValue = reader["Horsepower"].ToString();
-                        string vehicleBinarioValue = reader["Torque"].ToString();
-
-                        dt3.Rows.Add(vehicleIdValue, vehicleMarcaValue, vehicleModelValue, vehicleVersionValue, vehicleAnoValue, vehicleCombustivelValue, vehicleHpValue, vehicleBinarioValue);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Não foram encontrados veículos com os filtros inseridos.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
+                filterExpression += string.Format("CONVERT(Vehicle_id, 'System.String') LIKE '%{0}%'", vehicleId);
             }
+            if (!string.IsNullOrEmpty(vehicleMarca))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Make LIKE '%{0}%'", vehicleMarca);
+            }
+            if (!string.IsNullOrEmpty(vehicleModel))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Model LIKE '%{0}%'", vehicleModel);
+            }
+            if (!string.IsNullOrEmpty(vehicleVersion))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Sub_model LIKE '%{0}%'", vehicleVersion);
+            }
+
+
+            (PVehiclePesquisa.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+
+        }
+        private void PVehicleIDInput_TextChanged(object sender, EventArgs e)
+        {
+            Load_Vehicles(CN);
+        }
+
+        private void PVehicleMarcaInput_TextChanged(object sender, EventArgs e)
+        {
+            Load_Vehicles(CN);
+        }
+
+        private void PVehicleModeloInput_TextChanged(object sender, EventArgs e)
+        {
+            Load_Vehicles(CN);
+        }
+
+        private void PVehicleVersaoInput_TextChanged(object sender, EventArgs e)
+        {
+            Load_Vehicles(CN);
         }
 
         private void AddPart(SqlConnection CN)
@@ -740,7 +745,12 @@ namespace AutoParts
             string partdesc = Pdescri.Text;
             string partMarca = Pmarca.Text;
             string partCategotia = Pcategoria.Text;
-            string partId = Pid.Text;
+
+            //
+            //
+            //int partId = int.Parse(Pid.Text);
+            //
+            //
             string? specWeight = null;
             string? specHeight = null;
             string? specWidth = null;
@@ -810,11 +820,46 @@ namespace AutoParts
             using (SqlCommand cmd = new SqlCommand(query2, CN))
             {
                 cmd.Parameters.AddWithValue("@Part_id", partId);
-                cmd.Parameters.AddWithValue("@Weight", specWeight);
-                cmd.Parameters.AddWithValue("@Height", specHeight);
-                cmd.Parameters.AddWithValue("@Width", specWidth);
-                cmd.Parameters.AddWithValue("@Length", specLength);
-                cmd.Parameters.AddWithValue("@Diameter", specDiameter);
+                if(specWeight == null)
+                {
+                    cmd.Parameters.AddWithValue("@Weight", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Weight", specWeight);
+                }
+                if (specHeight == null)
+                {
+                    cmd.Parameters.AddWithValue("@Height", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Height", specHeight);
+                }
+                if (specWidth == null)
+                {
+                    cmd.Parameters.AddWithValue("@Width", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Width", specWidth);
+                }
+                if (specLength == null)
+                {
+                    cmd.Parameters.AddWithValue("@Length", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Length", specLength);
+                }
+                if (specDiameter == null)
+                {
+                    cmd.Parameters.AddWithValue("@Diameter", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Diameter", specDiameter);
+                }
 
                 try
                 {
@@ -870,6 +915,7 @@ namespace AutoParts
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
+            string CvehicleID = PVehiclePesquisa.SelectedRows[0].Cells["Vehicle_id"].Value.ToString();
 
             // Query to insert the compatibility with the vehicle
             string query4 = "INSERT INTO AP_Compatibility (CPart_id, CVehicle_id, Type) VALUES (@CPart_id, @Cvehicle_id, @Type)";
@@ -902,14 +948,12 @@ namespace AutoParts
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
-
         }
 
 
         private void Pbutton_Click(object sender, EventArgs e)
         {
-            //SqlConnection CN = GetDbConnection();
-            //AddPart(CN);
+            AddPart(CN);
         }
         private void PartAdd_Clear(object sender, EventArgs e)
         {
