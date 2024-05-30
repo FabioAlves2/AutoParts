@@ -122,6 +122,23 @@
             VehicleList = new TabPage();
             VLista = new DataGridView();
             VehicleAdd = new TabPage();
+            VmotorVal = new NumericUpDown();
+            VmotorValLbl = new Label();
+            VmotorTipo = new ComboBox();
+            VmotorCil = new NumericUpDown();
+            VmotorTipoLBL = new Label();
+            VmotorCillbl = new Label();
+            VmotorHP = new TextBox();
+            VmotorCCLbl = new Label();
+            VmotorCC = new TextBox();
+            VmotorHpLlb = new Label();
+            VmotorCombLbl = new Label();
+            VmotorMarca = new TextBox();
+            VmotorMarcalbl = new Label();
+            VmotorComb = new ComboBox();
+            VmotorID = new TextBox();
+            VmotorIDlbl = new Label();
+            VmotorLista = new DataGridView();
             Vadicionar = new Button();
             VtipoInput = new ComboBox();
             VmotorInput = new Label();
@@ -247,23 +264,6 @@
             label2 = new Label();
             label1 = new Label();
             NavBar = new TabControl();
-            VmotorVal = new NumericUpDown();
-            label77 = new Label();
-            VmotorTipo = new ComboBox();
-            VmotorCil = new NumericUpDown();
-            label78 = new Label();
-            label79 = new Label();
-            VmotorHP = new TextBox();
-            label80 = new Label();
-            VmotorCC = new TextBox();
-            label81 = new Label();
-            label82 = new Label();
-            VmotorMarca = new TextBox();
-            label83 = new Label();
-            VmotorComb = new ComboBox();
-            VmotorID = new TextBox();
-            label84 = new Label();
-            VmotorLista = new DataGridView();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
@@ -282,6 +282,9 @@
             VehicleList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)VLista).BeginInit();
             VehicleAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)VmotorVal).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)VmotorCil).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)VmotorLista).BeginInit();
             tabPage3.SuspendLayout();
             PecasNav.SuspendLayout();
             PecasAdd.SuspendLayout();
@@ -298,9 +301,6 @@
             AdminNav.SuspendLayout();
             AdminAdd.SuspendLayout();
             NavBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)VmotorVal).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)VmotorCil).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)VmotorLista).BeginInit();
             SuspendLayout();
             // 
             // tabControl3
@@ -1245,21 +1245,21 @@
             // VehicleAdd
             // 
             VehicleAdd.Controls.Add(VmotorVal);
-            VehicleAdd.Controls.Add(label77);
+            VehicleAdd.Controls.Add(VmotorValLbl);
             VehicleAdd.Controls.Add(VmotorTipo);
             VehicleAdd.Controls.Add(VmotorCil);
-            VehicleAdd.Controls.Add(label78);
-            VehicleAdd.Controls.Add(label79);
+            VehicleAdd.Controls.Add(VmotorTipoLBL);
+            VehicleAdd.Controls.Add(VmotorCillbl);
             VehicleAdd.Controls.Add(VmotorHP);
-            VehicleAdd.Controls.Add(label80);
+            VehicleAdd.Controls.Add(VmotorCCLbl);
             VehicleAdd.Controls.Add(VmotorCC);
-            VehicleAdd.Controls.Add(label81);
-            VehicleAdd.Controls.Add(label82);
+            VehicleAdd.Controls.Add(VmotorHpLlb);
+            VehicleAdd.Controls.Add(VmotorCombLbl);
             VehicleAdd.Controls.Add(VmotorMarca);
-            VehicleAdd.Controls.Add(label83);
+            VehicleAdd.Controls.Add(VmotorMarcalbl);
             VehicleAdd.Controls.Add(VmotorComb);
             VehicleAdd.Controls.Add(VmotorID);
-            VehicleAdd.Controls.Add(label84);
+            VehicleAdd.Controls.Add(VmotorIDlbl);
             VehicleAdd.Controls.Add(VmotorLista);
             VehicleAdd.Controls.Add(Vadicionar);
             VehicleAdd.Controls.Add(VtipoInput);
@@ -1295,6 +1295,161 @@
             VehicleAdd.Text = "Adicionar";
             VehicleAdd.UseVisualStyleBackColor = true;
             VehicleAdd.Enter += VehicleAdd_Enter;
+            // 
+            // VmotorVal
+            // 
+            VmotorVal.Location = new Point(439, 341);
+            VmotorVal.Name = "VmotorVal";
+            VmotorVal.Size = new Size(71, 32);
+            VmotorVal.TabIndex = 79;
+            VmotorVal.ValueChanged += VmotorVal_ValueChanged;
+            // 
+            // VmotorValLbl
+            // 
+            VmotorValLbl.AutoSize = true;
+            VmotorValLbl.Location = new Point(436, 313);
+            VmotorValLbl.Name = "VmotorValLbl";
+            VmotorValLbl.Size = new Size(69, 25);
+            VmotorValLbl.TabIndex = 78;
+            VmotorValLbl.Text = "Nº Val.";
+            // 
+            // VmotorTipo
+            // 
+            VmotorTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            VmotorTipo.FormattingEnabled = true;
+            VmotorTipo.Items.AddRange(new object[] { "", "Boxer", "Linha", "Flat", "Rotativo", "V", "W" });
+            VmotorTipo.Location = new Point(709, 339);
+            VmotorTipo.Name = "VmotorTipo";
+            VmotorTipo.Size = new Size(88, 33);
+            VmotorTipo.TabIndex = 77;
+            VmotorTipo.SelectedIndexChanged += VmotorTipo_SelectedIndexChanged;
+            // 
+            // VmotorCil
+            // 
+            VmotorCil.Location = new Point(347, 341);
+            VmotorCil.Name = "VmotorCil";
+            VmotorCil.Size = new Size(71, 32);
+            VmotorCil.TabIndex = 76;
+            VmotorCil.ValueChanged += VmotorCil_ValueChanged;
+            // 
+            // VmotorTipoLBL
+            // 
+            VmotorTipoLBL.AutoSize = true;
+            VmotorTipoLBL.Location = new Point(706, 313);
+            VmotorTipoLBL.Name = "VmotorTipoLBL";
+            VmotorTipoLBL.Size = new Size(49, 25);
+            VmotorTipoLBL.TabIndex = 75;
+            VmotorTipoLBL.Text = "Tipo";
+            // 
+            // VmotorCillbl
+            // 
+            VmotorCillbl.AutoSize = true;
+            VmotorCillbl.Location = new Point(344, 313);
+            VmotorCillbl.Name = "VmotorCillbl";
+            VmotorCillbl.Size = new Size(65, 25);
+            VmotorCillbl.TabIndex = 74;
+            VmotorCillbl.Text = "Nº Cil.";
+            // 
+            // VmotorHP
+            // 
+            VmotorHP.Location = new Point(531, 340);
+            VmotorHP.Name = "VmotorHP";
+            VmotorHP.Size = new Size(68, 32);
+            VmotorHP.TabIndex = 73;
+            VmotorHP.TextChanged += VmotorHP_TextChanged;
+            // 
+            // VmotorCCLbl
+            // 
+            VmotorCCLbl.AutoSize = true;
+            VmotorCCLbl.Location = new Point(617, 313);
+            VmotorCCLbl.Name = "VmotorCCLbl";
+            VmotorCCLbl.Size = new Size(33, 25);
+            VmotorCCLbl.TabIndex = 72;
+            VmotorCCLbl.Text = "Cc";
+            // 
+            // VmotorCC
+            // 
+            VmotorCC.Location = new Point(620, 340);
+            VmotorCC.Name = "VmotorCC";
+            VmotorCC.Size = new Size(68, 32);
+            VmotorCC.TabIndex = 71;
+            VmotorCC.TextChanged += VmotorCC_TextChanged;
+            // 
+            // VmotorHpLlb
+            // 
+            VmotorHpLlb.AutoSize = true;
+            VmotorHpLlb.Location = new Point(528, 313);
+            VmotorHpLlb.Name = "VmotorHpLlb";
+            VmotorHpLlb.Size = new Size(36, 25);
+            VmotorHpLlb.TabIndex = 70;
+            VmotorHpLlb.Text = "HP";
+            // 
+            // VmotorCombLbl
+            // 
+            VmotorCombLbl.AutoSize = true;
+            VmotorCombLbl.Location = new Point(815, 313);
+            VmotorCombLbl.Name = "VmotorCombLbl";
+            VmotorCombLbl.Size = new Size(116, 25);
+            VmotorCombLbl.TabIndex = 69;
+            VmotorCombLbl.Text = "Combustível";
+            // 
+            // VmotorMarca
+            // 
+            VmotorMarca.Location = new Point(187, 341);
+            VmotorMarca.Name = "VmotorMarca";
+            VmotorMarca.Size = new Size(139, 32);
+            VmotorMarca.TabIndex = 68;
+            VmotorMarca.TextChanged += VmotorMarca_TextChanged;
+            // 
+            // VmotorMarcalbl
+            // 
+            VmotorMarcalbl.AutoSize = true;
+            VmotorMarcalbl.Location = new Point(178, 313);
+            VmotorMarcalbl.Name = "VmotorMarcalbl";
+            VmotorMarcalbl.Size = new Size(65, 25);
+            VmotorMarcalbl.TabIndex = 67;
+            VmotorMarcalbl.Text = "Marca";
+            // 
+            // VmotorComb
+            // 
+            VmotorComb.DropDownStyle = ComboBoxStyle.DropDownList;
+            VmotorComb.FormattingEnabled = true;
+            VmotorComb.Items.AddRange(new object[] { "", "Diesel", "Elétrico", "Gasolina", "Híbrido" });
+            VmotorComb.Location = new Point(818, 339);
+            VmotorComb.Name = "VmotorComb";
+            VmotorComb.Size = new Size(139, 33);
+            VmotorComb.TabIndex = 66;
+            VmotorComb.SelectedIndexChanged += VmotorComb_SelectedIndexChanged;
+            // 
+            // VmotorID
+            // 
+            VmotorID.Location = new Point(27, 341);
+            VmotorID.Name = "VmotorID";
+            VmotorID.Size = new Size(139, 32);
+            VmotorID.TabIndex = 65;
+            VmotorID.TextChanged += VmotorID_TextChanged;
+            // 
+            // VmotorIDlbl
+            // 
+            VmotorIDlbl.AutoSize = true;
+            VmotorIDlbl.Location = new Point(24, 313);
+            VmotorIDlbl.Name = "VmotorIDlbl";
+            VmotorIDlbl.Size = new Size(30, 25);
+            VmotorIDlbl.TabIndex = 64;
+            VmotorIDlbl.Text = "ID";
+            // 
+            // VmotorLista
+            // 
+            VmotorLista.AllowUserToAddRows = false;
+            VmotorLista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            VmotorLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            VmotorLista.Location = new Point(27, 389);
+            VmotorLista.Name = "VmotorLista";
+            VmotorLista.RowHeadersWidth = 51;
+            VmotorLista.Size = new Size(932, 166);
+            VmotorLista.TabIndex = 63;
+            VmotorLista.CurrentCellDirtyStateChanged += VmotorLista_CurrentCellDirtyStateChanged;
+            VmotorLista.SelectionChanged += VmotorLista_SelectionChanged;
             // 
             // Vadicionar
             // 
@@ -2564,161 +2719,6 @@
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
             // 
-            // VmotorVal
-            // 
-            VmotorVal.Location = new Point(439, 341);
-            VmotorVal.Name = "VmotorVal";
-            VmotorVal.Size = new Size(71, 32);
-            VmotorVal.TabIndex = 79;
-            VmotorVal.ValueChanged += VmotorVal_ValueChanged;
-            // 
-            // label77
-            // 
-            label77.AutoSize = true;
-            label77.Location = new Point(436, 313);
-            label77.Name = "label77";
-            label77.Size = new Size(69, 25);
-            label77.TabIndex = 78;
-            label77.Text = "Nº Val.";
-            // 
-            // VmotorTipo
-            // 
-            VmotorTipo.DropDownStyle = ComboBoxStyle.DropDownList;
-            VmotorTipo.FormattingEnabled = true;
-            VmotorTipo.Items.AddRange(new object[] { "", "Boxer", "Linha", "Flat", "Rotativo", "V", "W" });
-            VmotorTipo.Location = new Point(709, 339);
-            VmotorTipo.Name = "VmotorTipo";
-            VmotorTipo.Size = new Size(88, 33);
-            VmotorTipo.TabIndex = 77;
-            VmotorTipo.SelectedIndexChanged += VmotorTipo_SelectedIndexChanged;
-            // 
-            // VmotorCil
-            // 
-            VmotorCil.Location = new Point(347, 341);
-            VmotorCil.Name = "VmotorCil";
-            VmotorCil.Size = new Size(71, 32);
-            VmotorCil.TabIndex = 76;
-            VmotorCil.ValueChanged += VmotorCil_ValueChanged;
-            // 
-            // label78
-            // 
-            label78.AutoSize = true;
-            label78.Location = new Point(706, 313);
-            label78.Name = "label78";
-            label78.Size = new Size(49, 25);
-            label78.TabIndex = 75;
-            label78.Text = "Tipo";
-            // 
-            // label79
-            // 
-            label79.AutoSize = true;
-            label79.Location = new Point(344, 313);
-            label79.Name = "label79";
-            label79.Size = new Size(65, 25);
-            label79.TabIndex = 74;
-            label79.Text = "Nº Cil.";
-            // 
-            // VmotorHP
-            // 
-            VmotorHP.Location = new Point(531, 340);
-            VmotorHP.Name = "VmotorHP";
-            VmotorHP.Size = new Size(68, 32);
-            VmotorHP.TabIndex = 73;
-            VmotorHP.TextChanged += VmotorHP_TextChanged;
-            // 
-            // label80
-            // 
-            label80.AutoSize = true;
-            label80.Location = new Point(617, 313);
-            label80.Name = "label80";
-            label80.Size = new Size(33, 25);
-            label80.TabIndex = 72;
-            label80.Text = "Cc";
-            // 
-            // VmotorCC
-            // 
-            VmotorCC.Location = new Point(620, 340);
-            VmotorCC.Name = "VmotorCC";
-            VmotorCC.Size = new Size(68, 32);
-            VmotorCC.TabIndex = 71;
-            VmotorCC.TextChanged += VmotorCC_TextChanged;
-            // 
-            // label81
-            // 
-            label81.AutoSize = true;
-            label81.Location = new Point(528, 313);
-            label81.Name = "label81";
-            label81.Size = new Size(36, 25);
-            label81.TabIndex = 70;
-            label81.Text = "HP";
-            // 
-            // label82
-            // 
-            label82.AutoSize = true;
-            label82.Location = new Point(815, 313);
-            label82.Name = "label82";
-            label82.Size = new Size(116, 25);
-            label82.TabIndex = 69;
-            label82.Text = "Combustível";
-            // 
-            // VmotorMarca
-            // 
-            VmotorMarca.Location = new Point(187, 341);
-            VmotorMarca.Name = "VmotorMarca";
-            VmotorMarca.Size = new Size(139, 32);
-            VmotorMarca.TabIndex = 68;
-            VmotorMarca.TextChanged += VmotorMarca_TextChanged;
-            // 
-            // label83
-            // 
-            label83.AutoSize = true;
-            label83.Location = new Point(178, 313);
-            label83.Name = "label83";
-            label83.Size = new Size(65, 25);
-            label83.TabIndex = 67;
-            label83.Text = "Marca";
-            // 
-            // VmotorComb
-            // 
-            VmotorComb.DropDownStyle = ComboBoxStyle.DropDownList;
-            VmotorComb.FormattingEnabled = true;
-            VmotorComb.Items.AddRange(new object[] { "", "Diesel", "Elétrico", "Gasolina", "Híbrido" });
-            VmotorComb.Location = new Point(818, 339);
-            VmotorComb.Name = "VmotorComb";
-            VmotorComb.Size = new Size(139, 33);
-            VmotorComb.TabIndex = 66;
-            VmotorComb.SelectedIndexChanged += VmotorComb_SelectedIndexChanged;
-            // 
-            // VmotorID
-            // 
-            VmotorID.Location = new Point(27, 341);
-            VmotorID.Name = "VmotorID";
-            VmotorID.Size = new Size(139, 32);
-            VmotorID.TabIndex = 65;
-            VmotorID.TextChanged += VmotorID_TextChanged;
-            // 
-            // label84
-            // 
-            label84.AutoSize = true;
-            label84.Location = new Point(24, 313);
-            label84.Name = "label84";
-            label84.Size = new Size(30, 25);
-            label84.TabIndex = 64;
-            label84.Text = "ID";
-            // 
-            // VmotorLista
-            // 
-            VmotorLista.AllowUserToAddRows = false;
-            VmotorLista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            VmotorLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            VmotorLista.Location = new Point(27, 389);
-            VmotorLista.Name = "VmotorLista";
-            VmotorLista.RowHeadersWidth = 51;
-            VmotorLista.Size = new Size(932, 166);
-            VmotorLista.TabIndex = 63;
-            VmotorLista.CurrentCellDirtyStateChanged += VmotorLista_CurrentCellDirtyStateChanged;
-            VmotorLista.SelectionChanged += VmotorLista_SelectionChanged;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -2752,6 +2752,9 @@
             ((System.ComponentModel.ISupportInitialize)VLista).EndInit();
             VehicleAdd.ResumeLayout(false);
             VehicleAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)VmotorVal).EndInit();
+            ((System.ComponentModel.ISupportInitialize)VmotorCil).EndInit();
+            ((System.ComponentModel.ISupportInitialize)VmotorLista).EndInit();
             tabPage3.ResumeLayout(false);
             PecasNav.ResumeLayout(false);
             PecasAdd.ResumeLayout(false);
@@ -2772,9 +2775,6 @@
             AdminAdd.ResumeLayout(false);
             AdminAdd.PerformLayout();
             NavBar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)VmotorVal).EndInit();
-            ((System.ComponentModel.ISupportInitialize)VmotorCil).EndInit();
-            ((System.ComponentModel.ISupportInitialize)VmotorLista).EndInit();
             ResumeLayout(false);
         }
 
@@ -2999,21 +2999,21 @@
         private Label label76;
         private DateTimePicker Cbirth;
         private NumericUpDown VmotorVal;
-        private Label label77;
+        private Label VmotorValLbl;
         private ComboBox VmotorTipo;
         private NumericUpDown VmotorCil;
-        private Label label78;
-        private Label label79;
+        private Label VmotorTipoLBL;
+        private Label VmotorCillbl;
         private TextBox VmotorHP;
-        private Label label80;
+        private Label VmotorCCLbl;
         private TextBox VmotorCC;
-        private Label label81;
-        private Label label82;
+        private Label VmotorHpLlb;
+        private Label VmotorCombLbl;
         private TextBox VmotorMarca;
-        private Label label83;
+        private Label VmotorMarcalbl;
         private ComboBox VmotorComb;
         private TextBox VmotorID;
-        private Label label84;
+        private Label VmotorIDlbl;
         private DataGridView VmotorLista;
     }
 }
