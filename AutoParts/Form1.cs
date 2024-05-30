@@ -12,6 +12,8 @@ namespace AutoParts
         DataTable dt3 = new DataTable();
         SqlConnection CN = GetDbConnection();
 
+        private string engineID;
+
         public Form1()
         {
             InitializeComponent();
@@ -1031,7 +1033,7 @@ namespace AutoParts
         }
 
         // ENGINE LIST
-        private void EngineList(SqlConnection CN)
+        private void EngineList(SqlConnection CN, DataGridView dgv)
         {
             string query = "SELECT * FROM AP_Engine";
 
@@ -1039,12 +1041,12 @@ namespace AutoParts
             {
                 DataTable engineDt = new DataTable();
                 adapter.Fill(engineDt);
-                Mlista.DataSource = engineDt;
+                dgv.DataSource = engineDt;
             }
         }
         private void MotorLista_Enter(object sender, EventArgs e)
         {
-            EngineList(CN);
+            EngineList(CN, Mlista);
         }
 
         // ENGINE FILTERS
@@ -1209,7 +1211,7 @@ namespace AutoParts
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Engine removed successfully.");
-                                EngineList(CN);
+                                EngineList(CN, Mlista);
                             }
                             else
                             {
@@ -1227,6 +1229,232 @@ namespace AutoParts
             {
                 MessageBox.Show("Por favor selecione um motor para remover.");
             }
+        }
+
+        // LIST ENGINE IN VEHICLE ADD PAGE
+        private void VehicleAdd_Enter(object sender, EventArgs e)
+        {
+            EngineList(CN, VmotorLista);
+        }
+
+        // VEHICLE ENGINE FILTERS
+        private void VmotorID_TextChanged(object sender, EventArgs e)
+        {
+            VmotorFilters();
+        }
+
+        private void VmotorMarca_TextChanged(object sender, EventArgs e)
+        {
+            VmotorFilters();
+        }
+
+        private void VmotorCil_ValueChanged(object sender, EventArgs e)
+        {
+            VmotorFilters();
+        }
+
+        private void VmotorVal_ValueChanged(object sender, EventArgs e)
+        {
+            VmotorFilters();
+        }
+
+        private void VmotorHP_TextChanged(object sender, EventArgs e)
+        {
+            VmotorFilters();
+        }
+
+        private void VmotorCC_TextChanged(object sender, EventArgs e)
+        {
+            VmotorFilters();
+        }
+
+        private void VmotorTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            VmotorFilters();
+        }
+
+        private void VmotorComb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            VmotorFilters();
+        }
+
+        private void VmotorLista_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (VmotorLista.IsCurrentCellDirty)
+            {
+                VmotorLista.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void VmotorFilters()
+        {
+            string filterID = VmotorID.Text;
+            string filterMake = VmotorMarca.Text;
+            string filterCil = VmotorCil.Value.ToString();
+            string filterVal = VmotorVal.Value.ToString();
+            string filterPower = VmotorHP.Text;
+            string filterCC = VmotorCC.Text;
+            string filterType = VmotorTipo.SelectedItem?.ToString();
+            string filterFuel = VmotorComb.SelectedItem?.ToString();
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterID))
+            {
+                filterExpression += string.Format("Engine_Id LIKE '%{0}%'", filterID);
+            }
+
+            if (!string.IsNullOrEmpty(filterMake))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Make LIKE '{0}%'", filterMake);
+            }
+
+            if (VmotorCil.Value != 0)
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Cylinder = {0}", filterCil);
+            }
+
+            if (VmotorVal.Value != 0)
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Valves = {0}", filterVal);
+            }
+
+            if (!string.IsNullOrEmpty(filterPower))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Horsepower = {0}", filterPower);
+            }
+
+            if (!string.IsNullOrEmpty(filterCC))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Cubic_cpt = {0}", filterCC);
+            }
+
+            if (!string.IsNullOrEmpty(filterType))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Type LIKE '{0}%'", filterType);
+            }
+
+            if (!string.IsNullOrEmpty(filterFuel))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Fuel_type LIKE '{0}%'", filterFuel);
+            }
+
+            (VmotorLista.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+        }
+
+        // CHANGE THE VALUES OF THE LABELS GIVEN THE SELECTED ROW
+        private void VmotorLista_SelectionChanged(object sender, EventArgs e)
+        {
+            if (VmotorLista.SelectedRows.Count > 0)
+            {
+                engineID = VmotorLista.SelectedRows[0].Cells["Engine_id"].Value.ToString();
+                string enginePower = VmotorLista.SelectedRows[0].Cells["Horsepower"].Value.ToString();
+                string engineTorque = VmotorLista.SelectedRows[0].Cells["Torque"].Value.ToString();
+                string engineCc = VmotorLista.SelectedRows[0].Cells["Cubic_cpt"].Value.ToString();
+                string engineFuel = VmotorLista.SelectedRows[0].Cells["Fuel_type"].Value.ToString();
+
+                VmotorInput.Text = engineID;
+                VhpInput.Text = enginePower + " Hp";
+                VbinInput.Text = engineTorque + " Nm";
+                VccInput.Text = engineCc + "cc";
+                VcombInput.Text = engineFuel;
+            }
+        }
+
+        private string GenerateVehicleID(string make, string model, string year)
+        {
+            if (!(string.IsNullOrEmpty(make) || string.IsNullOrEmpty(model) || string.IsNullOrEmpty(year)))
+            {
+                return make.Substring(0, 1) + model.Substring(0, 1) + year.Substring(2, 2);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        // ADD VEHICLE
+        private void addVehicle(SqlConnection CN)
+        {
+            // Get the values from the textboxes
+            string vehicleMake = VmarcaInput.Text;
+            string vehicleModel = VmodeloInput.Text;
+            string vehicleVersion = VversaoInput.Text;
+            string vehicleStartYear = VinicioInput.Text;
+            string vehicleEndYear = VfimInput.Text;
+            string vehicleType = VtipoInput.Text;
+
+            // Query to insert the vehicle
+            string query = "INSERT INTO AP_Vehicle (Vehicle_id, Make, Model, Sub_model, Type, Manuf_start, Manuf_end, Vengine_id) VALUES (@ID, @Make, @Model, @Sub_model, @Type, @StartYear, @EndYear, @Engine_id)";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                cmd.Parameters.AddWithValue("@ID", GenerateVehicleID(vehicleMake, vehicleModel, vehicleStartYear));
+                cmd.Parameters.AddWithValue("@Make", vehicleMake);
+                cmd.Parameters.AddWithValue("@Model", vehicleModel);
+                cmd.Parameters.AddWithValue("@Sub_model", vehicleVersion);
+                cmd.Parameters.AddWithValue("@Type", vehicleType);
+                cmd.Parameters.AddWithValue("@StartYear", vehicleStartYear);
+                cmd.Parameters.AddWithValue("@EndYear", vehicleEndYear);
+                cmd.Parameters.AddWithValue("@Engine_id", engineID);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Vehicle added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the vehicle.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+        }
+
+        private void Vadicionar_Click(object sender, EventArgs e)
+        {
+            addVehicle(CN);
         }
     }
 }
