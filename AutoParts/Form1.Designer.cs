@@ -167,6 +167,19 @@
             tabPage3 = new TabPage();
             PecasNav = new TabControl();
             PecasList = new TabPage();
+            PecasNomeFilter = new TextBox();
+            label93 = new Label();
+            label92 = new Label();
+            PecasVehicleFilter = new TextBox();
+            PecasMarcaFilter = new TextBox();
+            PecasIdFilter = new TextBox();
+            PecasStockFilter = new CheckBox();
+            label91 = new Label();
+            label90 = new Label();
+            PecasCategoriaFilter = new ComboBox();
+            label89 = new Label();
+            label88 = new Label();
+            PesquisaPecas = new DataGridView();
             PecasAdd = new TabPage();
             label63 = new Label();
             Pcompatibilidade = new ComboBox();
@@ -201,11 +214,18 @@
             label49 = new Label();
             label48 = new Label();
             label47 = new Label();
-            Encomenda = new TabPage();
             Avaliacao = new TabPage();
+            AvaliacaoCategoria = new ComboBox();
+            AvaliacaoMarca = new TextBox();
+            AvaliacaoNome = new TextBox();
+            AvaliacaoID = new TextBox();
+            label87 = new Label();
+            label86 = new Label();
+            label62 = new Label();
+            label61 = new Label();
             AvaliacaoPecas = new DataGridView();
             label68 = new Label();
-            button1 = new Button();
+            BtnAvaliacao = new Button();
             label67 = new Label();
             label66 = new Label();
             labelAvalicao = new Label();
@@ -280,10 +300,37 @@
             label2 = new Label();
             label1 = new Label();
             NavBar = new TabControl();
+            AdminStock = new TabPage();
+            tabControl2 = new TabControl();
+            EncomendaList = new TabPage();
+            EncomendaAdd = new TabPage();
+            label94 = new Label();
+            label95 = new Label();
+            StockAdmin = new ComboBox();
+            label96 = new Label();
+            label97 = new Label();
+            label98 = new Label();
+            label99 = new Label();
+            label100 = new Label();
+            dataGridView1 = new DataGridView();
+            StockButton = new Button();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            textBox3 = new TextBox();
+            comboBox1 = new ComboBox();
+            label101 = new Label();
+            StockFornecedor = new ComboBox();
+            label102 = new Label();
+            StcokQty = new TextBox();
+            Fornecedor = new TabPage();
+            tabControl5 = new TabControl();
+            tabPage7 = new TabPage();
+            tabPage8 = new TabPage();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
             tabControl4.SuspendLayout();
+            tabPage6.SuspendLayout();
             tabPage5.SuspendLayout();
             tabControl1.SuspendLayout();
             MotorLista.SuspendLayout();
@@ -303,6 +350,8 @@
             ((System.ComponentModel.ISupportInitialize)VmotorLista).BeginInit();
             tabPage3.SuspendLayout();
             PecasNav.SuspendLayout();
+            PecasList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PesquisaPecas).BeginInit();
             PecasAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PVehiclePesquisa).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SpecsGrid).BeginInit();
@@ -321,6 +370,11 @@
             ((System.ComponentModel.ISupportInitialize)PesquisaAdmin).BeginInit();
             AdminAdd.SuspendLayout();
             NavBar.SuspendLayout();
+            AdminStock.SuspendLayout();
+            tabControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            Fornecedor.SuspendLayout();
+            tabControl5.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl3
@@ -725,11 +779,12 @@
             // 
             tabPage6.BackColor = Color.White;
             tabPage6.BorderStyle = BorderStyle.FixedSingle;
+            tabPage6.Controls.Add(tabControl2);
             tabPage6.Location = new Point(4, 57);
             tabPage6.Name = "tabPage6";
             tabPage6.Size = new Size(998, 660);
             tabPage6.TabIndex = 5;
-            tabPage6.Text = "Stock";
+            tabPage6.Text = "Encomendas";
             // 
             // tabPage5
             // 
@@ -1734,7 +1789,6 @@
             // 
             PecasNav.Controls.Add(PecasList);
             PecasNav.Controls.Add(PecasAdd);
-            PecasNav.Controls.Add(Encomenda);
             PecasNav.Controls.Add(Avaliacao);
             PecasNav.Dock = DockStyle.Fill;
             PecasNav.Font = new Font("Segoe UI", 11F);
@@ -1747,6 +1801,19 @@
             // 
             // PecasList
             // 
+            PecasList.Controls.Add(PecasNomeFilter);
+            PecasList.Controls.Add(label93);
+            PecasList.Controls.Add(label92);
+            PecasList.Controls.Add(PecasVehicleFilter);
+            PecasList.Controls.Add(PecasMarcaFilter);
+            PecasList.Controls.Add(PecasIdFilter);
+            PecasList.Controls.Add(PecasStockFilter);
+            PecasList.Controls.Add(label91);
+            PecasList.Controls.Add(label90);
+            PecasList.Controls.Add(PecasCategoriaFilter);
+            PecasList.Controls.Add(label89);
+            PecasList.Controls.Add(label88);
+            PecasList.Controls.Add(PesquisaPecas);
             PecasList.Location = new Point(4, 34);
             PecasList.Name = "PecasList";
             PecasList.Padding = new Padding(3);
@@ -1754,6 +1821,125 @@
             PecasList.TabIndex = 0;
             PecasList.Text = "Lista";
             PecasList.UseVisualStyleBackColor = true;
+            // 
+            // PecasNomeFilter
+            // 
+            PecasNomeFilter.Location = new Point(172, 85);
+            PecasNomeFilter.Name = "PecasNomeFilter";
+            PecasNomeFilter.Size = new Size(210, 32);
+            PecasNomeFilter.TabIndex = 12;
+            PecasNomeFilter.TextChanged += PecasNomeFilter_TextChanged;
+            // 
+            // label93
+            // 
+            label93.AutoSize = true;
+            label93.Location = new Point(172, 56);
+            label93.Name = "label93";
+            label93.Size = new Size(63, 25);
+            label93.TabIndex = 11;
+            label93.Text = "Nome";
+            // 
+            // label92
+            // 
+            label92.AutoSize = true;
+            label92.Location = new Point(694, 57);
+            label92.Name = "label92";
+            label92.Size = new Size(122, 25);
+            label92.TabIndex = 10;
+            label92.Text = "Id do Veículo";
+            // 
+            // PecasVehicleFilter
+            // 
+            PecasVehicleFilter.Location = new Point(694, 85);
+            PecasVehicleFilter.Name = "PecasVehicleFilter";
+            PecasVehicleFilter.Size = new Size(177, 32);
+            PecasVehicleFilter.TabIndex = 9;
+            PecasVehicleFilter.TextChanged += PecasVehicleFilter_TextChanged;
+            // 
+            // PecasMarcaFilter
+            // 
+            PecasMarcaFilter.Location = new Point(388, 87);
+            PecasMarcaFilter.Name = "PecasMarcaFilter";
+            PecasMarcaFilter.Size = new Size(143, 32);
+            PecasMarcaFilter.TabIndex = 8;
+            PecasMarcaFilter.TextChanged += PecasMarcaFilter_TextChanged;
+            // 
+            // PecasIdFilter
+            // 
+            PecasIdFilter.Location = new Point(31, 84);
+            PecasIdFilter.Name = "PecasIdFilter";
+            PecasIdFilter.Size = new Size(135, 32);
+            PecasIdFilter.TabIndex = 7;
+            PecasIdFilter.TextChanged += PecasIdFilter_TextChanged;
+            // 
+            // PecasStockFilter
+            // 
+            PecasStockFilter.AutoSize = true;
+            PecasStockFilter.Location = new Point(877, 88);
+            PecasStockFilter.Name = "PecasStockFilter";
+            PecasStockFilter.Size = new Size(108, 29);
+            PecasStockFilter.TabIndex = 6;
+            PecasStockFilter.Text = "Em stock";
+            PecasStockFilter.UseVisualStyleBackColor = true;
+            PecasStockFilter.CheckedChanged += PecasStockFilter_CheckedChanged;
+            // 
+            // label91
+            // 
+            label91.AutoSize = true;
+            label91.Location = new Point(388, 59);
+            label91.Name = "label91";
+            label91.Size = new Size(65, 25);
+            label91.TabIndex = 5;
+            label91.Text = "Marca";
+            // 
+            // label90
+            // 
+            label90.AutoSize = true;
+            label90.Location = new Point(31, 56);
+            label90.Name = "label90";
+            label90.Size = new Size(28, 25);
+            label90.TabIndex = 4;
+            label90.Text = "Id";
+            // 
+            // PecasCategoriaFilter
+            // 
+            PecasCategoriaFilter.FormattingEnabled = true;
+            PecasCategoriaFilter.Items.AddRange(new object[] { "Exterior", "Interior", "Motor", "Suspensão", "Transmissão", "Travagem" });
+            PecasCategoriaFilter.Location = new Point(537, 86);
+            PecasCategoriaFilter.Name = "PecasCategoriaFilter";
+            PecasCategoriaFilter.Size = new Size(151, 33);
+            PecasCategoriaFilter.TabIndex = 3;
+            PecasCategoriaFilter.SelectedIndexChanged += PecasCategoriaFilter_SelectedIndexChanged;
+            // 
+            // label89
+            // 
+            label89.AutoSize = true;
+            label89.Location = new Point(537, 56);
+            label89.Name = "label89";
+            label89.Size = new Size(94, 25);
+            label89.TabIndex = 2;
+            label89.Text = "Categoria";
+            // 
+            // label88
+            // 
+            label88.AutoSize = true;
+            label88.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label88.Location = new Point(31, 22);
+            label88.Name = "label88";
+            label88.Size = new Size(344, 25);
+            label88.TabIndex = 1;
+            label88.Text = "Procure na lista de peças automoveís.";
+            // 
+            // PesquisaPecas
+            // 
+            PesquisaPecas.AllowUserToAddRows = false;
+            PesquisaPecas.BackgroundColor = SystemColors.Control;
+            PesquisaPecas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            PesquisaPecas.Location = new Point(31, 134);
+            PesquisaPecas.Name = "PesquisaPecas";
+            PesquisaPecas.RowHeadersWidth = 51;
+            PesquisaPecas.Size = new Size(951, 459);
+            PesquisaPecas.TabIndex = 0;
             // 
             // PecasAdd
             // 
@@ -2092,20 +2278,19 @@
             label47.TabIndex = 0;
             label47.Text = "Adicionar uma peça.";
             // 
-            // Encomenda
-            // 
-            Encomenda.Location = new Point(4, 34);
-            Encomenda.Name = "Encomenda";
-            Encomenda.Size = new Size(988, 620);
-            Encomenda.TabIndex = 2;
-            Encomenda.Text = "Encomenda";
-            Encomenda.UseVisualStyleBackColor = true;
-            // 
             // Avaliacao
             // 
+            Avaliacao.Controls.Add(AvaliacaoCategoria);
+            Avaliacao.Controls.Add(AvaliacaoMarca);
+            Avaliacao.Controls.Add(AvaliacaoNome);
+            Avaliacao.Controls.Add(AvaliacaoID);
+            Avaliacao.Controls.Add(label87);
+            Avaliacao.Controls.Add(label86);
+            Avaliacao.Controls.Add(label62);
+            Avaliacao.Controls.Add(label61);
             Avaliacao.Controls.Add(AvaliacaoPecas);
             Avaliacao.Controls.Add(label68);
-            Avaliacao.Controls.Add(button1);
+            Avaliacao.Controls.Add(BtnAvaliacao);
             Avaliacao.Controls.Add(label67);
             Avaliacao.Controls.Add(label66);
             Avaliacao.Controls.Add(labelAvalicao);
@@ -2121,38 +2306,108 @@
             Avaliacao.UseVisualStyleBackColor = true;
             Avaliacao.Enter += AvaliacaoLoad;
             // 
+            // AvaliacaoCategoria
+            // 
+            AvaliacaoCategoria.FormattingEnabled = true;
+            AvaliacaoCategoria.Items.AddRange(new object[] { "Exterior", "Interior", "Motor", "Suspensão", "Transmissão", "Travagem" });
+            AvaliacaoCategoria.Location = new Point(312, 87);
+            AvaliacaoCategoria.Name = "AvaliacaoCategoria";
+            AvaliacaoCategoria.Size = new Size(231, 33);
+            AvaliacaoCategoria.TabIndex = 17;
+            AvaliacaoCategoria.SelectedIndexChanged += AvaliacaoCategoria_SelectedIndexChanged;
+            // 
+            // AvaliacaoMarca
+            // 
+            AvaliacaoMarca.Location = new Point(312, 161);
+            AvaliacaoMarca.Name = "AvaliacaoMarca";
+            AvaliacaoMarca.Size = new Size(231, 32);
+            AvaliacaoMarca.TabIndex = 16;
+            AvaliacaoMarca.TextChanged += AvaliacaoMarca_TextChanged;
+            // 
+            // AvaliacaoNome
+            // 
+            AvaliacaoNome.Location = new Point(42, 161);
+            AvaliacaoNome.Name = "AvaliacaoNome";
+            AvaliacaoNome.Size = new Size(242, 32);
+            AvaliacaoNome.TabIndex = 15;
+            AvaliacaoNome.TextChanged += AvaliacaoNome_TextChanged;
+            // 
+            // AvaliacaoID
+            // 
+            AvaliacaoID.Location = new Point(42, 88);
+            AvaliacaoID.Name = "AvaliacaoID";
+            AvaliacaoID.Size = new Size(242, 32);
+            AvaliacaoID.TabIndex = 14;
+            AvaliacaoID.TextChanged += AvaliacaoID_TextChanged;
+            // 
+            // label87
+            // 
+            label87.AutoSize = true;
+            label87.Location = new Point(312, 133);
+            label87.Name = "label87";
+            label87.Size = new Size(65, 25);
+            label87.TabIndex = 13;
+            label87.Text = "Marca";
+            // 
+            // label86
+            // 
+            label86.AutoSize = true;
+            label86.Location = new Point(312, 60);
+            label86.Name = "label86";
+            label86.Size = new Size(94, 25);
+            label86.TabIndex = 12;
+            label86.Text = "Categoria";
+            // 
+            // label62
+            // 
+            label62.AutoSize = true;
+            label62.Location = new Point(42, 133);
+            label62.Name = "label62";
+            label62.Size = new Size(63, 25);
+            label62.TabIndex = 11;
+            label62.Text = "Nome";
+            // 
+            // label61
+            // 
+            label61.AutoSize = true;
+            label61.Location = new Point(42, 60);
+            label61.Name = "label61";
+            label61.Size = new Size(30, 25);
+            label61.TabIndex = 10;
+            label61.Text = "ID";
+            // 
             // AvaliacaoPecas
             // 
             AvaliacaoPecas.BackgroundColor = SystemColors.Control;
             AvaliacaoPecas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            AvaliacaoPecas.Location = new Point(42, 385);
+            AvaliacaoPecas.Location = new Point(42, 201);
             AvaliacaoPecas.Name = "AvaliacaoPecas";
             AvaliacaoPecas.RowHeadersWidth = 51;
-            AvaliacaoPecas.Size = new Size(689, 202);
+            AvaliacaoPecas.Size = new Size(599, 386);
             AvaliacaoPecas.TabIndex = 9;
             // 
             // label68
             // 
-            label68.AutoSize = true;
-            label68.Location = new Point(497, 71);
+            label68.Location = new Point(662, 50);
             label68.Name = "label68";
-            label68.Size = new Size(471, 25);
+            label68.Size = new Size(306, 61);
             label68.TabIndex = 8;
             label68.Text = "Arraste a barra para selecionar a avaliação pretendida.";
             // 
-            // button1
+            // BtnAvaliacao
             // 
-            button1.Location = new Point(776, 547);
-            button1.Name = "button1";
-            button1.Size = new Size(192, 40);
-            button1.TabIndex = 7;
-            button1.Text = "Adicionar Avaliação";
-            button1.UseVisualStyleBackColor = true;
+            BtnAvaliacao.Location = new Point(776, 547);
+            BtnAvaliacao.Name = "BtnAvaliacao";
+            BtnAvaliacao.Size = new Size(192, 40);
+            BtnAvaliacao.TabIndex = 7;
+            BtnAvaliacao.Text = "Adicionar Avaliação";
+            BtnAvaliacao.UseVisualStyleBackColor = true;
+            BtnAvaliacao.Click += BtnAvaliacao_Click;
             // 
             // label67
             // 
             label67.AutoSize = true;
-            label67.Location = new Point(863, 130);
+            label67.Location = new Point(942, 355);
             label67.Name = "label67";
             label67.Size = new Size(32, 25);
             label67.TabIndex = 6;
@@ -2161,7 +2416,7 @@
             // label66
             // 
             label66.AutoSize = true;
-            label66.Location = new Point(573, 130);
+            label66.Location = new Point(662, 355);
             label66.Name = "label66";
             label66.Size = new Size(22, 25);
             label66.TabIndex = 5;
@@ -2171,7 +2426,7 @@
             // 
             labelAvalicao.AutoSize = true;
             labelAvalicao.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelAvalicao.Location = new Point(721, 174);
+            labelAvalicao.Location = new Point(802, 399);
             labelAvalicao.Name = "labelAvalicao";
             labelAvalicao.Size = new Size(23, 31);
             labelAvalicao.TabIndex = 4;
@@ -2179,9 +2434,9 @@
             // 
             // trackBar1
             // 
-            trackBar1.Location = new Point(601, 115);
+            trackBar1.Location = new Point(690, 340);
             trackBar1.Name = "trackBar1";
-            trackBar1.Size = new Size(256, 56);
+            trackBar1.Size = new Size(246, 56);
             trackBar1.TabIndex = 3;
             trackBar1.Tag = "";
             trackBar1.Value = 5;
@@ -2190,7 +2445,7 @@
             // AvalicaoClient
             // 
             AvalicaoClient.FormattingEnabled = true;
-            AvalicaoClient.Location = new Point(42, 99);
+            AvalicaoClient.Location = new Point(662, 197);
             AvalicaoClient.Name = "AvalicaoClient";
             AvalicaoClient.Size = new Size(282, 33);
             AvalicaoClient.TabIndex = 2;
@@ -2198,7 +2453,7 @@
             // label65
             // 
             label65.AutoSize = true;
-            label65.Location = new Point(42, 71);
+            label65.Location = new Point(662, 169);
             label65.Name = "label65";
             label65.Size = new Size(71, 25);
             label65.TabIndex = 1;
@@ -2616,6 +2871,7 @@
             // 
             AdminNav.Controls.Add(AdminList);
             AdminNav.Controls.Add(AdminAdd);
+            AdminNav.Controls.Add(AdminStock);
             AdminNav.Dock = DockStyle.Fill;
             AdminNav.Location = new Point(3, 3);
             AdminNav.Margin = new Padding(0);
@@ -2894,6 +3150,7 @@
             NavBar.Controls.Add(tabPage4);
             NavBar.Controls.Add(tabPage5);
             NavBar.Controls.Add(tabPage6);
+            NavBar.Controls.Add(Fornecedor);
             NavBar.Dock = DockStyle.Fill;
             NavBar.Font = new Font("Segoe UI", 14F);
             NavBar.Location = new Point(0, 0);
@@ -2904,6 +3161,261 @@
             NavBar.Size = new Size(1006, 721);
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
+            // 
+            // AdminStock
+            // 
+            AdminStock.Controls.Add(StcokQty);
+            AdminStock.Controls.Add(label102);
+            AdminStock.Controls.Add(StockFornecedor);
+            AdminStock.Controls.Add(label101);
+            AdminStock.Controls.Add(comboBox1);
+            AdminStock.Controls.Add(textBox3);
+            AdminStock.Controls.Add(textBox2);
+            AdminStock.Controls.Add(textBox1);
+            AdminStock.Controls.Add(StockButton);
+            AdminStock.Controls.Add(dataGridView1);
+            AdminStock.Controls.Add(label100);
+            AdminStock.Controls.Add(label99);
+            AdminStock.Controls.Add(label98);
+            AdminStock.Controls.Add(label97);
+            AdminStock.Controls.Add(label96);
+            AdminStock.Controls.Add(StockAdmin);
+            AdminStock.Controls.Add(label95);
+            AdminStock.Controls.Add(label94);
+            AdminStock.Location = new Point(4, 34);
+            AdminStock.Name = "AdminStock";
+            AdminStock.Size = new Size(982, 614);
+            AdminStock.TabIndex = 2;
+            AdminStock.Text = "Adicionar Stock";
+            AdminStock.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            tabControl2.Controls.Add(EncomendaList);
+            tabControl2.Controls.Add(EncomendaAdd);
+            tabControl2.Dock = DockStyle.Fill;
+            tabControl2.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tabControl2.Location = new Point(0, 0);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(996, 658);
+            tabControl2.TabIndex = 0;
+            // 
+            // EncomendaList
+            // 
+            EncomendaList.Location = new Point(4, 34);
+            EncomendaList.Name = "EncomendaList";
+            EncomendaList.Padding = new Padding(3);
+            EncomendaList.Size = new Size(988, 620);
+            EncomendaList.TabIndex = 0;
+            EncomendaList.Text = "Lista";
+            EncomendaList.UseVisualStyleBackColor = true;
+            // 
+            // EncomendaAdd
+            // 
+            EncomendaAdd.Location = new Point(4, 34);
+            EncomendaAdd.Name = "EncomendaAdd";
+            EncomendaAdd.Padding = new Padding(3);
+            EncomendaAdd.Size = new Size(988, 620);
+            EncomendaAdd.TabIndex = 1;
+            EncomendaAdd.Text = "Adicionar";
+            EncomendaAdd.UseVisualStyleBackColor = true;
+            // 
+            // label94
+            // 
+            label94.AutoSize = true;
+            label94.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label94.Location = new Point(27, 19);
+            label94.Name = "label94";
+            label94.Size = new Size(377, 25);
+            label94.TabIndex = 0;
+            label94.Text = "Selecione uma peça para adicionar stock.";
+            // 
+            // label95
+            // 
+            label95.AutoSize = true;
+            label95.Location = new Point(27, 61);
+            label95.Name = "label95";
+            label95.Size = new Size(126, 25);
+            label95.TabIndex = 1;
+            label95.Text = "Administrador";
+            // 
+            // StockAdmin
+            // 
+            StockAdmin.FormattingEnabled = true;
+            StockAdmin.Location = new Point(28, 89);
+            StockAdmin.Name = "StockAdmin";
+            StockAdmin.Size = new Size(282, 33);
+            StockAdmin.TabIndex = 2;
+            // 
+            // label96
+            // 
+            label96.AutoSize = true;
+            label96.Location = new Point(27, 202);
+            label96.Name = "label96";
+            label96.Size = new Size(28, 25);
+            label96.TabIndex = 3;
+            label96.Text = "Id";
+            // 
+            // label97
+            // 
+            label97.AutoSize = true;
+            label97.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label97.Location = new Point(27, 164);
+            label97.Name = "label97";
+            label97.Size = new Size(243, 25);
+            label97.TabIndex = 4;
+            label97.Text = "Peças - Motor de Pesquisa";
+            // 
+            // label98
+            // 
+            label98.AutoSize = true;
+            label98.Location = new Point(201, 202);
+            label98.Name = "label98";
+            label98.Size = new Size(61, 25);
+            label98.TabIndex = 5;
+            label98.Text = "Nome";
+            // 
+            // label99
+            // 
+            label99.AutoSize = true;
+            label99.Location = new Point(420, 202);
+            label99.Name = "label99";
+            label99.Size = new Size(60, 25);
+            label99.TabIndex = 6;
+            label99.Text = "Marca";
+            // 
+            // label100
+            // 
+            label100.AutoSize = true;
+            label100.Location = new Point(594, 202);
+            label100.Name = "label100";
+            label100.Size = new Size(88, 25);
+            label100.TabIndex = 7;
+            label100.Text = "Categoria";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.BackgroundColor = SystemColors.Control;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(27, 280);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(917, 276);
+            dataGridView1.TabIndex = 8;
+            // 
+            // StockButton
+            // 
+            StockButton.Location = new Point(725, 561);
+            StockButton.Name = "StockButton";
+            StockButton.Size = new Size(219, 40);
+            StockButton.TabIndex = 9;
+            StockButton.Text = "Adicionar Stock";
+            StockButton.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(28, 230);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(159, 31);
+            textBox1.TabIndex = 10;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(201, 230);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(203, 31);
+            textBox2.TabIndex = 11;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(420, 230);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(161, 31);
+            textBox3.TabIndex = 12;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(594, 228);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(197, 33);
+            comboBox1.TabIndex = 13;
+            // 
+            // label101
+            // 
+            label101.AutoSize = true;
+            label101.Location = new Point(346, 61);
+            label101.Name = "label101";
+            label101.Size = new Size(102, 25);
+            label101.TabIndex = 14;
+            label101.Text = "Fornecedor";
+            // 
+            // StockFornecedor
+            // 
+            StockFornecedor.FormattingEnabled = true;
+            StockFornecedor.Location = new Point(346, 89);
+            StockFornecedor.Name = "StockFornecedor";
+            StockFornecedor.Size = new Size(282, 33);
+            StockFornecedor.TabIndex = 15;
+            // 
+            // label102
+            // 
+            label102.AutoSize = true;
+            label102.Location = new Point(662, 61);
+            label102.Name = "label102";
+            label102.Size = new Size(105, 25);
+            label102.TabIndex = 16;
+            label102.Text = "Quantidade";
+            // 
+            // StcokQty
+            // 
+            StcokQty.Location = new Point(662, 91);
+            StcokQty.Name = "StcokQty";
+            StcokQty.Size = new Size(282, 31);
+            StcokQty.TabIndex = 17;
+            // 
+            // Fornecedor
+            // 
+            Fornecedor.Controls.Add(tabControl5);
+            Fornecedor.Location = new Point(4, 57);
+            Fornecedor.Name = "Fornecedor";
+            Fornecedor.Size = new Size(998, 660);
+            Fornecedor.TabIndex = 6;
+            Fornecedor.Text = "Fornecedor";
+            Fornecedor.UseVisualStyleBackColor = true;
+            // 
+            // tabControl5
+            // 
+            tabControl5.Controls.Add(tabPage7);
+            tabControl5.Controls.Add(tabPage8);
+            tabControl5.Dock = DockStyle.Fill;
+            tabControl5.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tabControl5.Location = new Point(0, 0);
+            tabControl5.Name = "tabControl5";
+            tabControl5.SelectedIndex = 0;
+            tabControl5.Size = new Size(998, 660);
+            tabControl5.TabIndex = 0;
+            // 
+            // tabPage7
+            // 
+            tabPage7.Location = new Point(4, 34);
+            tabPage7.Name = "tabPage7";
+            tabPage7.Padding = new Padding(3);
+            tabPage7.Size = new Size(990, 622);
+            tabPage7.TabIndex = 0;
+            tabPage7.Text = "Lista";
+            tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            tabPage8.Location = new Point(4, 34);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Padding = new Padding(3);
+            tabPage8.Size = new Size(990, 622);
+            tabPage8.TabIndex = 1;
+            tabPage8.Text = "Adicionar";
+            tabPage8.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -2921,6 +3433,7 @@
             tabPage11.ResumeLayout(false);
             tabPage11.PerformLayout();
             tabControl4.ResumeLayout(false);
+            tabPage6.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             MotorLista.ResumeLayout(false);
@@ -2943,6 +3456,9 @@
             ((System.ComponentModel.ISupportInitialize)VmotorLista).EndInit();
             tabPage3.ResumeLayout(false);
             PecasNav.ResumeLayout(false);
+            PecasList.ResumeLayout(false);
+            PecasList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PesquisaPecas).EndInit();
             PecasAdd.ResumeLayout(false);
             PecasAdd.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PVehiclePesquisa).EndInit();
@@ -2967,6 +3483,12 @@
             AdminAdd.ResumeLayout(false);
             AdminAdd.PerformLayout();
             NavBar.ResumeLayout(false);
+            AdminStock.ResumeLayout(false);
+            AdminStock.PerformLayout();
+            tabControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Fornecedor.ResumeLayout(false);
+            tabControl5.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -3091,7 +3613,6 @@
         private TabPage PecasList;
         private TabPage PecasAdd;
         private Label label47;
-        private TabPage Encomenda;
         private TabPage Avaliacao;
         private Label label51;
         private Label label50;
@@ -3159,7 +3680,7 @@
         private TrackBar trackBar1;
         private Label labelAvalicao;
         private Label label68;
-        private Button button1;
+        private Button BtnAvaliacao;
         private Label label67;
         private Label label66;
         private DataGridView AvaliacaoPecas;
@@ -3223,5 +3744,52 @@
         private TextBox ClientNamefilter;
         private TextBox ClientIDfilter;
         private Button ClientRemove;
+        private TextBox AvaliacaoID;
+        private Label label87;
+        private Label label86;
+        private Label label62;
+        private Label label61;
+        private TextBox AvaliacaoMarca;
+        private TextBox AvaliacaoNome;
+        private ComboBox AvaliacaoCategoria;
+        private Label label88;
+        private DataGridView PesquisaPecas;
+        private ComboBox PecasCategoriaFilter;
+        private Label label89;
+        private Label label91;
+        private Label label90;
+        private TextBox PecasIdFilter;
+        private CheckBox PecasStockFilter;
+        private TextBox PecasNomeFilter;
+        private Label label93;
+        private Label label92;
+        private TextBox PecasVehicleFilter;
+        private TextBox PecasMarcaFilter;
+        private TabControl tabControl2;
+        private TabPage EncomendaList;
+        private TabPage EncomendaAdd;
+        private TabPage AdminStock;
+        private ComboBox StockAdmin;
+        private Label label95;
+        private Label label94;
+        private DataGridView dataGridView1;
+        private Label label100;
+        private Label label99;
+        private Label label98;
+        private Label label97;
+        private Label label96;
+        private Label label101;
+        private ComboBox comboBox1;
+        private TextBox textBox3;
+        private TextBox textBox2;
+        private TextBox textBox1;
+        private Button StockButton;
+        private TextBox StcokQty;
+        private Label label102;
+        private ComboBox StockFornecedor;
+        private TabPage Fornecedor;
+        private TabControl tabControl5;
+        private TabPage tabPage7;
+        private TabPage tabPage8;
     }
 }

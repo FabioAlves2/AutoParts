@@ -90,38 +90,6 @@ namespace AutoParts
         }
         private void AddAdmin(SqlConnection CN)
         {
-            int workId = 0;
-            //read the last id from the database
-            string query2 = "SELECT MAX(Work_id) FROM AP_Administrator";
-
-            using (SqlCommand cmd = new SqlCommand(query2, CN))
-            {
-                try
-                {
-                    if (CN.State == System.Data.ConnectionState.Closed)
-                    {
-                        CN.Open();
-                    }
-
-                    object result = cmd.ExecuteScalar();
-
-                    if (result != DBNull.Value && result != null)
-                    {
-                        int maxId = Convert.ToInt32(result);
-                        workId = (maxId + 1);
-                    }
-                    else
-                    {
-                        // This handles the case where there are no rows in the table
-                        workId = 1;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
-
             // Get the values from the textboxes
             string adminName = Aname.Text;
             string adminCC = Acc.Text;
@@ -135,7 +103,7 @@ namespace AutoParts
             string queryPerson = "INSERT INTO AP_Person (Name, CC, Birth, Address, Postal) VALUES (@Name, @CC, @Birth, @Address, @Postal)";
 
             // Query to insert the admin
-            string queryAdmin = "INSERT INTO AP_Administrator (CC,Contract_Start,Contract_End,Work_id, Salary) VALUES (@CC, @Contract_Start, @Contract_End, @Work_id, @Salary)";
+            string queryAdmin = "INSERT INTO AP_Administrator (CC,Contract_Start,Contract_End, Salary) VALUES (@CC, @Contract_Start, @Contract_End, @Salary)";
 
             using (SqlCommand cmd = new SqlCommand(queryPerson, CN))
             {
@@ -166,7 +134,6 @@ namespace AutoParts
                 cmd.Parameters.AddWithValue("@CC", adminCC);
                 cmd.Parameters.AddWithValue("@Contract_Start", adminStart);
                 cmd.Parameters.AddWithValue("@Contract_End", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Work_id", workId);
                 cmd.Parameters.AddWithValue("@Salary", adminSalary);
 
                 try
@@ -449,7 +416,7 @@ namespace AutoParts
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Customer removed successfully.");
-                                ClientFilter();
+                                LoadClient(CN);
                             }
                             else
                             {
@@ -477,7 +444,6 @@ namespace AutoParts
             DateTime.TryParse(Cbirth.Text, out DateTime customerBirth);
             string customerAddr = Caddr.Text;
             string customerCp = Ccp.Text;
-            int customerId = int.Parse(Cid.Text);
             string customerContacts = "";
             string contact0 = string.Empty;
             string contact1 = string.Empty;
@@ -547,12 +513,11 @@ namespace AutoParts
             }
 
             // Query to insert the customer
-            string query = "INSERT INTO AP_Customer (CC, Id, Email, Phone) VALUES (@CC, @Id, @Email, @Phone)";
+            string query = "INSERT INTO AP_Customer (CC, Email, Phone) VALUES (@CC, @Email, @Phone)";
 
             using (SqlCommand cmd = new SqlCommand(query, CN))
             {
                 cmd.Parameters.AddWithValue("@CC", customerCC);
-                cmd.Parameters.AddWithValue("@Id", customerId);
                 if (customerEmail == null)
                 {
                     cmd.Parameters.AddWithValue("@Email", DBNull.Value);
@@ -612,9 +577,109 @@ namespace AutoParts
         {
             AddClient(CN);
         }
-
-
+        //
+        //
         //PEÇAS CODE
+        //
+        //
+        private void PartsLoad(SqlConnection CN)
+        {
+            string query = "SELECT * FROM AP_PartDetailsView;";
+
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable pecasDt = new DataTable();
+                adapter.Fill(pecasDt);
+                PesquisaPecas.DataSource = pecasDt;
+            }
+        }
+        private void PartsFilter(SqlConnection CN)
+        {
+            string filterID = PecasIdFilter.Text;
+            string filterName = PecasNomeFilter.Text;
+            string filterMarca = PecasMarcaFilter.Text;
+            string filterCategoria = PecasCategoriaFilter.Text;
+            string filterVehicle = PecasVehicleFilter.Text;
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterID))
+            {
+                filterExpression += string.Format("Part_ID LIKE '%{0}%'", filterID);
+            }
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Name LIKE '%{0}%'", filterName);
+            }
+            if (!string.IsNullOrEmpty(filterMarca))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Manufacturer LIKE '{0}%'", filterMarca);
+            }
+            if (!string.IsNullOrEmpty(filterCategoria))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Category LIKE '%{0}%'", filterCategoria);
+            }
+            if (!string.IsNullOrEmpty(filterVehicle))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Vehicle LIKE '%{0}%'", filterVehicle);
+            }
+            if (PecasStockFilter.Checked)
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Stock > 0");
+            }
+
+            (PesquisaPecas.DataSource as DataTable).DefaultView.RowFilter = filterExpression;   
+
+        }
+        private void PecasIdFilter_TextChanged(object sender, EventArgs e)
+        {
+            PartsFilter(CN);
+        }
+
+        private void PecasNomeFilter_TextChanged(object sender, EventArgs e)
+        {
+            PartsFilter(CN);
+        }
+
+        private void PecasMarcaFilter_TextChanged(object sender, EventArgs e)
+        {
+            PartsFilter(CN);
+        }
+
+        private void PecasCategoriaFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PartsFilter(CN);
+        }
+
+        private void PecasVehicleFilter_TextChanged(object sender, EventArgs e)
+        {
+            PartsFilter(CN);
+        }
+
+        private void PecasStockFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            PartsFilter(CN);
+        }
         private void Specs_Load(object sender, EventArgs e)
         {
             if (dt2.Columns.Count == 0)
@@ -745,12 +810,7 @@ namespace AutoParts
             string partdesc = Pdescri.Text;
             string partMarca = Pmarca.Text;
             string partCategotia = Pcategoria.Text;
-
-            //
-            //
-            //int partId = int.Parse(Pid.Text);
-            //
-            //
+            string partId = Pid.Text;
             string? specWeight = null;
             string? specHeight = null;
             string? specWidth = null;
@@ -820,7 +880,7 @@ namespace AutoParts
             using (SqlCommand cmd = new SqlCommand(query2, CN))
             {
                 cmd.Parameters.AddWithValue("@Part_id", partId);
-                if(specWeight == null)
+                if (specWeight == null)
                 {
                     cmd.Parameters.AddWithValue("@Weight", DBNull.Value);
                 }
@@ -950,7 +1010,6 @@ namespace AutoParts
             }
         }
 
-
         private void Pbutton_Click(object sender, EventArgs e)
         {
             AddPart(CN);
@@ -978,7 +1037,78 @@ namespace AutoParts
         {
             trackBar1.Value = 5;
             labelAvalicao.Text = "5";
+            PecasLoad(CN);
             CustomerLoad(CN);
+        }
+        private void PecasLoad(SqlConnection CN)
+        {
+            string query = "SELECT AP_Part.Part_id, AP_Part.Name, AP_Part.Manufacturer, AP_Category.Category FROM AP_Part JOIN AP_Category ON AP_Part.Part_id = AP_Category.Part_id";
+
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable partsDt = new DataTable();
+                adapter.Fill(partsDt);
+                AvaliacaoPecas.DataSource = partsDt;
+            }
+        }
+        private void AvaliacaoFilter()
+        {
+            string filterID = AvaliacaoID.Text;
+            string filterName = AvaliacaoNome.Text;
+            string filterMarca = AvaliacaoMarca.Text;
+            string filterCategoria = AvaliacaoCategoria.Text;
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterID))
+            {
+                filterExpression += string.Format("Part_id LIKE '%{0}%'", filterID);
+            }
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Name LIKE '%{0}%'", filterName);
+            }
+            if (!string.IsNullOrEmpty(filterMarca))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Manufacturer LIKE '{0}%'", filterMarca);
+            }
+            if (!string.IsNullOrEmpty(filterCategoria))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Category LIKE '%{0}%'", filterCategoria);
+            }
+
+            (AvaliacaoPecas.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+        }
+        private void AvaliacaoID_TextChanged(object sender, EventArgs e)
+        {
+            AvaliacaoFilter();
+        }
+
+        private void AvaliacaoNome_TextChanged(object sender, EventArgs e)
+        {
+            AvaliacaoFilter();
+        }
+
+        private void AvaliacaoMarca_TextChanged(object sender, EventArgs e)
+        {
+            AvaliacaoFilter();
+        }
+
+        private void AvaliacaoCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AvaliacaoFilter();
         }
         private void CustomerLoad(SqlConnection CN)
         {
@@ -1010,6 +1140,51 @@ namespace AutoParts
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
+        }
+        private void BtnAvaliacao_Click(object sender, EventArgs e)
+        {
+            AddAvaliacao(CN);
+        }
+        private void AddAvaliacao(SqlConnection CN)
+        {
+            // Get the values from the textboxes
+            string partId = AvaliacaoID.Text;
+            string customerId = AvalicaoClient.SelectedItem?.ToString().Split('-')[0].Trim();
+            int.TryParse(labelAvalicao.Text, out int avaliacao);
+
+            // Query to insert the evaluation
+            string query = "INSERT INTO AP_Rates (Part_id, Cid, Rating) VALUES (@Part_id, @Customer_id, @Rating)";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                cmd.Parameters.AddWithValue("@Part_id", partId);
+                cmd.Parameters.AddWithValue("@Customer_id", customerId);
+                cmd.Parameters.AddWithValue("@Rating", avaliacao);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Rating added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the rating.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
         }
 
         // ADD ENGINE CODE
