@@ -35,6 +35,12 @@ namespace AutoParts
         }
         private void LoadAdmins(SqlConnection CN)
         {
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
+
+            CN.Open();
             string query = "SELECT AP_Administrator.Work_id, AP_Person.Name, AP_Person.CC, AP_Person.Birth, AP_Person.Address, AP_Person.Postal, AP_Administrator.Contract_Start, AP_Administrator.Contract_End, AP_Administrator.Salary FROM AP_Person JOIN AP_Administrator ON AP_Person.CC = AP_Administrator.CC";
 
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
@@ -43,6 +49,7 @@ namespace AutoParts
                 adapter.Fill(adminDt);
                 PesquisaAdmin.DataSource = adminDt;
             }
+            CN.Close();
         }
         private void AdminFilter()
         {
@@ -115,13 +122,15 @@ namespace AutoParts
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
+                    CN.Open();
 
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -138,10 +147,12 @@ namespace AutoParts
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -153,6 +164,7 @@ namespace AutoParts
                     {
                         MessageBox.Show("An error occurred while adding the admin.");
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -182,10 +194,12 @@ namespace AutoParts
 
                         try
                         {
-                            if (CN.State == System.Data.ConnectionState.Closed)
+                            if (CN.State == System.Data.ConnectionState.Open)
                             {
-                                CN.Open();
+                                CN.Close();
                             }
+
+                            CN.Open();
 
                             int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -198,6 +212,7 @@ namespace AutoParts
                             {
                                 MessageBox.Show("An error occurred while removing the administrator.");
                             }
+                            CN.Close();
                         }
                         catch (Exception ex)
                         {
@@ -211,9 +226,153 @@ namespace AutoParts
                 MessageBox.Show("Por favor selecione um administrador para remover.");
             }
         }
+        //
+        //
+        //STOCK CODE
+        //
+        //
+        private void Stock_Load(object sender, EventArgs e)
+        {
+            StockAdminLoad(CN);
+            StockPecasLoad(CN);
+            //StockFornecedorLoad(CN);
+        }
+        private void StockPecasLoad(SqlConnection CN)
+        {
+            string query = "SELECT AP_Part.Part_id, AP_Part.Name, AP_Part.Manufacturer, AP_Category.Category FROM AP_Part JOIN AP_Category ON AP_Part.Part_id = AP_Category.Part_id";
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
+            CN.Open();
 
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable spartsDt = new DataTable();
+                adapter.Fill(spartsDt);
+                StockPecasSearch.DataSource = spartsDt;
+            }
+            CN.Close();
+        }
 
+        private void StockAdminLoad(SqlConnection CN)
+        {
+            //query to get the admins
+            string query = "SELECT AP_Administrator.Work_id, AP_Person.Name, AP_Person.CC FROM AP_Person JOIN AP_Administrator ON AP_Person.CC = AP_Administrator.CC";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Open)
+                    {
+                        CN.Close();
+                    }
+                    CN.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string adminName = reader["Name"].ToString();
+                        string adminCC = reader["CC"].ToString();
+                        string adminId = reader["Work_id"].ToString();
+
+                        StockAdmin.Items.Add(adminId + " - " + adminName + " - " + adminCC);
+                    }
+                    CN.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+        private void StockFornecedorLoad(SqlConnection CN)
+        {
+            //query to get the suppliers
+            string query = "SELECT Supplier_id, Name FROM AP_Supplier";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Open)
+                    {
+                        CN.Close();
+                    }
+
+                    CN.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string supplierName = reader["Name"].ToString();
+                        string supplierId = reader["Supplier_id"].ToString();
+
+                        StockFornecedor.Items.Add(supplierId + " - " + supplierName);
+                    }
+                    CN.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+        private void AddStock(SqlConnection CN)
+        {
+            // Get the values from the textboxes
+            string stockAdmin = StockAdmin.Text.Split('-')[0].Trim();
+            string stockPart = StockPecasSearch.SelectedRows[0].Cells["Part_id"].Value.ToString();
+            string stockFornecedor = StockFornecedor.Text.Split('-')[0].Trim();
+            int.TryParse(StockQty.Text, out int stockQuantidade);
+
+            // Query to insert the stock
+            string query = "INSERT INTO AP_Stock (Part_id, Supplier_id, Work_id, Qty) VALUES (@Part_id, @Supplier_id, @Work_id, @Qty)";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                cmd.Parameters.AddWithValue("@Part_id", stockPart);
+                cmd.Parameters.AddWithValue("@Supplier_id", stockFornecedor);
+                cmd.Parameters.AddWithValue("@Work_id", stockAdmin);
+                cmd.Parameters.AddWithValue("@Qty", stockQuantidade);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Open)
+                    {
+                        CN.Close();
+                    }
+
+                    CN.Open();
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Stock added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the stock.");
+                    }
+                    CN.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+        private void StockButton_Click(object sender, EventArgs e)
+        {
+            AddStock(CN);
+        }
+        //
+        //
         //CUSTOMER CODE
+        //
+        //
         private void Customer_Load(object sender, EventArgs e)
         {
             if (dt.Columns.Count == 0)
@@ -229,10 +388,12 @@ namespace AutoParts
             {
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     object result = cmd.ExecuteScalar();
 
@@ -246,6 +407,7 @@ namespace AutoParts
                         // This handles the case where there are no rows in the table
                         Cid.Text = "1";
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -332,12 +494,19 @@ namespace AutoParts
         {
             string query = "SELECT AP_Customer.Id, AP_Person.Name, AP_Person.CC, AP_Person.Birth, AP_Person.Address, AP_Person.Postal, AP_Customer.Email, AP_Customer.Phone FROM AP_Person JOIN AP_Customer ON AP_Person.CC = AP_Customer.CC";
 
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
+
+            CN.Open();
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
             {
                 DataTable clientDt = new DataTable();
                 adapter.Fill(clientDt);
                 PesquisaClient.DataSource = clientDt;
             }
+            CN.Close();
         }
         private void ClientFilter()
         {
@@ -406,10 +575,12 @@ namespace AutoParts
 
                         try
                         {
-                            if (CN.State == System.Data.ConnectionState.Closed)
+                            if (CN.State == System.Data.ConnectionState.Open)
                             {
-                                CN.Open();
+                                CN.Close();
                             }
+
+                            CN.Open();
 
                             int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -422,6 +593,7 @@ namespace AutoParts
                             {
                                 MessageBox.Show("An error occurred while removing the customer.");
                             }
+                            CN.Close();
                         }
                         catch (Exception ex)
                         {
@@ -498,13 +670,15 @@ namespace AutoParts
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
+                    CN.Open();
 
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -537,10 +711,12 @@ namespace AutoParts
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -553,6 +729,7 @@ namespace AutoParts
                     {
                         MessageBox.Show("An error occurred while adding the customer.");
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -585,6 +762,12 @@ namespace AutoParts
         private void PartsLoad(SqlConnection CN)
         {
             string query = "SELECT * FROM AP_PartDetailsView;";
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
+
+            CN.Open();
 
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
             {
@@ -592,6 +775,7 @@ namespace AutoParts
                 adapter.Fill(pecasDt);
                 PesquisaPecas.DataSource = pecasDt;
             }
+            CN.Close();
         }
         private void PartsFilter(SqlConnection CN)
         {
@@ -648,7 +832,7 @@ namespace AutoParts
                 filterExpression += string.Format("Stock > 0");
             }
 
-            (PesquisaPecas.DataSource as DataTable).DefaultView.RowFilter = filterExpression;   
+            (PesquisaPecas.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
 
         }
         private void PecasIdFilter_TextChanged(object sender, EventArgs e)
@@ -693,13 +877,19 @@ namespace AutoParts
         private void PVehicleLoad(SqlConnection CN)
         {
             string query = "SELECT AP_Vehicle.Vehicle_id, AP_Vehicle.Make, AP_Vehicle.Model, AP_Vehicle.Sub_model, AP_Vehicle.Manuf_start, AP_Engine.Fuel_type, AP_Engine.Horsepower, AP_Engine.Torque FROM AP_Vehicle JOIN AP_Engine ON AP_Vehicle.Vengine_id = AP_Engine.Engine_id";
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
 
+            CN.Open();
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
             {
                 DataTable PVehicleDt = new DataTable();
                 adapter.Fill(PVehicleDt);
                 PVehiclePesquisa.DataSource = PVehicleDt;
             }
+            CN.Close();
         }
 
         private void SpecBtn_Click(object sender, EventArgs e)
@@ -806,7 +996,7 @@ namespace AutoParts
         {
             // Get the values from the textboxes
             string partName = Pname.Text;
-            string partPrice = Ppreco.Text;
+            double.TryParse(Ppreco.Text, out double partPrice);
             string partdesc = Pdescri.Text;
             string partMarca = Pmarca.Text;
             string partCategotia = Pcategoria.Text;
@@ -845,6 +1035,7 @@ namespace AutoParts
             string query = "INSERT INTO AP_Part (Name, Price, Description, Manufacturer, Part_id) VALUES (@Name, @Price, @Description, @Brand, @Part_id)";
             using (SqlCommand cmd = new SqlCommand(query, CN))
             {
+                cmd.Parameters.AddWithValue("@Part_id", partId);
                 cmd.Parameters.AddWithValue("@Name", partName);
                 cmd.Parameters.AddWithValue("@Price", partPrice);
                 cmd.Parameters.AddWithValue("@Description", partdesc);
@@ -852,10 +1043,12 @@ namespace AutoParts
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -867,6 +1060,7 @@ namespace AutoParts
                     {
                         MessageBox.Show("An error occurred while adding the part.");
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -875,17 +1069,18 @@ namespace AutoParts
             }
 
             // Query to insert the specs
-            string query2 = "INSERT INTO AP_Specs (Part_id, Weight, Height, Width, Length, Diameter) VALUES (@Part_id, @Weight, @Height, @Width, @Length, @Diameter)";
+            string query2 = "INSERT INTO AP_Specs (Spart_id, Weight, Height, Width, Length, Diameter) VALUES (@Spart_id, @Weight, @Height, @Width, @Length, @Diameter)";
             using (SqlCommand cmd = new SqlCommand(query2, CN))
             {
-                cmd.Parameters.AddWithValue("@Part_id", partId);
+                cmd.Parameters.AddWithValue("@Spart_id", partId);
                 if (specWeight == null)
                 {
                     cmd.Parameters.AddWithValue("@Weight", DBNull.Value);
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@Weight", specWeight);
+                    double.TryParse(specWeight, out double weight);
+                    cmd.Parameters.AddWithValue("@Weight", weight);
                 }
                 if (specHeight == null)
                 {
@@ -893,7 +1088,8 @@ namespace AutoParts
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@Height", specHeight);
+                    double.TryParse(specHeight, out double height);
+                    cmd.Parameters.AddWithValue("@Height", height);
                 }
                 if (specWidth == null)
                 {
@@ -901,7 +1097,8 @@ namespace AutoParts
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@Width", specWidth);
+                    double.TryParse(specWidth, out double width);
+                    cmd.Parameters.AddWithValue("@Width", width);
                 }
                 if (specLength == null)
                 {
@@ -909,7 +1106,8 @@ namespace AutoParts
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@Length", specLength);
+                    double.TryParse(specLength, out double length);
+                    cmd.Parameters.AddWithValue("@Length", length);
                 }
                 if (specDiameter == null)
                 {
@@ -917,15 +1115,18 @@ namespace AutoParts
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@Diameter", specDiameter);
+                    double.TryParse(specDiameter, out double diameter);
+                    cmd.Parameters.AddWithValue("@Diameter", diameter);
                 }
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -937,6 +1138,7 @@ namespace AutoParts
                     {
                         MessageBox.Show("An error occurred while adding the specs.");
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -949,13 +1151,16 @@ namespace AutoParts
             using (SqlCommand cmd = new SqlCommand(query3, CN))
             {
                 cmd.Parameters.AddWithValue("@Category", partCategotia);
+                cmd.Parameters.AddWithValue("@Part_id", partId);
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -967,6 +1172,7 @@ namespace AutoParts
                     {
                         MessageBox.Show("An error occurred while adding the category.");
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -979,15 +1185,18 @@ namespace AutoParts
             string query4 = "INSERT INTO AP_Compatibility (CPart_id, CVehicle_id, Type) VALUES (@CPart_id, @Cvehicle_id, @Type)";
             using (SqlCommand cmd = new SqlCommand(query4, CN))
             {
-                cmd.Parameters.AddWithValue("@Cvehicle_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@Cvehicle_id", CvehicleID);
+                cmd.Parameters.AddWithValue("@CPart_id", partId);
                 cmd.Parameters.AddWithValue("@Type", Compatibility);
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -999,6 +1208,7 @@ namespace AutoParts
                     {
                         MessageBox.Show("An error occurred while adding the compatibility.");
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -1040,13 +1250,19 @@ namespace AutoParts
         private void PecasLoad(SqlConnection CN)
         {
             string query = "SELECT AP_Part.Part_id, AP_Part.Name, AP_Part.Manufacturer, AP_Category.Category FROM AP_Part JOIN AP_Category ON AP_Part.Part_id = AP_Category.Part_id";
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
 
+            CN.Open();
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
             {
                 DataTable partsDt = new DataTable();
                 adapter.Fill(partsDt);
                 AvaliacaoPecas.DataSource = partsDt;
             }
+            CN.Close();
         }
         private void AvaliacaoFilter()
         {
@@ -1116,10 +1332,12 @@ namespace AutoParts
             {
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -1131,6 +1349,7 @@ namespace AutoParts
 
                         AvalicaoClient.Items.Add(customerId + " - " + customerName + " - " + customerCC);
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -1160,10 +1379,12 @@ namespace AutoParts
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -1175,6 +1396,7 @@ namespace AutoParts
                     {
                         MessageBox.Show("An error occurred while adding the rating.");
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -1220,10 +1442,12 @@ namespace AutoParts
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -1235,6 +1459,7 @@ namespace AutoParts
                     {
                         MessageBox.Show("An error occurred while adding the engine.");
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -1252,13 +1477,19 @@ namespace AutoParts
         private void EngineList(SqlConnection CN, DataGridView dgv)
         {
             string query = "SELECT * FROM AP_Engine";
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
 
+            CN.Open();
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
             {
                 DataTable engineDt = new DataTable();
                 adapter.Fill(engineDt);
                 dgv.DataSource = engineDt;
             }
+            CN.Close();
         }
         private void MotorLista_Enter(object sender, EventArgs e)
         {
@@ -1417,10 +1648,12 @@ namespace AutoParts
 
                         try
                         {
-                            if (CN.State == System.Data.ConnectionState.Closed)
+                            if (CN.State == System.Data.ConnectionState.Open)
                             {
-                                CN.Open();
+                                CN.Close();
                             }
+
+                            CN.Open();
 
                             int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -1433,6 +1666,7 @@ namespace AutoParts
                             {
                                 MessageBox.Show("An error occurred while removing the engine.");
                             }
+                            CN.Close();
                         }
                         catch (Exception ex)
                         {
@@ -1628,7 +1862,7 @@ namespace AutoParts
             string vehicleEndYear = VfimInput.Value.Year.ToString();
             string vehicleType = VtipoInput.Text;
             string query;
-            if(VfimInput.Value.Year < 2024)
+            if (VfimInput.Value.Year < 2024)
             {
                 // Query to insert the vehicle
                 query = "INSERT INTO AP_Vehicle (Vehicle_id, Make, Model, Sub_model, Type, Manuf_start, Manuf_end, Vengine_id) VALUES (@ID, @Make, @Model, @Sub_model, @Type, @StartYear, @EndYear, @Engine_id)";
@@ -1653,10 +1887,12 @@ namespace AutoParts
 
                 try
                 {
-                    if (CN.State == System.Data.ConnectionState.Closed)
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        CN.Open();
+                        CN.Close();
                     }
+
+                    CN.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -1668,6 +1904,7 @@ namespace AutoParts
                     {
                         MessageBox.Show("An error occurred while adding the vehicle.");
                     }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
@@ -1686,13 +1923,19 @@ namespace AutoParts
         private void VehicleListData(SqlConnection CN, DataGridView dgv)
         {
             string query = "SELECT * FROM AP_VehicleWithEngine";
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
 
+            CN.Open();
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
             {
                 DataTable vehicleDt = new DataTable();
                 adapter.Fill(vehicleDt);
                 dgv.DataSource = vehicleDt;
             }
+            CN.Close();
         }
 
         private void VehicleList_Enter(object sender, EventArgs e)
@@ -1836,10 +2079,12 @@ namespace AutoParts
 
                         try
                         {
-                            if (CN.State == System.Data.ConnectionState.Closed)
+                            if (CN.State == System.Data.ConnectionState.Open)
                             {
-                                CN.Open();
+                                CN.Close();
                             }
+
+                            CN.Open();
 
                             int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -1852,6 +2097,7 @@ namespace AutoParts
                             {
                                 MessageBox.Show("An error occurred while removing the vehicle.");
                             }
+                            CN.Close();
                         }
                         catch (Exception ex)
                         {

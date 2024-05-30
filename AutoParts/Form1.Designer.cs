@@ -69,6 +69,9 @@
             tableLayoutPanel3 = new TableLayoutPanel();
             tabControl4 = new TabControl();
             tabPage6 = new TabPage();
+            tabControl2 = new TabControl();
+            EncomendaList = new TabPage();
+            EncomendaAdd = new TabPage();
             tabPage5 = new TabPage();
             tabControl1 = new TabControl();
             MotorLista = new TabPage();
@@ -316,29 +319,26 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            NavBar = new TabControl();
             AdminStock = new TabPage();
-            tabControl2 = new TabControl();
-            EncomendaList = new TabPage();
-            EncomendaAdd = new TabPage();
-            label94 = new Label();
-            label95 = new Label();
-            StockAdmin = new ComboBox();
-            label96 = new Label();
-            label97 = new Label();
-            label98 = new Label();
-            label99 = new Label();
-            label100 = new Label();
-            dataGridView1 = new DataGridView();
-            StockButton = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            comboBox1 = new ComboBox();
-            label101 = new Label();
-            StockFornecedor = new ComboBox();
+            StockQty = new TextBox();
             label102 = new Label();
-            StcokQty = new TextBox();
+            StockFornecedor = new ComboBox();
+            label101 = new Label();
+            comboBox1 = new ComboBox();
+            textBox3 = new TextBox();
+            textBox2 = new TextBox();
+            textBox1 = new TextBox();
+            StockButton = new Button();
+            StockPecasSearch = new DataGridView();
+            label100 = new Label();
+            label99 = new Label();
+            label98 = new Label();
+            label97 = new Label();
+            label96 = new Label();
+            StockAdmin = new ComboBox();
+            label95 = new Label();
+            label94 = new Label();
+            NavBar = new TabControl();
             Fornecedor = new TabPage();
             tabControl5 = new TabControl();
             tabPage7 = new TabPage();
@@ -348,6 +348,7 @@
             tabPage11.SuspendLayout();
             tabControl4.SuspendLayout();
             tabPage6.SuspendLayout();
+            tabControl2.SuspendLayout();
             tabPage5.SuspendLayout();
             tabControl1.SuspendLayout();
             MotorLista.SuspendLayout();
@@ -386,10 +387,9 @@
             AdminList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PesquisaAdmin).BeginInit();
             AdminAdd.SuspendLayout();
-            NavBar.SuspendLayout();
             AdminStock.SuspendLayout();
-            tabControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)StockPecasSearch).BeginInit();
+            NavBar.SuspendLayout();
             Fornecedor.SuspendLayout();
             tabControl5.SuspendLayout();
             SuspendLayout();
@@ -803,6 +803,38 @@
             tabPage6.TabIndex = 5;
             tabPage6.Text = "Encomendas";
             // 
+            // tabControl2
+            // 
+            tabControl2.Controls.Add(EncomendaList);
+            tabControl2.Controls.Add(EncomendaAdd);
+            tabControl2.Dock = DockStyle.Fill;
+            tabControl2.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tabControl2.Location = new Point(0, 0);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(996, 658);
+            tabControl2.TabIndex = 0;
+            // 
+            // EncomendaList
+            // 
+            EncomendaList.Location = new Point(4, 34);
+            EncomendaList.Name = "EncomendaList";
+            EncomendaList.Padding = new Padding(3);
+            EncomendaList.Size = new Size(988, 620);
+            EncomendaList.TabIndex = 0;
+            EncomendaList.Text = "Lista";
+            EncomendaList.UseVisualStyleBackColor = true;
+            // 
+            // EncomendaAdd
+            // 
+            EncomendaAdd.Location = new Point(4, 34);
+            EncomendaAdd.Name = "EncomendaAdd";
+            EncomendaAdd.Padding = new Padding(3);
+            EncomendaAdd.Size = new Size(988, 620);
+            EncomendaAdd.TabIndex = 1;
+            EncomendaAdd.Text = "Adicionar";
+            EncomendaAdd.UseVisualStyleBackColor = true;
+            // 
             // tabPage5
             // 
             tabPage5.BackColor = Color.White;
@@ -1024,6 +1056,7 @@
             // 
             Mlista.AllowUserToAddRows = false;
             Mlista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            Mlista.BackgroundColor = SystemColors.Control;
             Mlista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             Mlista.Location = new Point(27, 126);
             Mlista.Name = "Mlista";
@@ -1501,6 +1534,7 @@
             // 
             VlistaData.AllowUserToAddRows = false;
             VlistaData.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            VlistaData.BackgroundColor = SystemColors.Control;
             VlistaData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             VlistaData.Location = new Point(27, 127);
             VlistaData.Name = "VlistaData";
@@ -1709,6 +1743,7 @@
             // 
             VmotorLista.AllowUserToAddRows = false;
             VmotorLista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            VmotorLista.BackgroundColor = SystemColors.Control;
             VmotorLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             VmotorLista.Location = new Point(27, 389);
             VmotorLista.Name = "VmotorLista";
@@ -2570,6 +2605,8 @@
             // 
             // AvaliacaoPecas
             // 
+            AvaliacaoPecas.AllowUserToAddRows = false;
+            AvaliacaoPecas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             AvaliacaoPecas.BackgroundColor = SystemColors.Control;
             AvaliacaoPecas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             AvaliacaoPecas.Location = new Point(42, 201);
@@ -3333,6 +3370,191 @@
             label1.TabIndex = 0;
             label1.Text = "Adicionar um novo administrador.\r\n";
             // 
+            // AdminStock
+            // 
+            AdminStock.Controls.Add(StockQty);
+            AdminStock.Controls.Add(label102);
+            AdminStock.Controls.Add(StockFornecedor);
+            AdminStock.Controls.Add(label101);
+            AdminStock.Controls.Add(comboBox1);
+            AdminStock.Controls.Add(textBox3);
+            AdminStock.Controls.Add(textBox2);
+            AdminStock.Controls.Add(textBox1);
+            AdminStock.Controls.Add(StockButton);
+            AdminStock.Controls.Add(StockPecasSearch);
+            AdminStock.Controls.Add(label100);
+            AdminStock.Controls.Add(label99);
+            AdminStock.Controls.Add(label98);
+            AdminStock.Controls.Add(label97);
+            AdminStock.Controls.Add(label96);
+            AdminStock.Controls.Add(StockAdmin);
+            AdminStock.Controls.Add(label95);
+            AdminStock.Controls.Add(label94);
+            AdminStock.Location = new Point(4, 34);
+            AdminStock.Name = "AdminStock";
+            AdminStock.Size = new Size(982, 614);
+            AdminStock.TabIndex = 2;
+            AdminStock.Text = "Adicionar Stock";
+            AdminStock.UseVisualStyleBackColor = true;
+            AdminStock.Enter += Stock_Load;
+            // 
+            // StockQty
+            // 
+            StockQty.Location = new Point(662, 91);
+            StockQty.Name = "StockQty";
+            StockQty.Size = new Size(282, 31);
+            StockQty.TabIndex = 17;
+            // 
+            // label102
+            // 
+            label102.AutoSize = true;
+            label102.Location = new Point(662, 61);
+            label102.Name = "label102";
+            label102.Size = new Size(105, 25);
+            label102.TabIndex = 16;
+            label102.Text = "Quantidade";
+            // 
+            // StockFornecedor
+            // 
+            StockFornecedor.FormattingEnabled = true;
+            StockFornecedor.Location = new Point(346, 89);
+            StockFornecedor.Name = "StockFornecedor";
+            StockFornecedor.Size = new Size(282, 33);
+            StockFornecedor.TabIndex = 15;
+            // 
+            // label101
+            // 
+            label101.AutoSize = true;
+            label101.Location = new Point(346, 61);
+            label101.Name = "label101";
+            label101.Size = new Size(102, 25);
+            label101.TabIndex = 14;
+            label101.Text = "Fornecedor";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(594, 228);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(197, 33);
+            comboBox1.TabIndex = 13;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(420, 230);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(161, 31);
+            textBox3.TabIndex = 12;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(201, 230);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(203, 31);
+            textBox2.TabIndex = 11;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(28, 230);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(159, 31);
+            textBox1.TabIndex = 10;
+            // 
+            // StockButton
+            // 
+            StockButton.Location = new Point(725, 561);
+            StockButton.Name = "StockButton";
+            StockButton.Size = new Size(219, 40);
+            StockButton.TabIndex = 9;
+            StockButton.Text = "Adicionar Stock";
+            StockButton.UseVisualStyleBackColor = true;
+            StockButton.Click += StockButton_Click;
+            // 
+            // StockPecasSearch
+            // 
+            StockPecasSearch.AllowUserToAddRows = false;
+            StockPecasSearch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            StockPecasSearch.BackgroundColor = SystemColors.Control;
+            StockPecasSearch.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            StockPecasSearch.Location = new Point(27, 280);
+            StockPecasSearch.Name = "StockPecasSearch";
+            StockPecasSearch.RowHeadersWidth = 51;
+            StockPecasSearch.Size = new Size(917, 276);
+            StockPecasSearch.TabIndex = 8;
+            // 
+            // label100
+            // 
+            label100.AutoSize = true;
+            label100.Location = new Point(594, 202);
+            label100.Name = "label100";
+            label100.Size = new Size(88, 25);
+            label100.TabIndex = 7;
+            label100.Text = "Categoria";
+            // 
+            // label99
+            // 
+            label99.AutoSize = true;
+            label99.Location = new Point(420, 202);
+            label99.Name = "label99";
+            label99.Size = new Size(60, 25);
+            label99.TabIndex = 6;
+            label99.Text = "Marca";
+            // 
+            // label98
+            // 
+            label98.AutoSize = true;
+            label98.Location = new Point(201, 202);
+            label98.Name = "label98";
+            label98.Size = new Size(61, 25);
+            label98.TabIndex = 5;
+            label98.Text = "Nome";
+            // 
+            // label97
+            // 
+            label97.AutoSize = true;
+            label97.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label97.Location = new Point(27, 164);
+            label97.Name = "label97";
+            label97.Size = new Size(243, 25);
+            label97.TabIndex = 4;
+            label97.Text = "Peças - Motor de Pesquisa";
+            // 
+            // label96
+            // 
+            label96.AutoSize = true;
+            label96.Location = new Point(27, 202);
+            label96.Name = "label96";
+            label96.Size = new Size(28, 25);
+            label96.TabIndex = 3;
+            label96.Text = "Id";
+            // 
+            // StockAdmin
+            // 
+            StockAdmin.FormattingEnabled = true;
+            StockAdmin.Location = new Point(28, 89);
+            StockAdmin.Name = "StockAdmin";
+            StockAdmin.Size = new Size(282, 33);
+            StockAdmin.TabIndex = 2;
+            // 
+            // label95
+            // 
+            label95.AutoSize = true;
+            label95.Location = new Point(27, 61);
+            label95.Name = "label95";
+            label95.Size = new Size(126, 25);
+            label95.TabIndex = 1;
+            label95.Text = "Administrador";
+            // 
+            // label94
+            // 
+            label94.AutoSize = true;
+            label94.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label94.Location = new Point(27, 19);
+            label94.Name = "label94";
+            label94.Size = new Size(377, 25);
+            label94.TabIndex = 0;
+            label94.Text = "Selecione uma peça para adicionar stock.";
+            // 
             // NavBar
             // 
             NavBar.Appearance = TabAppearance.FlatButtons;
@@ -3353,219 +3575,6 @@
             NavBar.Size = new Size(1006, 721);
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
-            // 
-            // AdminStock
-            // 
-            AdminStock.Controls.Add(StcokQty);
-            AdminStock.Controls.Add(label102);
-            AdminStock.Controls.Add(StockFornecedor);
-            AdminStock.Controls.Add(label101);
-            AdminStock.Controls.Add(comboBox1);
-            AdminStock.Controls.Add(textBox3);
-            AdminStock.Controls.Add(textBox2);
-            AdminStock.Controls.Add(textBox1);
-            AdminStock.Controls.Add(StockButton);
-            AdminStock.Controls.Add(dataGridView1);
-            AdminStock.Controls.Add(label100);
-            AdminStock.Controls.Add(label99);
-            AdminStock.Controls.Add(label98);
-            AdminStock.Controls.Add(label97);
-            AdminStock.Controls.Add(label96);
-            AdminStock.Controls.Add(StockAdmin);
-            AdminStock.Controls.Add(label95);
-            AdminStock.Controls.Add(label94);
-            AdminStock.Location = new Point(4, 34);
-            AdminStock.Name = "AdminStock";
-            AdminStock.Size = new Size(982, 614);
-            AdminStock.TabIndex = 2;
-            AdminStock.Text = "Adicionar Stock";
-            AdminStock.UseVisualStyleBackColor = true;
-            // 
-            // tabControl2
-            // 
-            tabControl2.Controls.Add(EncomendaList);
-            tabControl2.Controls.Add(EncomendaAdd);
-            tabControl2.Dock = DockStyle.Fill;
-            tabControl2.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tabControl2.Location = new Point(0, 0);
-            tabControl2.Name = "tabControl2";
-            tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(996, 658);
-            tabControl2.TabIndex = 0;
-            // 
-            // EncomendaList
-            // 
-            EncomendaList.Location = new Point(4, 34);
-            EncomendaList.Name = "EncomendaList";
-            EncomendaList.Padding = new Padding(3);
-            EncomendaList.Size = new Size(988, 620);
-            EncomendaList.TabIndex = 0;
-            EncomendaList.Text = "Lista";
-            EncomendaList.UseVisualStyleBackColor = true;
-            // 
-            // EncomendaAdd
-            // 
-            EncomendaAdd.Location = new Point(4, 34);
-            EncomendaAdd.Name = "EncomendaAdd";
-            EncomendaAdd.Padding = new Padding(3);
-            EncomendaAdd.Size = new Size(988, 620);
-            EncomendaAdd.TabIndex = 1;
-            EncomendaAdd.Text = "Adicionar";
-            EncomendaAdd.UseVisualStyleBackColor = true;
-            // 
-            // label94
-            // 
-            label94.AutoSize = true;
-            label94.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label94.Location = new Point(27, 19);
-            label94.Name = "label94";
-            label94.Size = new Size(377, 25);
-            label94.TabIndex = 0;
-            label94.Text = "Selecione uma peça para adicionar stock.";
-            // 
-            // label95
-            // 
-            label95.AutoSize = true;
-            label95.Location = new Point(27, 61);
-            label95.Name = "label95";
-            label95.Size = new Size(126, 25);
-            label95.TabIndex = 1;
-            label95.Text = "Administrador";
-            // 
-            // StockAdmin
-            // 
-            StockAdmin.FormattingEnabled = true;
-            StockAdmin.Location = new Point(28, 89);
-            StockAdmin.Name = "StockAdmin";
-            StockAdmin.Size = new Size(282, 33);
-            StockAdmin.TabIndex = 2;
-            // 
-            // label96
-            // 
-            label96.AutoSize = true;
-            label96.Location = new Point(27, 202);
-            label96.Name = "label96";
-            label96.Size = new Size(28, 25);
-            label96.TabIndex = 3;
-            label96.Text = "Id";
-            // 
-            // label97
-            // 
-            label97.AutoSize = true;
-            label97.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label97.Location = new Point(27, 164);
-            label97.Name = "label97";
-            label97.Size = new Size(243, 25);
-            label97.TabIndex = 4;
-            label97.Text = "Peças - Motor de Pesquisa";
-            // 
-            // label98
-            // 
-            label98.AutoSize = true;
-            label98.Location = new Point(201, 202);
-            label98.Name = "label98";
-            label98.Size = new Size(61, 25);
-            label98.TabIndex = 5;
-            label98.Text = "Nome";
-            // 
-            // label99
-            // 
-            label99.AutoSize = true;
-            label99.Location = new Point(420, 202);
-            label99.Name = "label99";
-            label99.Size = new Size(60, 25);
-            label99.TabIndex = 6;
-            label99.Text = "Marca";
-            // 
-            // label100
-            // 
-            label100.AutoSize = true;
-            label100.Location = new Point(594, 202);
-            label100.Name = "label100";
-            label100.Size = new Size(88, 25);
-            label100.TabIndex = 7;
-            label100.Text = "Categoria";
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.BackgroundColor = SystemColors.Control;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(27, 280);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(917, 276);
-            dataGridView1.TabIndex = 8;
-            // 
-            // StockButton
-            // 
-            StockButton.Location = new Point(725, 561);
-            StockButton.Name = "StockButton";
-            StockButton.Size = new Size(219, 40);
-            StockButton.TabIndex = 9;
-            StockButton.Text = "Adicionar Stock";
-            StockButton.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(28, 230);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(159, 31);
-            textBox1.TabIndex = 10;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(201, 230);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(203, 31);
-            textBox2.TabIndex = 11;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(420, 230);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(161, 31);
-            textBox3.TabIndex = 12;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(594, 228);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(197, 33);
-            comboBox1.TabIndex = 13;
-            // 
-            // label101
-            // 
-            label101.AutoSize = true;
-            label101.Location = new Point(346, 61);
-            label101.Name = "label101";
-            label101.Size = new Size(102, 25);
-            label101.TabIndex = 14;
-            label101.Text = "Fornecedor";
-            // 
-            // StockFornecedor
-            // 
-            StockFornecedor.FormattingEnabled = true;
-            StockFornecedor.Location = new Point(346, 89);
-            StockFornecedor.Name = "StockFornecedor";
-            StockFornecedor.Size = new Size(282, 33);
-            StockFornecedor.TabIndex = 15;
-            // 
-            // label102
-            // 
-            label102.AutoSize = true;
-            label102.Location = new Point(662, 61);
-            label102.Name = "label102";
-            label102.Size = new Size(105, 25);
-            label102.TabIndex = 16;
-            label102.Text = "Quantidade";
-            // 
-            // StcokQty
-            // 
-            StcokQty.Location = new Point(662, 91);
-            StcokQty.Name = "StcokQty";
-            StcokQty.Size = new Size(282, 31);
-            StcokQty.TabIndex = 17;
             // 
             // Fornecedor
             // 
@@ -3626,6 +3635,7 @@
             tabPage11.PerformLayout();
             tabControl4.ResumeLayout(false);
             tabPage6.ResumeLayout(false);
+            tabControl2.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             MotorLista.ResumeLayout(false);
@@ -3675,11 +3685,10 @@
             ((System.ComponentModel.ISupportInitialize)PesquisaAdmin).EndInit();
             AdminAdd.ResumeLayout(false);
             AdminAdd.PerformLayout();
-            NavBar.ResumeLayout(false);
             AdminStock.ResumeLayout(false);
             AdminStock.PerformLayout();
-            tabControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)StockPecasSearch).EndInit();
+            NavBar.ResumeLayout(false);
             Fornecedor.ResumeLayout(false);
             tabControl5.ResumeLayout(false);
             ResumeLayout(false);
@@ -3964,7 +3973,7 @@
         private ComboBox StockAdmin;
         private Label label95;
         private Label label94;
-        private DataGridView dataGridView1;
+        private DataGridView StockPecasSearch;
         private Label label100;
         private Label label99;
         private Label label98;
@@ -3976,7 +3985,7 @@
         private TextBox textBox2;
         private TextBox textBox1;
         private Button StockButton;
-        private TextBox StcokQty;
+        private TextBox StockQty;
         private Label label102;
         private ComboBox StockFornecedor;
         private TabPage Fornecedor;
