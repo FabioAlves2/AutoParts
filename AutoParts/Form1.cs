@@ -27,8 +27,99 @@ namespace AutoParts
         }
 
         //ADMIN CODE
+        private void Admin_Load(object sender, EventArgs e)
+        {
+            LoadAdmins(CN);
+        }
+        private void LoadAdmins(SqlConnection CN)
+        {
+            string query = "SELECT AP_Administrator.Work_id, AP_Person.Name, AP_Person.CC, AP_Person.Birth, AP_Person.Address, AP_Person.Postal, AP_Administrator.Contract_Start, AP_Administrator.Contract_End, AP_Administrator.Salary FROM AP_Person JOIN AP_Administrator ON AP_Person.CC = AP_Administrator.CC";
+
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable adminDt = new DataTable();
+                adapter.Fill(adminDt);
+                PesquisaAdmin.DataSource = adminDt;
+            }
+        }
+        private void AdminFilter()
+        {
+            string filterID = AdminIDfilter.Text;
+            string filterName = AdminNamefilter.Text;
+
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterID))
+            {
+                filterExpression += string.Format("CONVERT(Work_id, 'System.String') LIKE '%{0}%'", filterID);
+            }
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Name LIKE '{0}%'", filterName);
+            }
+            if (contratocheck.Checked)
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Contract_End IS NULL");
+            }
+
+
+            (PesquisaAdmin.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+        }
+        private void AdminIDfilter_TextChanged(object sender, EventArgs e)
+        {
+            AdminFilter();
+        }
+        private void AdminNamefilter_TextChanged(object sender, EventArgs e)
+        {
+            AdminFilter();
+        }
+        private void contratocheck_CheckedChanged(object sender, EventArgs e)
+        {
+            AdminFilter();
+        }
         private void AddAdmin(SqlConnection CN)
         {
+            int workId = 0;
+            //read the last id from the database
+            string query2 = "SELECT MAX(Work_id) FROM AP_Administrator";
+
+            using (SqlCommand cmd = new SqlCommand(query2, CN))
+            {
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Closed)
+                    {
+                        CN.Open();
+                    }
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != DBNull.Value && result != null)
+                    {
+                        int maxId = Convert.ToInt32(result);
+                        workId = (maxId + 1);
+                    }
+                    else
+                    {
+                        // This handles the case where there are no rows in the table
+                        workId = 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
             // Get the values from the textboxes
             string adminName = Aname.Text;
             string adminCC = Acc.Text;
@@ -73,7 +164,7 @@ namespace AutoParts
                 cmd.Parameters.AddWithValue("@CC", adminCC);
                 cmd.Parameters.AddWithValue("@Contract_Start", adminStart);
                 cmd.Parameters.AddWithValue("@Contract_End", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Work_id", 0);
+                cmd.Parameters.AddWithValue("@Work_id", workId);
                 cmd.Parameters.AddWithValue("@Salary", adminSalary);
 
                 try
@@ -105,6 +196,53 @@ namespace AutoParts
         {
             AddAdmin(CN);
         }
+        //REMOVE ADMIN
+        private void RemoveAdmin_Click(object sender, EventArgs e)
+        {
+            if (PesquisaAdmin.SelectedRows.Count > 0)
+            {
+                var confirmResult = MessageBox.Show("Tem a certeza que deseja remover o administrador selecionado?", "Confirmar", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    string workID = PesquisaAdmin.SelectedRows[0].Cells["Work_id"].Value.ToString();
+                    string query = "DELETE FROM AP_Administrator WHERE Work_id = @workID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, CN))
+                    {
+                        cmd.Parameters.AddWithValue("@workID", workID);
+
+                        try
+                        {
+                            if (CN.State == System.Data.ConnectionState.Closed)
+                            {
+                                CN.Open();
+                            }
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Administrator removed successfully.");
+                                LoadAdmins(CN);
+                            }
+                            else
+                            {
+                                MessageBox.Show("An error occurred while removing the administrator.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("An error occurred: " + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione um administrador para remover.");
+            }
+        }
+
 
         //CUSTOMER CODE
         private void Customer_Load(object sender, EventArgs e)
@@ -189,6 +327,146 @@ namespace AutoParts
                 }
             }
         }
+        private void ClientIDfilter_TextChanged(object sender, EventArgs e)
+        {
+            ClientFilter();
+        }
+
+        private void ClientNamefilter_TextChanged(object sender, EventArgs e)
+        {
+            ClientFilter();
+        }
+
+        private void ClientCCfilter_TextChanged(object sender, EventArgs e)
+        {
+            ClientFilter();
+        }
+
+        private void ClientTlmfilter_TextChanged(object sender, EventArgs e)
+        {
+            ClientFilter();
+        }
+        private void ClientEmailfilter_TextChanged(object sender, EventArgs e)
+        {
+            ClientFilter();
+        }
+
+        private void CLientEmailfilter_TextChanged(object sender, EventArgs e)
+        {
+            ClientFilter();
+        }
+        private void Client_Load(object sender, EventArgs e)
+        {
+            LoadClient(CN);
+        }
+        private void LoadClient(SqlConnection CN)
+        {
+            string query = "SELECT AP_Customer.Id, AP_Person.Name, AP_Person.CC, AP_Person.Birth, AP_Person.Address, AP_Person.Postal, AP_Customer.Email, AP_Customer.Phone FROM AP_Person JOIN AP_Customer ON AP_Person.CC = AP_Customer.CC";
+
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable clientDt = new DataTable();
+                adapter.Fill(clientDt);
+                PesquisaClient.DataSource = clientDt;
+            }
+        }
+        private void ClientFilter()
+        {
+            string filterID = ClientIDfilter.Text;
+            string filterName = ClientNamefilter.Text;
+            string filterCC = ClientCCfilter.Text;
+            string filterTlm = ClientTlmfilter.Text;
+            string filterEmail = ClientEmailfilter.Text;
+
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterID))
+            {
+                filterExpression += string.Format("CONVERT(Id, 'System.String') LIKE '%{0}%'", filterID);
+            }
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Name LIKE '%{0}%'", filterName);
+            }
+            if (!string.IsNullOrEmpty(filterCC))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("CONVERT(CC, 'System.String') LIKE '{0}%'", filterCC);
+            }
+            if (!string.IsNullOrEmpty(filterTlm))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Phone LIKE '{0}%'", filterTlm);
+            }
+            if (!string.IsNullOrEmpty(filterEmail))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Email LIKE '%{0}%'", filterEmail);
+            }
+
+
+            (PesquisaClient.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+        }
+        private void ClientRemove_Click(object sender, EventArgs e)
+        {
+            if (PesquisaClient.SelectedRows.Count > 0)
+            {
+                var confirmResult = MessageBox.Show("Tem a certeza que deseja remover o cliente selecionado?", "Confirmar", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    string ClientID = PesquisaClient.SelectedRows[0].Cells["Id"].Value.ToString();
+                    string query = "DELETE FROM AP_Customer WHERE Id = @ID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, CN))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", ClientID);
+
+                        try
+                        {
+                            if (CN.State == System.Data.ConnectionState.Closed)
+                            {
+                                CN.Open();
+                            }
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Customer removed successfully.");
+                                ClientFilter();
+                            }
+                            else
+                            {
+                                MessageBox.Show("An error occurred while removing the customer.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("An error occurred: " + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione um cliente para remover.");
+            }
+        }
+
         private void AddClient(SqlConnection CN)
         {
             // Get the values from the textboxes
@@ -302,6 +580,7 @@ namespace AutoParts
                     if (rowsAffected > 0)
                     {
                         MessageBox.Show("Customer added successfully.");
+                        LoadClient(CN);
                     }
                     else
                     {
@@ -844,7 +1123,7 @@ namespace AutoParts
                 filterExpression += string.Format("Make LIKE '{0}%'", filterMake);
             }
 
-            if (MlistaCil.Value != 0 )
+            if (MlistaCil.Value != 0)
             {
                 if (!string.IsNullOrEmpty(filterExpression))
                 {
@@ -906,7 +1185,7 @@ namespace AutoParts
         // ENGINE REMOVE
         private void Mremover_Click(object sender, EventArgs e)
         {
-            if(Mlista.SelectedRows.Count > 0)
+            if (Mlista.SelectedRows.Count > 0)
             {
                 var confirmResult = MessageBox.Show("Tem a certeza que deseja remover o motor selecionado?", "Confirmar", MessageBoxButtons.YesNo);
                 if (confirmResult == DialogResult.Yes)

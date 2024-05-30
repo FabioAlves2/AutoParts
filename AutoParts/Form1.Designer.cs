@@ -220,6 +220,18 @@
             tabPage2 = new TabPage();
             ClientNav = new TabControl();
             ClientList = new TabPage();
+            label85 = new Label();
+            ClientEmailfilter = new TextBox();
+            ClientTlmfilter = new TextBox();
+            ClientCCfilter = new TextBox();
+            ClientNamefilter = new TextBox();
+            ClientIDfilter = new TextBox();
+            label84 = new Label();
+            label83 = new Label();
+            label82 = new Label();
+            label81 = new Label();
+            PesquisaClient = new DataGridView();
+            label80 = new Label();
             ClientAdd = new TabPage();
             Cbirth = new DateTimePicker();
             ClientContactData = new DataGridView();
@@ -245,6 +257,14 @@
             tabPage1 = new TabPage();
             AdminNav = new TabControl();
             AdminList = new TabPage();
+            RemoveAdmin = new Button();
+            contratocheck = new CheckBox();
+            AdminNamefilter = new TextBox();
+            AdminIDfilter = new TextBox();
+            PesquisaAdmin = new DataGridView();
+            label79 = new Label();
+            label78 = new Label();
+            label77 = new Label();
             AdminAdd = new TabPage();
             Abirth = new DateTimePicker();
             Asal = new TextBox();
@@ -263,6 +283,7 @@
             label2 = new Label();
             label1 = new Label();
             NavBar = new TabControl();
+            ClientRemove = new Button();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
             tabPage11.SuspendLayout();
@@ -293,10 +314,14 @@
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             tabPage2.SuspendLayout();
             ClientNav.SuspendLayout();
+            ClientList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PesquisaClient).BeginInit();
             ClientAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ClientContactData).BeginInit();
             tabPage1.SuspendLayout();
             AdminNav.SuspendLayout();
+            AdminList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PesquisaAdmin).BeginInit();
             AdminAdd.SuspendLayout();
             NavBar.SuspendLayout();
             SuspendLayout();
@@ -2248,6 +2273,19 @@
             // 
             // ClientList
             // 
+            ClientList.Controls.Add(ClientRemove);
+            ClientList.Controls.Add(label85);
+            ClientList.Controls.Add(ClientEmailfilter);
+            ClientList.Controls.Add(ClientTlmfilter);
+            ClientList.Controls.Add(ClientCCfilter);
+            ClientList.Controls.Add(ClientNamefilter);
+            ClientList.Controls.Add(ClientIDfilter);
+            ClientList.Controls.Add(label84);
+            ClientList.Controls.Add(label83);
+            ClientList.Controls.Add(label82);
+            ClientList.Controls.Add(label81);
+            ClientList.Controls.Add(PesquisaClient);
+            ClientList.Controls.Add(label80);
             ClientList.Location = new Point(4, 34);
             ClientList.Name = "ClientList";
             ClientList.Padding = new Padding(3);
@@ -2255,6 +2293,113 @@
             ClientList.TabIndex = 0;
             ClientList.Text = "Lista";
             ClientList.UseVisualStyleBackColor = true;
+            ClientList.Enter += Client_Load;
+            // 
+            // label85
+            // 
+            label85.AutoSize = true;
+            label85.Location = new Point(639, 65);
+            label85.Name = "label85";
+            label85.Size = new Size(54, 25);
+            label85.TabIndex = 11;
+            label85.Text = "Email";
+            // 
+            // ClientEmailfilter
+            // 
+            ClientEmailfilter.Location = new Point(639, 93);
+            ClientEmailfilter.Name = "ClientEmailfilter";
+            ClientEmailfilter.Size = new Size(194, 31);
+            ClientEmailfilter.TabIndex = 10;
+            ClientEmailfilter.TextChanged += CLientEmailfilter_TextChanged;
+            // 
+            // ClientTlmfilter
+            // 
+            ClientTlmfilter.Location = new Point(482, 93);
+            ClientTlmfilter.Name = "ClientTlmfilter";
+            ClientTlmfilter.Size = new Size(125, 31);
+            ClientTlmfilter.TabIndex = 9;
+            ClientTlmfilter.TextChanged += ClientTlmfilter_TextChanged;
+            // 
+            // ClientCCfilter
+            // 
+            ClientCCfilter.Location = new Point(330, 93);
+            ClientCCfilter.Name = "ClientCCfilter";
+            ClientCCfilter.Size = new Size(125, 31);
+            ClientCCfilter.TabIndex = 8;
+            ClientCCfilter.TextChanged += ClientCCfilter_TextChanged;
+            // 
+            // ClientNamefilter
+            // 
+            ClientNamefilter.Location = new Point(178, 93);
+            ClientNamefilter.Name = "ClientNamefilter";
+            ClientNamefilter.Size = new Size(125, 31);
+            ClientNamefilter.TabIndex = 7;
+            ClientNamefilter.TextChanged += ClientNamefilter_TextChanged;
+            // 
+            // ClientIDfilter
+            // 
+            ClientIDfilter.Location = new Point(27, 93);
+            ClientIDfilter.Name = "ClientIDfilter";
+            ClientIDfilter.Size = new Size(125, 31);
+            ClientIDfilter.TabIndex = 6;
+            ClientIDfilter.TextChanged += ClientIDfilter_TextChanged;
+            // 
+            // label84
+            // 
+            label84.AutoSize = true;
+            label84.Location = new Point(330, 65);
+            label84.Name = "label84";
+            label84.Size = new Size(34, 25);
+            label84.TabIndex = 5;
+            label84.Text = "CC";
+            // 
+            // label83
+            // 
+            label83.AutoSize = true;
+            label83.Location = new Point(482, 65);
+            label83.Name = "label83";
+            label83.Size = new Size(77, 25);
+            label83.TabIndex = 4;
+            label83.Text = "Telefone";
+            // 
+            // label82
+            // 
+            label82.AutoSize = true;
+            label82.Location = new Point(178, 65);
+            label82.Name = "label82";
+            label82.Size = new Size(61, 25);
+            label82.TabIndex = 3;
+            label82.Text = "Nome";
+            // 
+            // label81
+            // 
+            label81.AutoSize = true;
+            label81.Location = new Point(27, 65);
+            label81.Name = "label81";
+            label81.Size = new Size(30, 25);
+            label81.TabIndex = 2;
+            label81.Text = "ID";
+            // 
+            // PesquisaClient
+            // 
+            PesquisaClient.AllowUserToAddRows = false;
+            PesquisaClient.BackgroundColor = SystemColors.Control;
+            PesquisaClient.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            PesquisaClient.Location = new Point(27, 135);
+            PesquisaClient.Name = "PesquisaClient";
+            PesquisaClient.RowHeadersWidth = 51;
+            PesquisaClient.Size = new Size(927, 224);
+            PesquisaClient.TabIndex = 1;
+            // 
+            // label80
+            // 
+            label80.AutoSize = true;
+            label80.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label80.Location = new Point(27, 19);
+            label80.Name = "label80";
+            label80.Size = new Size(261, 25);
+            label80.TabIndex = 0;
+            label80.Text = "Procurar na lista de clientes.";
             // 
             // ClientAdd
             // 
@@ -2311,9 +2456,9 @@
             // 
             // Cbutton
             // 
-            Cbutton.Location = new Point(340, 558);
+            Cbutton.Location = new Point(403, 558);
             Cbutton.Name = "Cbutton";
-            Cbutton.Size = new Size(255, 60);
+            Cbutton.Size = new Size(192, 40);
             Cbutton.TabIndex = 20;
             Cbutton.Text = "Adicionar Cliente";
             Cbutton.UseVisualStyleBackColor = true;
@@ -2505,12 +2650,97 @@
             // AdminList
             // 
             AdminList.BackColor = Color.Transparent;
+            AdminList.Controls.Add(RemoveAdmin);
+            AdminList.Controls.Add(contratocheck);
+            AdminList.Controls.Add(AdminNamefilter);
+            AdminList.Controls.Add(AdminIDfilter);
+            AdminList.Controls.Add(PesquisaAdmin);
+            AdminList.Controls.Add(label79);
+            AdminList.Controls.Add(label78);
+            AdminList.Controls.Add(label77);
             AdminList.Location = new Point(4, 34);
             AdminList.Name = "AdminList";
             AdminList.Padding = new Padding(3);
             AdminList.Size = new Size(982, 614);
             AdminList.TabIndex = 1;
             AdminList.Text = "Lista";
+            AdminList.Enter += Admin_Load;
+            // 
+            // RemoveAdmin
+            // 
+            RemoveAdmin.Location = new Point(735, 551);
+            RemoveAdmin.Name = "RemoveAdmin";
+            RemoveAdmin.Size = new Size(219, 40);
+            RemoveAdmin.TabIndex = 7;
+            RemoveAdmin.Text = "Remover Administrador";
+            RemoveAdmin.UseVisualStyleBackColor = true;
+            RemoveAdmin.Click += RemoveAdmin_Click;
+            // 
+            // contratocheck
+            // 
+            contratocheck.AutoSize = true;
+            contratocheck.Location = new Point(399, 91);
+            contratocheck.Name = "contratocheck";
+            contratocheck.Size = new Size(147, 29);
+            contratocheck.TabIndex = 6;
+            contratocheck.Text = "Com Contrato";
+            contratocheck.UseVisualStyleBackColor = true;
+            contratocheck.CheckedChanged += contratocheck_CheckedChanged;
+            // 
+            // AdminNamefilter
+            // 
+            AdminNamefilter.Location = new Point(184, 91);
+            AdminNamefilter.Name = "AdminNamefilter";
+            AdminNamefilter.Size = new Size(165, 31);
+            AdminNamefilter.TabIndex = 5;
+            AdminNamefilter.TextChanged += AdminNamefilter_TextChanged;
+            // 
+            // AdminIDfilter
+            // 
+            AdminIDfilter.Location = new Point(27, 91);
+            AdminIDfilter.Name = "AdminIDfilter";
+            AdminIDfilter.Size = new Size(125, 31);
+            AdminIDfilter.TabIndex = 4;
+            AdminIDfilter.TextChanged += AdminIDfilter_TextChanged;
+            // 
+            // PesquisaAdmin
+            // 
+            PesquisaAdmin.AllowUserToAddRows = false;
+            PesquisaAdmin.BackgroundColor = SystemColors.Control;
+            PesquisaAdmin.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            PesquisaAdmin.Location = new Point(27, 138);
+            PesquisaAdmin.Name = "PesquisaAdmin";
+            PesquisaAdmin.RowHeadersWidth = 51;
+            PesquisaAdmin.Size = new Size(927, 261);
+            PesquisaAdmin.TabIndex = 3;
+            // 
+            // label79
+            // 
+            label79.AutoSize = true;
+            label79.Location = new Point(184, 63);
+            label79.Name = "label79";
+            label79.Size = new Size(61, 25);
+            label79.TabIndex = 2;
+            label79.Text = "Nome";
+            // 
+            // label78
+            // 
+            label78.AutoSize = true;
+            label78.Location = new Point(27, 63);
+            label78.Name = "label78";
+            label78.Size = new Size(30, 25);
+            label78.TabIndex = 1;
+            label78.Text = "ID";
+            // 
+            // label77
+            // 
+            label77.AutoSize = true;
+            label77.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label77.Location = new Point(27, 19);
+            label77.Name = "label77";
+            label77.Size = new Size(342, 25);
+            label77.TabIndex = 0;
+            label77.Text = "Procurar na lista de Administradores.";
             // 
             // AdminAdd
             // 
@@ -2697,6 +2927,16 @@
             NavBar.SizeMode = TabSizeMode.FillToRight;
             NavBar.TabIndex = 0;
             // 
+            // ClientRemove
+            // 
+            ClientRemove.Location = new Point(735, 558);
+            ClientRemove.Name = "ClientRemove";
+            ClientRemove.Size = new Size(219, 40);
+            ClientRemove.TabIndex = 12;
+            ClientRemove.Text = "Remover Cliente";
+            ClientRemove.UseVisualStyleBackColor = true;
+            ClientRemove.Click += ClientRemove_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -2744,11 +2984,17 @@
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             tabPage2.ResumeLayout(false);
             ClientNav.ResumeLayout(false);
+            ClientList.ResumeLayout(false);
+            ClientList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PesquisaClient).EndInit();
             ClientAdd.ResumeLayout(false);
             ClientAdd.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ClientContactData).EndInit();
             tabPage1.ResumeLayout(false);
             AdminNav.ResumeLayout(false);
+            AdminList.ResumeLayout(false);
+            AdminList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PesquisaAdmin).EndInit();
             AdminAdd.ResumeLayout(false);
             AdminAdd.PerformLayout();
             NavBar.ResumeLayout(false);
@@ -2991,5 +3237,26 @@
         private NumericUpDown MlistaVal;
         private Label label76;
         private DateTimePicker Cbirth;
+        private Label label79;
+        private Label label78;
+        private Label label77;
+        private CheckBox contratocheck;
+        private TextBox AdminNamefilter;
+        private TextBox AdminIDfilter;
+        private DataGridView PesquisaAdmin;
+        private Button RemoveAdmin;
+        private Label label80;
+        private DataGridView PesquisaClient;
+        private Label label84;
+        private Label label83;
+        private Label label82;
+        private Label label81;
+        private Label label85;
+        private TextBox ClientEmailfilter;
+        private TextBox ClientTlmfilter;
+        private TextBox ClientCCfilter;
+        private TextBox ClientNamefilter;
+        private TextBox ClientIDfilter;
+        private Button ClientRemove;
     }
 }
