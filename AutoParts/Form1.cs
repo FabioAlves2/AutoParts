@@ -849,7 +849,6 @@ namespace AutoParts
                 cmd.Parameters.AddWithValue("@Price", partPrice);
                 cmd.Parameters.AddWithValue("@Description", partdesc);
                 cmd.Parameters.AddWithValue("@Brand", partMarca);
-                cmd.Parameters.AddWithValue("@Part_id", partId);
 
                 try
                 {
@@ -949,7 +948,6 @@ namespace AutoParts
             string query3 = "INSERT INTO AP_Category (Part_id, Category) VALUES (@Part_id, @Category)";
             using (SqlCommand cmd = new SqlCommand(query3, CN))
             {
-                cmd.Parameters.AddWithValue("@Part_id", partId);
                 cmd.Parameters.AddWithValue("@Category", partCategotia);
 
                 try
@@ -981,7 +979,6 @@ namespace AutoParts
             string query4 = "INSERT INTO AP_Compatibility (CPart_id, CVehicle_id, Type) VALUES (@CPart_id, @Cvehicle_id, @Type)";
             using (SqlCommand cmd = new SqlCommand(query4, CN))
             {
-                cmd.Parameters.AddWithValue("@CPart_id", partId);
                 cmd.Parameters.AddWithValue("@Cvehicle_id", DBNull.Value);
                 cmd.Parameters.AddWithValue("@Type", Compatibility);
 
@@ -1627,12 +1624,21 @@ namespace AutoParts
             string vehicleMake = VmarcaInput.Text;
             string vehicleModel = VmodeloInput.Text;
             string vehicleVersion = VversaoInput.Text;
-            string vehicleStartYear = VinicioInput.Text;
-            string vehicleEndYear = VfimInput.Text;
+            string vehicleStartYear = VinicioInput.Value.Year.ToString();
+            string vehicleEndYear = VfimInput.Value.Year.ToString();
             string vehicleType = VtipoInput.Text;
+            string query;
+            if(VfimInput.Value.Year < 2024)
+            {
+                // Query to insert the vehicle
+                query = "INSERT INTO AP_Vehicle (Vehicle_id, Make, Model, Sub_model, Type, Manuf_start, Manuf_end, Vengine_id) VALUES (@ID, @Make, @Model, @Sub_model, @Type, @StartYear, @EndYear, @Engine_id)";
+            }
+            else
+            {
+                // Query to insert the vehicle
+                query = "INSERT INTO AP_Vehicle (Vehicle_id, Make, Model, Sub_model, Type, Manuf_start, Vengine_id) VALUES (@ID, @Make, @Model, @Sub_model, @Type, @StartYear, @Engine_id)";
+            }
 
-            // Query to insert the vehicle
-            string query = "INSERT INTO AP_Vehicle (Vehicle_id, Make, Model, Sub_model, Type, Manuf_start, Manuf_end, Vengine_id) VALUES (@ID, @Make, @Model, @Sub_model, @Type, @StartYear, @EndYear, @Engine_id)";
 
             using (SqlCommand cmd = new SqlCommand(query, CN))
             {
@@ -1674,6 +1680,191 @@ namespace AutoParts
         private void Vadicionar_Click(object sender, EventArgs e)
         {
             addVehicle(CN);
+        }
+
+        // LIST VEHICLES
+        private void VehicleListData(SqlConnection CN, DataGridView dgv)
+        {
+            string query = "SELECT * FROM AP_VehicleWithEngine";
+
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable vehicleDt = new DataTable();
+                adapter.Fill(vehicleDt);
+                dgv.DataSource = vehicleDt;
+            }
+        }
+
+        private void VehicleList_Enter(object sender, EventArgs e)
+        {
+            VehicleListData(CN, VlistaData);
+        }
+
+        // VEHICLE FILTERS
+        private void VlistaID_TextChanged(object sender, EventArgs e)
+        {
+            VlistaFilters();
+        }
+
+        private void VlistaMarca_TextChanged(object sender, EventArgs e)
+        {
+            VlistaFilters();
+        }
+
+        private void VlistaModelo_TextChanged(object sender, EventArgs e)
+        {
+            VlistaFilters();
+        }
+
+        private void VlistaVersao_TextChanged(object sender, EventArgs e)
+        {
+            VlistaFilters();
+        }
+
+        private void VlistaTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            VlistaFilters();
+        }
+
+        private void VlistaComb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            VlistaFilters();
+        }
+
+        private void VlistaEngineID_TextChanged(object sender, EventArgs e)
+        {
+            VlistaFilters();
+        }
+
+        private void VlistaData_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (VlistaData.IsCurrentCellDirty)
+            {
+                VlistaData.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void VlistaFilters()
+        {
+            string filterID = VlistaID.Text;
+            string filterMake = VlistaMarca.Text;
+            string filterModel = VlistaModelo.Text;
+            string filterVersion = VlistaVersao.Text;
+            string filterType = VlistaTipo.SelectedItem?.ToString();
+            string filterFuel = VlistaComb.SelectedItem?.ToString();
+            string filterEngine = VlistaEngineID.Text;
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterID))
+            {
+                filterExpression += string.Format("Vehicle_id LIKE '%{0}%'", filterID);
+            }
+
+            if (!string.IsNullOrEmpty(filterMake))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Make LIKE '{0}%'", filterMake);
+            }
+
+            if (!string.IsNullOrEmpty(filterModel))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Model LIKE '{0}%'", filterModel);
+            }
+
+            if (!string.IsNullOrEmpty(filterVersion))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Sub_model LIKE '{0}%'", filterVersion);
+            }
+
+            if (!string.IsNullOrEmpty(filterType))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Type LIKE '{0}%'", filterType);
+            }
+
+            if (!string.IsNullOrEmpty(filterFuel))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Fuel_type LIKE '{0}%'", filterFuel);
+            }
+
+            if (!string.IsNullOrEmpty(filterEngine))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Vengine_id LIKE '%{0}%'", filterEngine);
+            }
+
+            (VlistaData.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+        }
+
+        // REMOVE VEHICLE
+
+        private void VlistaRemove_Click(object sender, EventArgs e)
+        {
+            if (VlistaData.SelectedRows.Count > 0)
+            {
+                var confirmResult = MessageBox.Show("Tem a certeza que deseja remover o veículo selecionado?", "Confirmar", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    string vehicleID = VlistaData.SelectedRows[0].Cells["Vehicle_id"].Value.ToString();
+                    string query = "DELETE FROM AP_Vehicle WHERE Vehicle_id = @ID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, CN))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", vehicleID);
+
+                        try
+                        {
+                            if (CN.State == System.Data.ConnectionState.Closed)
+                            {
+                                CN.Open();
+                            }
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Vehicle removed successfully.");
+                                VehicleListData(CN, VlistaData);
+                            }
+                            else
+                            {
+                                MessageBox.Show("An error occurred while removing the vehicle.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("An error occurred: " + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione um veículo para remover.");
+            }
+
         }
     }
 }
