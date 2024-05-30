@@ -1605,18 +1605,6 @@ namespace AutoParts
             }
         }
 
-        private string GenerateVehicleID(string make, string model, string year)
-        {
-            if (!(string.IsNullOrEmpty(make) || string.IsNullOrEmpty(model) || string.IsNullOrEmpty(year)))
-            {
-                return make.Substring(0, 1) + model.Substring(0, 1) + year.Substring(2, 2);
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-
         // ADD VEHICLE
         private void addVehicle(SqlConnection CN)
         {
@@ -1631,18 +1619,17 @@ namespace AutoParts
             if(VfimInput.Value.Year < 2024)
             {
                 // Query to insert the vehicle
-                query = "INSERT INTO AP_Vehicle (Vehicle_id, Make, Model, Sub_model, Type, Manuf_start, Manuf_end, Vengine_id) VALUES (@ID, @Make, @Model, @Sub_model, @Type, @StartYear, @EndYear, @Engine_id)";
+                query = "INSERT INTO AP_Vehicle ( Make, Model, Sub_model, Type, Manuf_start, Manuf_end, Vengine_id) VALUES (@Make, @Model, @Sub_model, @Type, @StartYear, @EndYear, @Engine_id)";
             }
             else
             {
                 // Query to insert the vehicle
-                query = "INSERT INTO AP_Vehicle (Vehicle_id, Make, Model, Sub_model, Type, Manuf_start, Vengine_id) VALUES (@ID, @Make, @Model, @Sub_model, @Type, @StartYear, @Engine_id)";
+                query = "INSERT INTO AP_Vehicle ( Make, Model, Sub_model, Type, Manuf_start, Vengine_id) VALUES (@Make, @Model, @Sub_model, @Type, @StartYear, @Engine_id)";
             }
 
 
             using (SqlCommand cmd = new SqlCommand(query, CN))
             {
-                cmd.Parameters.AddWithValue("@ID", GenerateVehicleID(vehicleMake, vehicleModel, vehicleStartYear));
                 cmd.Parameters.AddWithValue("@Make", vehicleMake);
                 cmd.Parameters.AddWithValue("@Model", vehicleModel);
                 cmd.Parameters.AddWithValue("@Sub_model", vehicleVersion);
