@@ -2316,62 +2316,112 @@ namespace AutoParts
         {
             // Get the values from the textboxes
             string customerId = OcustomerID.SelectedItem?.ToString().Split('-')[0].Trim();
+            string orderDate = DateTime.Now.ToString("yyyy-MM-dd");
             string shippingAddress = Omorada.Text;
-            DateTime dateTime = DateTime.Now;
+            int orderID = 0;
 
-            if (CN.State == System.Data.ConnectionState.Open)
-            {
-                CN.Close();
-            }
-            CN.Open();
+            // Query to insert the order
+            string query = "INSERT INTO AP_Order_Table (Cid, Order_date, Shipping_address) VALUES (@Cid, @Order_date, @Shipping_address)";
 
-            using (SqlTransaction transaction = CN.BeginTransaction())
+            using (SqlCommand cmd = new SqlCommand(query, CN))
             {
+                cmd.Parameters.AddWithValue("@Cid", customerId);
+                cmd.Parameters.AddWithValue("@Order_date", orderDate);
+                cmd.Parameters.AddWithValue("@Shipping_address", shippingAddress);
+
                 try
                 {
-                    string query = "INSERT INTO AP_Order_Table (Order_date, Cid, Shipping_address) VALUES (@Date, @Customer_id, @Address)";
-                    int orderID;
-
-                    using (SqlCommand cmd = new SqlCommand(query, CN, transaction))
+                    if (CN.State == System.Data.ConnectionState.Open)
                     {
-                        cmd.Parameters.AddWithValue("@Date", dateTime);
-                        cmd.Parameters.AddWithValue("@Customer_id", customerId);
-                        cmd.Parameters.AddWithValue("@Address", shippingAddress);
-                        orderID = Convert.ToInt32(cmd.ExecuteScalar());
+                        CN.Close();
                     }
 
-                    foreach (DataRow row in OrderCart.Rows)
+                    CN.Open();
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        string partID = row["ID"].ToString();
-                        int quantity = Convert.ToInt32(row["Quantidade"]);
-
-                        string query2 = "INSERT INTO AP_Order_item (Order_id, Part_id, Qty) VALUES (@Order_id, @Part_id, @Quantity)";
-                        using (SqlCommand cmd2 = new SqlCommand(query2, CN, transaction))
-                        {
-                            cmd2.Parameters.AddWithValue("@Order_id", orderID);
-                            cmd2.Parameters.AddWithValue("@Part_id", partID);
-                            cmd2.Parameters.AddWithValue("@Quantity", quantity);
-
-                            int rowsAffected = cmd2.ExecuteNonQuery();
-
-                            if (rowsAffected == 0)
-                            {
-                                transaction.Rollback();
-                                MessageBox.Show("An error occurred while adding the order.");
-                                return;
-                            }
-                        }
+                        MessageBox.Show("Order added successfully.");
                     }
-
-                    transaction.Commit();
-                    MessageBox.Show("Order added successfully.");
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the order.");
+                    }
+                    CN.Close();
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
+            }
 
+            // Get the order id
+            string query2 = "SELECT MAX(Order_id) FROM AP_Order_Table";
+            using (SqlCommand cmd = new SqlCommand(query2, CN))
+            {
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Open)
+                    {
+                        CN.Close();
+                    }
+                    CN.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string orderId = reader[0].ToString();
+                        int.TryParse(orderId, out orderID);
+                    }
+                    CN.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+            // Insert the parts in the order
+            foreach (DataRow row in OrderCart.Rows)
+            {
+                string partId = row["ID"].ToString();
+                int quantity = int.TryParse(row["Quantidade"].ToString(), out quantity) ? quantity : 0;
+
+                string query3 = "INSERT INTO AP_Order_item (Order_id, Part_id, Qty) VALUES (@Order_id, @Part_id, @Quantity)";
+
+                using (SqlCommand cmd = new SqlCommand(query3, CN))
+                {
+                    cmd.Parameters.AddWithValue("@Order_id", orderID);
+                    cmd.Parameters.AddWithValue("@Part_id", partId);
+                    cmd.Parameters.AddWithValue("@Quantity", quantity);
+
+                    try
+                    {
+                        if (CN.State == System.Data.ConnectionState.Open)
+                        {
+                            CN.Close();
+                        }
+
+                        CN.Open();
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Part added to order successfully.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("An error occurred while adding the part to the order.");
+                        }
+                        CN.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occurred: " + ex.Message);
+                    }
+                }
             }
 
         }
