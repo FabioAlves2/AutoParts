@@ -864,7 +864,7 @@ namespace AutoParts
 
             if (!string.IsNullOrEmpty(filterID))
             {
-                filterExpression += string.Format("Part_ID LIKE '%{0}%'", filterID);
+                filterExpression += string.Format("ID LIKE '%{0}%'", filterID);
             }
             if (!string.IsNullOrEmpty(filterName))
             {
@@ -872,7 +872,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Name LIKE '%{0}%'", filterName);
+                filterExpression += string.Format("Nme LIKE '%{0}%'", filterName);
             }
             if (!string.IsNullOrEmpty(filterMarca))
             {
@@ -896,7 +896,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Vehicle LIKE '%{0}%'", filterVehicle);
+                filterExpression += string.Format("ID_Veículo LIKE '%{0}%'", filterVehicle);
             }
             if (PecasStockFilter.Checked)
             {
