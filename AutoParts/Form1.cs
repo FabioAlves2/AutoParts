@@ -2249,8 +2249,35 @@ namespace AutoParts
                 cmd.Parameters.AddWithValue("@Name", fornecedorName);
                 cmd.Parameters.AddWithValue("@Phone", contact);
                 cmd.Parameters.AddWithValue("@Address", address);
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Open)
+                    {
+                        CN.Close();
+                    }
+
+                    CN.Open();
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Fornecedor added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the fornecedor.");
+                    }
+                    CN.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
 
         }
+
 
         // MAKE ORDER
         private void OrderCustomerLoad(SqlConnection CN)
@@ -2526,34 +2553,7 @@ namespace AutoParts
         {
             addOrder(CN);
         }
-                try
-                {
-                    if (CN.State == System.Data.ConnectionState.Open)
-                    {
-                        CN.Close();
-                    }
 
-                    CN.Open();
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Fornecedor added successfully.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("An error occurred while adding the fornecedor.");
-                    }
-                    CN.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
-
-        }
         private void FornecedortBtn_Click(object sender, EventArgs e)
         {
             AddFornecedor(CN);
