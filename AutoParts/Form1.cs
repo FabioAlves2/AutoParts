@@ -235,7 +235,7 @@ namespace AutoParts
         {
             StockAdminLoad(CN);
             StockPecasLoad(CN);
-            //StockFornecedorLoad(CN);
+            StockFornecedorLoad(CN);
         }
         private void StockPecasLoad(SqlConnection CN)
         {
@@ -253,6 +253,46 @@ namespace AutoParts
                 StockPecasSearch.DataSource = spartsDt;
             }
             CN.Close();
+        }
+        private void StockPecasFilter(SqlConnection CN)
+        {
+            string filterID = StockPecasIdFilter.Text;
+            string filterName = StockPecasNomeFilter.Text;
+            string filterMarca = StockPecasMarcaFilter.Text;
+            string filterCategoria = StockPecasCategoriaFilter.Text;
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterID))
+            {
+                filterExpression += string.Format("Part_id LIKE '%{0}%'", filterID);
+            }
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Name LIKE '%{0}%'", filterName);
+            }
+            if (!string.IsNullOrEmpty(filterMarca))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Manufacturer LIKE '{0}%'", filterMarca);
+            }
+            if (!string.IsNullOrEmpty(filterCategoria))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Category LIKE '%{0}%'", filterCategoria);
+            }
+
+            (StockPecasSearch.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
         }
 
         private void StockAdminLoad(SqlConnection CN)
@@ -328,7 +368,7 @@ namespace AutoParts
             int.TryParse(StockQty.Text, out int stockQuantidade);
 
             // Query to insert the stock
-            string query = "INSERT INTO AP_Stock (Part_id, Supplier_id, Work_id, Qty) VALUES (@Part_id, @Supplier_id, @Work_id, @Qty)";
+            string query = "INSERT INTO AP_Stocks (Part_id, Supplier_id, Work_id, Qty) VALUES (@Part_id, @Supplier_id, @Work_id, @Qty)";
 
             using (SqlCommand cmd = new SqlCommand(query, CN))
             {
@@ -368,6 +408,36 @@ namespace AutoParts
         {
             AddStock(CN);
         }
+        private void StockPecasIdFilter_TextChanged(object sender, EventArgs e)
+        {
+            StockPecasFilter(CN);
+        }
+        private void StockPecasNomeFilter_TextChanged(object sender, EventArgs e)
+        {
+            StockPecasFilter(CN);
+        }
+        private void StockPecasMarcaFilter_TextChanged(object sender, EventArgs e)
+        {
+            StockPecasFilter(CN);
+        }
+        private void StockPecasCategoriaFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            StockPecasFilter(CN);
+        }
+        private void StockClear(object sender, EventArgs e)
+        {
+            StockAdmin.SelectedIndex = -1;
+            StockPecasSearch.ClearSelection();
+            StockFornecedor.SelectedIndex = -1;
+            StockQty.Text = "";
+            StockPecasCategoriaFilter.SelectedIndex = -1;
+            StockPecasIdFilter.Text = "";
+            StockPecasMarcaFilter.Text = "";
+            StockPecasNomeFilter.Text = "";
+            StockAdmin.Items.Clear();
+            StockFornecedor.Items.Clear();
+        }
+
         //
         //
         //CUSTOMER CODE
@@ -759,6 +829,10 @@ namespace AutoParts
         //PEÇAS CODE
         //
         //
+        private void Parts_Load(object sender, EventArgs e)
+        {
+            PartsLoad(CN);
+        }
         private void PartsLoad(SqlConnection CN)
         {
             string query = "SELECT * FROM AP_PartDetailsView;";
@@ -1233,9 +1307,64 @@ namespace AutoParts
             Psize.Text = "";
             dt2.Clear();
         }
+        private void RemovePart_Click(object sender, EventArgs e)
+        {
+            PartRemove(CN);
+        }
+        private void PartRemove(SqlConnection CN)
+        {
+            if (PesquisaPecas.SelectedRows.Count > 0)
+            {
+                var confirmResult = MessageBox.Show("Tem a certeza que deseja remover a peça selecionada?", "Confirmar", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    string PartID = PesquisaPecas.SelectedRows[0].Cells["ID"].Value.ToString();
+                    string query = "DELETE FROM AP_Part WHERE Part_id = @ID";
 
+                    using (SqlCommand cmd = new SqlCommand(query, CN))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", PartID);
+
+                        try
+                        {
+                            if (CN.State == System.Data.ConnectionState.Open)
+                            {
+                                CN.Close();
+                            }
+
+                            CN.Open();
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Part removed successfully.");
+                                PartsLoad(CN);
+                            }
+                            else
+                            {
+                                MessageBox.Show("An error occurred while removing the part.");
+                            }
+                            CN.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("An error occurred: " + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione uma peça para remover.");
+            }
+
+        }
+        //
+        //
         //AVALIAÇÃO CODE
-
+        //
+        //
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             labelAvalicao.Text = trackBar1.Value.ToString();
@@ -1364,7 +1493,7 @@ namespace AutoParts
         private void AddAvaliacao(SqlConnection CN)
         {
             // Get the values from the textboxes
-            string partId = AvaliacaoID.Text;
+            string partId = AvaliacaoPecas.SelectedRows[0].Cells["Part_id"].Value.ToString();
             string customerId = AvalicaoClient.SelectedItem?.ToString().Split('-')[0].Trim();
             int.TryParse(labelAvalicao.Text, out int avaliacao);
 
@@ -2099,5 +2228,211 @@ namespace AutoParts
             }
 
         }
+        //
+        //
+        // FORNECEDOR CODE
+        //
+        //
+        private void AddFornecedor(SqlConnection CN)
+        {
+            // Get the values from the textboxes
+            string fornecedorName = FornecedorNome.Text;
+            string address = FornecedorAddr.Text;
+            string contact = FornecedorCont.Text;
+
+            // Query to insert the fornecedor
+            string query = "INSERT INTO AP_Supplier (Name, Phone, Address) VALUES (@Name, @Phone, @Address)";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                cmd.Parameters.AddWithValue("@Name", fornecedorName);
+                cmd.Parameters.AddWithValue("@Phone", contact);
+                cmd.Parameters.AddWithValue("@Address", address);
+
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Open)
+                    {
+                        CN.Close();
+                    }
+
+                    CN.Open();
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Fornecedor added successfully.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while adding the fornecedor.");
+                    }
+                    CN.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+        }
+        private void FornecedortBtn_Click(object sender, EventArgs e)
+        {
+            AddFornecedor(CN);
+        }
+        private void LoadFornecedor(SqlConnection CN)
+        {
+            string query = "SELECT * FROM AP_Supplier";
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
+
+            CN.Open();
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable fornecedorDt = new DataTable();
+                adapter.Fill(fornecedorDt);
+                FornecedorData.DataSource = fornecedorDt;
+            }
+            CN.Close();
+        }
+        private void FornecedorList_Enter(object sender, EventArgs e)
+        {
+            LoadFornecedor(CN);
+        }
+        private void FornecedorFilter()
+        {
+            string filterid = FornecedorIdFilter.Text;
+            string filterName = FornecedorNomeFilter.Text;
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                filterExpression += string.Format("Name LIKE '%{0}%'", filterName);
+            }
+            if (!string.IsNullOrEmpty(filterid))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Supplier_id LIKE '%{0}%'", filterid);
+            }
+
+            (FornecedorData.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+        }
+
+        private void FornecedorIdFilter_TextChanged(object sender, EventArgs e)
+        {
+            FornecedorFilter();
+        }
+
+        private void FornecedorNomeFilter_TextChanged(object sender, EventArgs e)
+        {
+            FornecedorFilter();
+        }
+
+        //
+        //
+        // ORDER CODE
+        //
+        //
+        private void Load_Order(object sender, EventArgs e)
+        {
+            LoadOrder(CN);
+            OrderClient_Load(CN);
+        }
+        private void LoadOrder(SqlConnection CN)
+        {
+            string query = "SELECT * FROM AP_OrderDetailsView";
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
+
+            CN.Open();
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable orderDt = new DataTable();
+                adapter.Fill(orderDt);
+                PesquisaOrder.DataSource = orderDt;
+            }
+            CN.Close();
+        }
+        private void OrderClient_Load(SqlConnection CN)
+        {
+            // Query to get the customers join the Person table
+            string query = "SELECT AP_Person.Name, AP_Customer.CC, AP_Customer.Id FROM AP_Person JOIN AP_Customer ON AP_Person.CC = AP_Customer.CC";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Open)
+                    {
+                        CN.Close();
+                    }
+
+                    CN.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string customerName = reader["Name"].ToString();
+                        string customerCC = reader["CC"].ToString();
+                        string customerId = reader["Id"].ToString();
+
+                        OrderClienteFilter.Items.Add(customerId + " - " + customerName + " - " + customerCC);
+                    }
+                    CN.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+        private void OrderFilter()
+        {
+            string filterPart = OrderPartIdFilter.Text;
+            string filterCliente = OrderClienteFilter.SelectedItem?.ToString().Split('-')[0].Trim();
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterPart))
+            {
+                filterExpression += string.Format("Part_id LIKE '%{0}%'", filterPart);
+            }
+            if (!string.IsNullOrEmpty(filterCliente))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Cid LIKE '%{0}%'", filterCliente);
+            }
+
+            (PesquisaOrder.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+        }
+
+        private void OrderClienteFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            OrderFilter();
+        }
+
+        private void OrderPartIdFilter_TextChanged(object sender, EventArgs e)
+        {
+            OrderFilter();
+        }
+        private void OrderFilter_Clean(object sender, EventArgs e)
+        {
+            OrderPartIdFilter.Text = "";
+            OrderClienteFilter.Items.Clear();
+        }
+
     }
 }
