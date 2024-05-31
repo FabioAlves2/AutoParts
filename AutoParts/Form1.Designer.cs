@@ -72,6 +72,31 @@
             tabControl2 = new TabControl();
             EncomendaList = new TabPage();
             EncomendaAdd = new TabPage();
+            OqtyRmv = new NumericUpDown();
+            OqtyAdd = new NumericUpDown();
+            OaddEncomenda = new Button();
+            OremPart = new Button();
+            OaddPart = new Button();
+            Olabel2 = new Label();
+            Olabel1 = new Label();
+            OpecaNome = new TextBox();
+            OpecaNomeLabel = new Label();
+            OveiculoIDLabel = new Label();
+            OveiculoID = new TextBox();
+            OpecaMarca = new TextBox();
+            OpecaID = new TextBox();
+            OpecaStock = new CheckBox();
+            OpecaMarcaLabel = new Label();
+            OpecaIDlabel = new Label();
+            OpecaCat = new ComboBox();
+            OpecaCatLabel = new Label();
+            OencomendaList = new DataGridView();
+            OpecaList = new DataGridView();
+            OmoradaLbl = new Label();
+            Omorada = new TextBox();
+            OcustomerID = new ComboBox();
+            OCliente = new Label();
+            Otitle = new Label();
             tabPage5 = new TabPage();
             tabControl1 = new TabControl();
             MotorLista = new TabPage();
@@ -349,6 +374,11 @@
             tabControl4.SuspendLayout();
             tabPage6.SuspendLayout();
             tabControl2.SuspendLayout();
+            EncomendaAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)OqtyRmv).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)OqtyAdd).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)OencomendaList).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)OpecaList).BeginInit();
             tabPage5.SuspendLayout();
             tabControl1.SuspendLayout();
             MotorLista.SuspendLayout();
@@ -827,6 +857,31 @@
             // 
             // EncomendaAdd
             // 
+            EncomendaAdd.Controls.Add(OqtyRmv);
+            EncomendaAdd.Controls.Add(OqtyAdd);
+            EncomendaAdd.Controls.Add(OaddEncomenda);
+            EncomendaAdd.Controls.Add(OremPart);
+            EncomendaAdd.Controls.Add(OaddPart);
+            EncomendaAdd.Controls.Add(Olabel2);
+            EncomendaAdd.Controls.Add(Olabel1);
+            EncomendaAdd.Controls.Add(OpecaNome);
+            EncomendaAdd.Controls.Add(OpecaNomeLabel);
+            EncomendaAdd.Controls.Add(OveiculoIDLabel);
+            EncomendaAdd.Controls.Add(OveiculoID);
+            EncomendaAdd.Controls.Add(OpecaMarca);
+            EncomendaAdd.Controls.Add(OpecaID);
+            EncomendaAdd.Controls.Add(OpecaStock);
+            EncomendaAdd.Controls.Add(OpecaMarcaLabel);
+            EncomendaAdd.Controls.Add(OpecaIDlabel);
+            EncomendaAdd.Controls.Add(OpecaCat);
+            EncomendaAdd.Controls.Add(OpecaCatLabel);
+            EncomendaAdd.Controls.Add(OencomendaList);
+            EncomendaAdd.Controls.Add(OpecaList);
+            EncomendaAdd.Controls.Add(OmoradaLbl);
+            EncomendaAdd.Controls.Add(Omorada);
+            EncomendaAdd.Controls.Add(OcustomerID);
+            EncomendaAdd.Controls.Add(OCliente);
+            EncomendaAdd.Controls.Add(Otitle);
             EncomendaAdd.Location = new Point(4, 34);
             EncomendaAdd.Name = "EncomendaAdd";
             EncomendaAdd.Padding = new Padding(3);
@@ -834,6 +889,234 @@
             EncomendaAdd.TabIndex = 1;
             EncomendaAdd.Text = "Adicionar";
             EncomendaAdd.UseVisualStyleBackColor = true;
+            EncomendaAdd.Enter += EncomendaAdd_Enter;
+            // 
+            // OqtyRmv
+            // 
+            OqtyRmv.Location = new Point(646, 570);
+            OqtyRmv.Name = "OqtyRmv";
+            OqtyRmv.Size = new Size(47, 31);
+            OqtyRmv.TabIndex = 30;
+            // 
+            // OqtyAdd
+            // 
+            OqtyAdd.Location = new Point(646, 535);
+            OqtyAdd.Name = "OqtyAdd";
+            OqtyAdd.Size = new Size(47, 31);
+            OqtyAdd.TabIndex = 29;
+            // 
+            // OaddEncomenda
+            // 
+            OaddEncomenda.Location = new Point(703, 537);
+            OaddEncomenda.Name = "OaddEncomenda";
+            OaddEncomenda.Size = new Size(258, 64);
+            OaddEncomenda.TabIndex = 28;
+            OaddEncomenda.Text = "Fazer Encomenda";
+            OaddEncomenda.UseVisualStyleBackColor = true;
+            OaddEncomenda.Click += OaddEncomenda_Click;
+            // 
+            // OremPart
+            // 
+            OremPart.Location = new Point(513, 572);
+            OremPart.Name = "OremPart";
+            OremPart.Size = new Size(127, 29);
+            OremPart.TabIndex = 27;
+            OremPart.Text = "Remover";
+            OremPart.UseVisualStyleBackColor = true;
+            OremPart.Click += OremPart_Click;
+            // 
+            // OaddPart
+            // 
+            OaddPart.Location = new Point(513, 537);
+            OaddPart.Name = "OaddPart";
+            OaddPart.Size = new Size(127, 29);
+            OaddPart.TabIndex = 26;
+            OaddPart.Text = "Adicionar";
+            OaddPart.UseVisualStyleBackColor = true;
+            OaddPart.Click += OaddPart_Click;
+            // 
+            // Olabel2
+            // 
+            Olabel2.AutoSize = true;
+            Olabel2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Olabel2.Location = new Point(513, 121);
+            Olabel2.Name = "Olabel2";
+            Olabel2.Size = new Size(116, 25);
+            Olabel2.TabIndex = 25;
+            Olabel2.Text = "Encomenda";
+            // 
+            // Olabel1
+            // 
+            Olabel1.AutoSize = true;
+            Olabel1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Olabel1.Location = new Point(27, 121);
+            Olabel1.Name = "Olabel1";
+            Olabel1.Size = new Size(164, 25);
+            Olabel1.TabIndex = 24;
+            Olabel1.Text = "Peças - Adicionar";
+            // 
+            // OpecaNome
+            // 
+            OpecaNome.Location = new Point(166, 176);
+            OpecaNome.Name = "OpecaNome";
+            OpecaNome.Size = new Size(154, 31);
+            OpecaNome.TabIndex = 23;
+            OpecaNome.TextChanged += OpecaNome_TextChanged;
+            // 
+            // OpecaNomeLabel
+            // 
+            OpecaNomeLabel.AutoSize = true;
+            OpecaNomeLabel.Location = new Point(166, 148);
+            OpecaNomeLabel.Name = "OpecaNomeLabel";
+            OpecaNomeLabel.Size = new Size(61, 25);
+            OpecaNomeLabel.TabIndex = 22;
+            OpecaNomeLabel.Text = "Nome";
+            // 
+            // OveiculoIDLabel
+            // 
+            OveiculoIDLabel.AutoSize = true;
+            OveiculoIDLabel.Location = new Point(25, 218);
+            OveiculoIDLabel.Name = "OveiculoIDLabel";
+            OveiculoIDLabel.Size = new Size(116, 25);
+            OveiculoIDLabel.TabIndex = 21;
+            OveiculoIDLabel.Text = "Id do Veículo";
+            // 
+            // OveiculoID
+            // 
+            OveiculoID.Location = new Point(25, 246);
+            OveiculoID.Name = "OveiculoID";
+            OveiculoID.Size = new Size(177, 31);
+            OveiculoID.TabIndex = 20;
+            OveiculoID.TextChanged += OveiculoID_TextChanged;
+            // 
+            // OpecaMarca
+            // 
+            OpecaMarca.Location = new Point(326, 176);
+            OpecaMarca.Name = "OpecaMarca";
+            OpecaMarca.Size = new Size(143, 31);
+            OpecaMarca.TabIndex = 19;
+            OpecaMarca.TextChanged += OpecaMarca_TextChanged;
+            // 
+            // OpecaID
+            // 
+            OpecaID.Location = new Point(25, 176);
+            OpecaID.Name = "OpecaID";
+            OpecaID.Size = new Size(135, 31);
+            OpecaID.TabIndex = 18;
+            OpecaID.TextChanged += OpecaID_TextChanged;
+            // 
+            // OpecaStock
+            // 
+            OpecaStock.AutoSize = true;
+            OpecaStock.Location = new Point(365, 246);
+            OpecaStock.Name = "OpecaStock";
+            OpecaStock.Size = new Size(106, 29);
+            OpecaStock.TabIndex = 17;
+            OpecaStock.Text = "Em stock";
+            OpecaStock.UseVisualStyleBackColor = true;
+            OpecaStock.CheckedChanged += OpecaStock_CheckedChanged;
+            // 
+            // OpecaMarcaLabel
+            // 
+            OpecaMarcaLabel.AutoSize = true;
+            OpecaMarcaLabel.Location = new Point(326, 146);
+            OpecaMarcaLabel.Name = "OpecaMarcaLabel";
+            OpecaMarcaLabel.Size = new Size(60, 25);
+            OpecaMarcaLabel.TabIndex = 16;
+            OpecaMarcaLabel.Text = "Marca";
+            // 
+            // OpecaIDlabel
+            // 
+            OpecaIDlabel.AutoSize = true;
+            OpecaIDlabel.Location = new Point(27, 148);
+            OpecaIDlabel.Name = "OpecaIDlabel";
+            OpecaIDlabel.Size = new Size(28, 25);
+            OpecaIDlabel.TabIndex = 15;
+            OpecaIDlabel.Text = "Id";
+            // 
+            // OpecaCat
+            // 
+            OpecaCat.FormattingEnabled = true;
+            OpecaCat.Items.AddRange(new object[] { "Exterior", "Interior", "Motor", "Suspensão", "Transmissão", "Travagem" });
+            OpecaCat.Location = new Point(208, 244);
+            OpecaCat.Name = "OpecaCat";
+            OpecaCat.Size = new Size(151, 33);
+            OpecaCat.TabIndex = 14;
+            OpecaCat.SelectedIndexChanged += OpecaCat_SelectedIndexChanged;
+            // 
+            // OpecaCatLabel
+            // 
+            OpecaCatLabel.AutoSize = true;
+            OpecaCatLabel.Location = new Point(208, 216);
+            OpecaCatLabel.Name = "OpecaCatLabel";
+            OpecaCatLabel.Size = new Size(88, 25);
+            OpecaCatLabel.TabIndex = 13;
+            OpecaCatLabel.Text = "Categoria";
+            // 
+            // OencomendaList
+            // 
+            OencomendaList.AllowUserToAddRows = false;
+            OencomendaList.BackgroundColor = SystemColors.Control;
+            OencomendaList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            OencomendaList.Location = new Point(513, 149);
+            OencomendaList.Name = "OencomendaList";
+            OencomendaList.RowHeadersWidth = 51;
+            OencomendaList.Size = new Size(448, 382);
+            OencomendaList.TabIndex = 10;
+            // 
+            // OpecaList
+            // 
+            OpecaList.AllowUserToAddRows = false;
+            OpecaList.BackgroundColor = SystemColors.Control;
+            OpecaList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            OpecaList.Location = new Point(25, 283);
+            OpecaList.Name = "OpecaList";
+            OpecaList.RowHeadersWidth = 51;
+            OpecaList.Size = new Size(446, 318);
+            OpecaList.TabIndex = 9;
+            // 
+            // OmoradaLbl
+            // 
+            OmoradaLbl.AutoSize = true;
+            OmoradaLbl.Location = new Point(343, 51);
+            OmoradaLbl.Name = "OmoradaLbl";
+            OmoradaLbl.Size = new Size(74, 25);
+            OmoradaLbl.TabIndex = 8;
+            OmoradaLbl.Text = "Morada";
+            // 
+            // Omorada
+            // 
+            Omorada.Location = new Point(343, 81);
+            Omorada.Name = "Omorada";
+            Omorada.Size = new Size(618, 31);
+            Omorada.TabIndex = 7;
+            // 
+            // OcustomerID
+            // 
+            OcustomerID.FormattingEnabled = true;
+            OcustomerID.Location = new Point(27, 79);
+            OcustomerID.Name = "OcustomerID";
+            OcustomerID.Size = new Size(282, 33);
+            OcustomerID.TabIndex = 6;
+            // 
+            // OCliente
+            // 
+            OCliente.AutoSize = true;
+            OCliente.Location = new Point(27, 51);
+            OCliente.Name = "OCliente";
+            OCliente.Size = new Size(65, 25);
+            OCliente.TabIndex = 5;
+            OCliente.Text = "Cliente";
+            // 
+            // Otitle
+            // 
+            Otitle.AutoSize = true;
+            Otitle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Otitle.Location = new Point(27, 19);
+            Otitle.Name = "Otitle";
+            Otitle.Size = new Size(211, 25);
+            Otitle.TabIndex = 4;
+            Otitle.Text = "Fazer uma encomenda";
             // 
             // tabPage5
             // 
@@ -3636,6 +3919,12 @@
             tabControl4.ResumeLayout(false);
             tabPage6.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
+            EncomendaAdd.ResumeLayout(false);
+            EncomendaAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)OqtyRmv).EndInit();
+            ((System.ComponentModel.ISupportInitialize)OqtyAdd).EndInit();
+            ((System.ComponentModel.ISupportInitialize)OencomendaList).EndInit();
+            ((System.ComponentModel.ISupportInitialize)OpecaList).EndInit();
             tabPage5.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             MotorLista.ResumeLayout(false);
@@ -4010,5 +4299,30 @@
         private Label VlistaModeloLbl;
         private TextBox VlistaEngineID;
         private Label VlistaEngineIDLbl;
+        private Label Otitle;
+        private ComboBox OcustomerID;
+        private Label OCliente;
+        private Label OmoradaLbl;
+        private TextBox Omorada;
+        private DataGridView OencomendaList;
+        private DataGridView OpecaList;
+        private Label Olabel2;
+        private Label Olabel1;
+        private TextBox OpecaNome;
+        private Label OpecaNomeLabel;
+        private Label OveiculoIDLabel;
+        private TextBox OveiculoID;
+        private TextBox OpecaMarca;
+        private TextBox OpecaID;
+        private CheckBox OpecaStock;
+        private Label OpecaMarcaLabel;
+        private Label OpecaIDlabel;
+        private ComboBox OpecaCat;
+        private Label OpecaCatLabel;
+        private Button OaddEncomenda;
+        private Button OremPart;
+        private Button OaddPart;
+        private NumericUpDown OqtyRmv;
+        private NumericUpDown OqtyAdd;
     }
 }
