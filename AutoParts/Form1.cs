@@ -10,6 +10,7 @@ namespace AutoParts
     {
         DataTable dt = new DataTable();
         DataTable dt2 = new DataTable();
+        DataTable OrderCart = new DataTable();
         SqlConnection CN = GetDbConnection();
 
         private string engineID;
@@ -2249,6 +2250,282 @@ namespace AutoParts
                 cmd.Parameters.AddWithValue("@Phone", contact);
                 cmd.Parameters.AddWithValue("@Address", address);
 
+        }
+
+        // MAKE ORDER
+        private void OrderCustomerLoad(SqlConnection CN)
+        {
+            //query to get the customer
+            string query = "SELECT AP_Customer.Id, AP_Person.Name FROM AP_Person JOIN AP_Customer ON AP_Person.CC = AP_Customer.CC";
+
+            using (SqlCommand cmd = new SqlCommand(query, CN))
+            {
+                try
+                {
+                    if (CN.State == System.Data.ConnectionState.Open)
+                    {
+                        CN.Close();
+                    }
+                    CN.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string CustomerName = reader["Name"].ToString();
+                        string CustomerId = reader["Id"].ToString();
+
+                        OcustomerID.Items.Add(CustomerId + " - " + CustomerName);
+                    }
+                    CN.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        private void addOrder(SqlConnection CN)
+        {
+            // Get the values from the textboxes
+            string customerId = OcustomerID.SelectedItem?.ToString().Split('-')[0].Trim();
+            string shippingAddress = Omorada.Text;
+            DateTime dateTime = DateTime.Now;
+
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
+            CN.Open();
+
+            using (SqlTransaction transaction = CN.BeginTransaction())
+            {
+                try
+                {
+                    string query = "INSERT INTO AP_Order_Table (Order_date, Cid, Shipping_address) VALUES (@Date, @Customer_id, @Address)";
+                    int orderID;
+
+                    using (SqlCommand cmd = new SqlCommand(query, CN, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@Date", dateTime);
+                        cmd.Parameters.AddWithValue("@Customer_id", customerId);
+                        cmd.Parameters.AddWithValue("@Address", shippingAddress);
+                        orderID = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+
+                    foreach (DataRow row in OrderCart.Rows)
+                    {
+                        string partID = row["ID"].ToString();
+                        int quantity = Convert.ToInt32(row["Quantidade"]);
+
+                        string query2 = "INSERT INTO AP_Order_item (Order_id, Part_id, Qty) VALUES (@Order_id, @Part_id, @Quantity)";
+                        using (SqlCommand cmd2 = new SqlCommand(query2, CN, transaction))
+                        {
+                            cmd2.Parameters.AddWithValue("@Order_id", orderID);
+                            cmd2.Parameters.AddWithValue("@Part_id", partID);
+                            cmd2.Parameters.AddWithValue("@Quantity", quantity);
+
+                            int rowsAffected = cmd2.ExecuteNonQuery();
+
+                            if (rowsAffected == 0)
+                            {
+                                transaction.Rollback();
+                                MessageBox.Show("An error occurred while adding the order.");
+                                return;
+                            }
+                        }
+                    }
+
+                    transaction.Commit();
+                    MessageBox.Show("Order added successfully.");
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+
+            }
+
+        }
+        private void OrderPartsLoad(SqlConnection CN)
+        {
+            string query = "SELECT * FROM AP_PartDetailsView;";
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
+
+            CN.Open();
+
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, CN))
+            {
+                DataTable pecasDt = new DataTable();
+                adapter.Fill(pecasDt);
+                OpecaList.DataSource = pecasDt;
+            }
+            CN.Close();
+        }
+
+        private void OrderPartsFilter(SqlConnection CN)
+        {
+            string filterID = OpecaID.Text;
+            string filterName = OpecaNome.Text;
+            string filterMarca = OpecaMarca.Text;
+            string filterCategoria = OpecaCat.Text;
+            string filterVehicle = OveiculoID.Text;
+
+            string filterExpression = string.Empty;
+
+            if (!string.IsNullOrEmpty(filterID))
+            {
+                filterExpression += string.Format("Part_ID LIKE '%{0}%'", filterID);
+            }
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Name LIKE '%{0}%'", filterName);
+            }
+            if (!string.IsNullOrEmpty(filterMarca))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Manufacturer LIKE '{0}%'", filterMarca);
+            }
+            if (!string.IsNullOrEmpty(filterCategoria))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Category LIKE '%{0}%'", filterCategoria);
+            }
+            if (!string.IsNullOrEmpty(filterVehicle))
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Vehicle LIKE '%{0}%'", filterVehicle);
+            }
+            if (OpecaStock.Checked)
+            {
+                if (!string.IsNullOrEmpty(filterExpression))
+                {
+                    filterExpression += " AND ";
+                }
+                filterExpression += string.Format("Stock > 0");
+            }
+
+            (OpecaList.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
+
+        }
+
+        private void OpecaID_TextChanged(object sender, EventArgs e)
+        {
+            OrderPartsFilter(CN);
+        }
+
+        private void OpecaNome_TextChanged(object sender, EventArgs e)
+        {
+            OrderPartsFilter(CN);
+        }
+
+        private void OpecaMarca_TextChanged(object sender, EventArgs e)
+        {
+            OrderPartsFilter(CN);
+        }
+
+        private void OpecaCat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            OrderPartsFilter(CN);
+        }
+
+        private void OveiculoID_TextChanged(object sender, EventArgs e)
+        {
+            OrderPartsFilter(CN);
+        }
+
+        private void OpecaStock_CheckedChanged(object sender, EventArgs e)
+        {
+            OrderPartsFilter(CN);
+        }
+
+        private void EncomendaAdd_Enter(object sender, EventArgs e)
+        {
+            if (OrderCart.Columns.Count == 0)
+            {
+                OrderCart.Columns.Add("ID", typeof(string));
+                OrderCart.Columns.Add("Nome", typeof(string));
+                OrderCart.Columns.Add("Preço", typeof(string));
+                OrderCart.Columns.Add("ID_Veículo", typeof(string));
+                OrderCart.Columns.Add("Quantidade", typeof(string));
+            }
+
+            OencomendaList.DataSource = OrderCart;
+            OrderPartsLoad(CN);
+            OrderCustomerLoad(CN);
+        }
+
+        // ADD PART TO ORDER
+
+        private void OaddPart_Click(object sender, EventArgs e)
+        {
+            if (OpecaList.SelectedRows.Count > 0)
+            {
+                string partID = OpecaList.SelectedRows[0].Cells["ID"].Value.ToString();
+                string partName = OpecaList.SelectedRows[0].Cells["Nome"].Value.ToString();
+                string partPrice = OpecaList.SelectedRows[0].Cells["Preço"].Value.ToString();
+                string partVehicleId = OpecaList.SelectedRows[0].Cells["ID_Veículo"].Value.ToString();
+                int partQuantity = (int)OqtyAdd.Value;
+                if (partQuantity == 0)
+                {
+                    MessageBox.Show("A quantidade tem de ser maior que 0");
+                    return;
+                }
+
+                // ADD TO THE OTHER DATAGRIDVIEW "CART"
+                OrderCart.Rows.Add(partID, partName, partPrice, partVehicleId, partQuantity);
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione uma peça para adicionar à encomenda.");
+            }
+        }
+
+        private void OremPart_Click(object sender, EventArgs e)
+        {
+            if (OencomendaList.SelectedRows.Count > 0)
+            {
+
+                int partQuantity = (int)OqtyRmv.Value;
+                if (OrderCart.Rows[OencomendaList.SelectedRows[0].Index]["Quantidade"].ToString() == "0" || (int)OrderCart.Rows[OencomendaList.SelectedRows[0].Index]["Quantidade"] < partQuantity)
+                {
+                    OrderCart.Rows.RemoveAt(OencomendaList.SelectedRows[0].Index);
+                }
+                else
+                {
+                    OrderCart.Rows[OencomendaList.SelectedRows[0].Index]["Quantidade"] = (int)OrderCart.Rows[OencomendaList.SelectedRows[0].Index]["Quantidade"] - partQuantity;
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione uma peça para remover da encomenda.");
+            }
+
+        }
+
+
+        private void OaddEncomenda_Click(object sender, EventArgs e)
+        {
+            addOrder(CN);
+        }
                 try
                 {
                     if (CN.State == System.Data.ConnectionState.Open)
