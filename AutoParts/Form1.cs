@@ -872,7 +872,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Nme LIKE '%{0}%'", filterName);
+                filterExpression += string.Format("Nome LIKE '%{0}%'", filterName);
             }
             if (!string.IsNullOrEmpty(filterMarca))
             {
@@ -880,7 +880,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Manufacturer LIKE '{0}%'", filterMarca);
+                filterExpression += string.Format("Marca LIKE '{0}%'", filterMarca);
             }
             if (!string.IsNullOrEmpty(filterCategoria))
             {
@@ -888,7 +888,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Category LIKE '%{0}%'", filterCategoria);
+                filterExpression += string.Format("Categoria LIKE '%{0}%'", filterCategoria);
             }
             if (!string.IsNullOrEmpty(filterVehicle))
             {
@@ -2576,7 +2576,8 @@ namespace AutoParts
         }
         private void FornecedorFilter()
         {
-            string filterid = FornecedorIdFilter.Text;
+            int filterid = 0;
+            int.TryParse(FornecedorIdFilter.Text, out filterid);
             string filterName = FornecedorNomeFilter.Text;
 
             string filterExpression = string.Empty;
@@ -2585,13 +2586,13 @@ namespace AutoParts
             {
                 filterExpression += string.Format("Name LIKE '%{0}%'", filterName);
             }
-            if (!string.IsNullOrEmpty(filterid))
+            if (filterid != 0)
             {
                 if (!string.IsNullOrEmpty(filterExpression))
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Supplier_id LIKE '%{0}%'", filterid);
+                filterExpression += string.Format("Supplier_id = {0}", filterid);
             }
 
             (FornecedorData.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
@@ -2671,21 +2672,27 @@ namespace AutoParts
         private void OrderFilter()
         {
             string filterPart = OrderPartIdFilter.Text;
-            string filterCliente = OrderClienteFilter.SelectedItem?.ToString().Split('-')[0].Trim();
+            int filterCliente = 0;
+
+            if (OrderClienteFilter.SelectedItem != null)
+            {
+                string selectedValue = OrderClienteFilter.SelectedItem.ToString().Split('-')[0].Trim();
+                int.TryParse(selectedValue, out filterCliente);
+            }
 
             string filterExpression = string.Empty;
 
             if (!string.IsNullOrEmpty(filterPart))
             {
-                filterExpression += string.Format("Part_id LIKE '%{0}%'", filterPart);
+                filterExpression += string.Format("Peça_ID LIKE '%{0}%'", filterPart);
             }
-            if (!string.IsNullOrEmpty(filterCliente))
+            if (filterCliente != 0)
             {
                 if (!string.IsNullOrEmpty(filterExpression))
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Cid LIKE '%{0}%'", filterCliente);
+                filterExpression += string.Format("Cliente = {0}", filterCliente);
             }
 
             (PesquisaOrder.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
