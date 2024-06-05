@@ -2172,7 +2172,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Vengine_id LIKE '%{0}%'", filterEngine);
+                filterExpression += string.Format("Engine_id LIKE '%{0}%'", filterEngine);
             }
 
             (VlistaData.DataSource as DataTable).DefaultView.RowFilter = filterExpression;
@@ -2316,112 +2316,57 @@ namespace AutoParts
         {
             // Get the values from the textboxes
             string customerId = OcustomerID.SelectedItem?.ToString().Split('-')[0].Trim();
-            string orderDate = DateTime.Now.ToString("yyyy-MM-dd");
             string shippingAddress = Omorada.Text;
-            int orderID = 0;
 
-            // Query to insert the order
-            string query = "INSERT INTO AP_Order_Table (Cid, Order_date, Shipping_address) VALUES (@Cid, @Order_date, @Shipping_address)";
+            var orderItems = new DataTable();
+            orderItems.Columns.Add("ID", typeof(string));
+            orderItems.Columns.Add("Quantidade", typeof(int));
 
-            using (SqlCommand cmd = new SqlCommand(query, CN))
+            foreach (DataRow row in OrderCart.Rows)
             {
-                cmd.Parameters.AddWithValue("@Cid", customerId);
-                cmd.Parameters.AddWithValue("@Order_date", orderDate);
-                cmd.Parameters.AddWithValue("@Shipping_address", shippingAddress);
+                string itemId = row["ID"].ToString();
+                int quantity = Convert.ToInt32(row["Quantidade"]);
+                orderItems.Rows.Add(itemId, quantity);
+            }
 
-                try
+            if (CN.State == System.Data.ConnectionState.Open)
+            {
+                CN.Close();
+            }
+
+            CN.InfoMessage += (sender, args) => Console.WriteLine(args.Message);
+            CN.Open();
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("AP_CreateOrder", CN))
                 {
-                    if (CN.State == System.Data.ConnectionState.Open)
-                    {
-                        CN.Close();
-                    }
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    CN.Open();
+
+                    cmd.Parameters.AddWithValue("@CustomerId", customerId);
+                    cmd.Parameters.AddWithValue("@ShippingAddress", shippingAddress);
+
+                    SqlParameter itemsTable = cmd.Parameters.AddWithValue("@OrderItems", orderItems);
+                    itemsTable.SqlDbType = SqlDbType.Structured;
+                    itemsTable.TypeName = "dbo.OrderItems";
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
                     {
-                        MessageBox.Show("Order added successfully.");
+                        MessageBox.Show("Order and stock update successful!");
                     }
                     else
                     {
-                        MessageBox.Show("An error occurred while adding the order.");
+                        MessageBox.Show("No rows affected.");
                     }
                     CN.Close();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
             }
-
-            // Get the order id
-            string query2 = "SELECT MAX(Order_id) FROM AP_Order_Table";
-            using (SqlCommand cmd = new SqlCommand(query2, CN))
+            catch (Exception ex)
             {
-                try
-                {
-                    if (CN.State == System.Data.ConnectionState.Open)
-                    {
-                        CN.Close();
-                    }
-                    CN.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        string orderId = reader[0].ToString();
-                        int.TryParse(orderId, out orderID);
-                    }
-                    CN.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
-
-            // Insert the parts in the order
-            foreach (DataRow row in OrderCart.Rows)
-            {
-                string partId = row["ID"].ToString();
-                int quantity = int.TryParse(row["Quantidade"].ToString(), out quantity) ? quantity : 0;
-
-                string query3 = "INSERT INTO AP_Order_item (Order_id, Part_id, Qty) VALUES (@Order_id, @Part_id, @Quantity)";
-
-                using (SqlCommand cmd = new SqlCommand(query3, CN))
-                {
-                    cmd.Parameters.AddWithValue("@Order_id", orderID);
-                    cmd.Parameters.AddWithValue("@Part_id", partId);
-                    cmd.Parameters.AddWithValue("@Quantity", quantity);
-
-                    try
-                    {
-                        if (CN.State == System.Data.ConnectionState.Open)
-                        {
-                            CN.Close();
-                        }
-
-                        CN.Open();
-
-                        int rowsAffected = cmd.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Part added to order successfully.");
-                        }
-                        else
-                        {
-                            MessageBox.Show("An error occurred while adding the part to the order.");
-                        }
-                        CN.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("An error occurred: " + ex.Message);
-                    }
-                }
+                MessageBox.Show("An error occurred: " + ex.Message);
             }
 
         }
@@ -2456,7 +2401,7 @@ namespace AutoParts
 
             if (!string.IsNullOrEmpty(filterID))
             {
-                filterExpression += string.Format("Part_ID LIKE '%{0}%'", filterID);
+                filterExpression += string.Format("ID LIKE '%{0}%'", filterID);
             }
             if (!string.IsNullOrEmpty(filterName))
             {
@@ -2464,7 +2409,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Name LIKE '%{0}%'", filterName);
+                filterExpression += string.Format("Nome LIKE '%{0}%'", filterName);
             }
             if (!string.IsNullOrEmpty(filterMarca))
             {
@@ -2472,7 +2417,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Manufacturer LIKE '{0}%'", filterMarca);
+                filterExpression += string.Format("Marca LIKE '{0}%'", filterMarca);
             }
             if (!string.IsNullOrEmpty(filterCategoria))
             {
@@ -2480,7 +2425,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Category LIKE '%{0}%'", filterCategoria);
+                filterExpression += string.Format("Categoria LIKE '%{0}%'", filterCategoria);
             }
             if (!string.IsNullOrEmpty(filterVehicle))
             {
@@ -2488,7 +2433,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("Vehicle LIKE '%{0}%'", filterVehicle);
+                filterExpression += string.Format("ID_Veículo LIKE '%{0}%'", filterVehicle);
             }
             if (OpecaStock.Checked)
             {
