@@ -24,7 +24,14 @@ namespace AutoParts
         //Connect to the database
         private static SqlConnection GetDbConnection()
         {
-            string connectionString = "Data Source = tcp:mednat.ieeta.pt\\SQLSERVER,8101; uid = REDACTED_UID; password = REDACTED_PASSWORD";
+            string? connectionString = Environment.GetEnvironmentVariable("AUTOPARTS_CONNECTION_STRING");
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "AUTOPARTS_CONNECTION_STRING is not set. Example: " +
+                    "\"Data Source=<server>;uid=<user>;password=<password>\" " +
+                    "(see README for setup instructions).");
+            }
             SqlConnection CN = new SqlConnection(connectionString);
             return CN;
         }
@@ -496,12 +503,12 @@ namespace AutoParts
             }
             else if (Cdrop.Text == "Email" && !Ccontact.Text.Contains("@"))
             {
-                MessageBox.Show("Por favor insira um email válido.");
+                MessageBox.Show("Por favor insira um email vï¿½lido.");
                 return;
             }
-            else if (Cdrop.Text == "Telemóvel" && (Ccontact.Text.Length != 9 || !Ccontact.Text.StartsWith("9")))
+            else if (Cdrop.Text == "Telemï¿½vel" && (Ccontact.Text.Length != 9 || !Ccontact.Text.StartsWith("9")))
             {
-                MessageBox.Show("Por favor insira um número de telemóvel válido.");
+                MessageBox.Show("Por favor insira um nï¿½mero de telemï¿½vel vï¿½lido.");
                 return;
             }
             else
@@ -514,7 +521,7 @@ namespace AutoParts
                 {
                     if (dt.Rows[0]["Tipo"].ToString() == Cdrop.Text)
                     {
-                        MessageBox.Show("Já inseriu um contacto do mesmo tipo.");
+                        MessageBox.Show("Jï¿½ inseriu um contacto do mesmo tipo.");
                         return;
                     }
                     else
@@ -524,7 +531,7 @@ namespace AutoParts
                 }
                 else
                 {
-                    MessageBox.Show("Só pode inserir dois contactos.");
+                    MessageBox.Show("Sï¿½ pode inserir dois contactos.");
                     return;
                 }
             }
@@ -696,7 +703,7 @@ namespace AutoParts
             {
                 customerContacts += row["Tipo"].ToString() + ":" + row["Contacto"].ToString() + "|";
             }
-            if (customerContacts.Contains("Email") && customerContacts.Contains("Telemóvel"))
+            if (customerContacts.Contains("Email") && customerContacts.Contains("Telemï¿½vel"))
             {
                 contact0 = customerContacts.Split("|")[0];
                 contact1 = customerContacts.Split("|")[1];
@@ -715,7 +722,7 @@ namespace AutoParts
             {
                 customerEmail = contact0.Split(":")[1];
             }
-            else if (contact0.StartsWith("Telemóvel"))
+            else if (contact0.StartsWith("Telemï¿½vel"))
             {
                 customerTelm = contact0.Split(":")[1];
             }
@@ -723,7 +730,7 @@ namespace AutoParts
             {
                 customerEmail = contact1.Split(":")[1];
             }
-            else if (contact1.StartsWith("Telemóvel"))
+            else if (contact1.StartsWith("Telemï¿½vel"))
             {
                 customerTelm = contact1.Split(":")[1];
             }
@@ -827,7 +834,7 @@ namespace AutoParts
         }
         //
         //
-        //PEÇAS CODE
+        //PEï¿½AS CODE
         //
         //
         private void Parts_Load(object sender, EventArgs e)
@@ -896,7 +903,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("ID_Veículo LIKE '%{0}%'", filterVehicle);
+                filterExpression += string.Format("ID_Veï¿½culo LIKE '%{0}%'", filterVehicle);
             }
             if (PecasStockFilter.Checked)
             {
@@ -976,7 +983,7 @@ namespace AutoParts
             }
             if (!double.TryParse(Psize.Text, out double psizeValue) || psizeValue <= 0)
             {
-                MessageBox.Show("O valor da medida deve ser númerico e positivo.");
+                MessageBox.Show("O valor da medida deve ser nï¿½merico e positivo.");
                 return;
             }
 
@@ -986,12 +993,12 @@ namespace AutoParts
             }
             else if (dt2.Rows.Count > 0 && dt2.Rows.Count < 5)
             {
-                //verificar se já existe um tipo igual em qualquer linha
+                //verificar se jï¿½ existe um tipo igual em qualquer linha
                 foreach (DataRow row in dt2.Rows)
                 {
                     if (row["Tipo"].ToString() == Pdrop.Text)
                     {
-                        MessageBox.Show("Já inseriu uma especificação do mesmo tipo.");
+                        MessageBox.Show("Jï¿½ inseriu uma especificaï¿½ï¿½o do mesmo tipo.");
                         return;
                     }
                 }
@@ -1000,7 +1007,7 @@ namespace AutoParts
             }
             else
             {
-                MessageBox.Show("Só pode inserir até 5 especificações.");
+                MessageBox.Show("Sï¿½ pode inserir atï¿½ 5 especificaï¿½ï¿½es.");
                 return;
             }
 
@@ -1100,7 +1107,7 @@ namespace AutoParts
                 {
                     specLength = row["Medida"].ToString();
                 }
-                else if (row["Tipo"].ToString() == "Diâmetro")
+                else if (row["Tipo"].ToString() == "Diï¿½metro")
                 {
                     specDiameter = row["Medida"].ToString();
                 }
@@ -1316,7 +1323,7 @@ namespace AutoParts
         {
             if (PesquisaPecas.SelectedRows.Count > 0)
             {
-                var confirmResult = MessageBox.Show("Tem a certeza que deseja remover a peça selecionada?", "Confirmar", MessageBoxButtons.YesNo);
+                var confirmResult = MessageBox.Show("Tem a certeza que deseja remover a peï¿½a selecionada?", "Confirmar", MessageBoxButtons.YesNo);
                 if (confirmResult == DialogResult.Yes)
                 {
                     string PartID = PesquisaPecas.SelectedRows[0].Cells["ID"].Value.ToString();
@@ -1357,13 +1364,13 @@ namespace AutoParts
             }
             else
             {
-                MessageBox.Show("Por favor selecione uma peça para remover.");
+                MessageBox.Show("Por favor selecione uma peï¿½a para remover.");
             }
 
         }
         //
         //
-        //AVALIAÇÃO CODE
+        //AVALIAï¿½ï¿½O CODE
         //
         //
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -2184,7 +2191,7 @@ namespace AutoParts
         {
             if (VlistaData.SelectedRows.Count > 0)
             {
-                var confirmResult = MessageBox.Show("Tem a certeza que deseja remover o veículo selecionado?", "Confirmar", MessageBoxButtons.YesNo);
+                var confirmResult = MessageBox.Show("Tem a certeza que deseja remover o veï¿½culo selecionado?", "Confirmar", MessageBoxButtons.YesNo);
                 if (confirmResult == DialogResult.Yes)
                 {
                     string vehicleID = VlistaData.SelectedRows[0].Cells["Vehicle_id"].Value.ToString();
@@ -2225,7 +2232,7 @@ namespace AutoParts
             }
             else
             {
-                MessageBox.Show("Por favor selecione um veículo para remover.");
+                MessageBox.Show("Por favor selecione um veï¿½culo para remover.");
             }
 
         }
@@ -2433,7 +2440,7 @@ namespace AutoParts
                 {
                     filterExpression += " AND ";
                 }
-                filterExpression += string.Format("ID_Veículo LIKE '%{0}%'", filterVehicle);
+                filterExpression += string.Format("ID_Veï¿½culo LIKE '%{0}%'", filterVehicle);
             }
             if (OpecaStock.Checked)
             {
@@ -2484,8 +2491,8 @@ namespace AutoParts
             {
                 OrderCart.Columns.Add("ID", typeof(string));
                 OrderCart.Columns.Add("Nome", typeof(string));
-                OrderCart.Columns.Add("Preço", typeof(string));
-                OrderCart.Columns.Add("ID_Veículo", typeof(string));
+                OrderCart.Columns.Add("Preï¿½o", typeof(string));
+                OrderCart.Columns.Add("ID_Veï¿½culo", typeof(string));
                 OrderCart.Columns.Add("Quantidade", typeof(string));
             }
 
@@ -2502,8 +2509,8 @@ namespace AutoParts
             {
                 string partID = OpecaList.SelectedRows[0].Cells["ID"].Value.ToString();
                 string partName = OpecaList.SelectedRows[0].Cells["Nome"].Value.ToString();
-                string partPrice = OpecaList.SelectedRows[0].Cells["Preço"].Value.ToString();
-                string partVehicleId = OpecaList.SelectedRows[0].Cells["ID_Veículo"].Value.ToString();
+                string partPrice = OpecaList.SelectedRows[0].Cells["Preï¿½o"].Value.ToString();
+                string partVehicleId = OpecaList.SelectedRows[0].Cells["ID_Veï¿½culo"].Value.ToString();
                 int partQuantity = (int)OqtyAdd.Value;
                 if (partQuantity == 0)
                 {
@@ -2516,7 +2523,7 @@ namespace AutoParts
             }
             else
             {
-                MessageBox.Show("Por favor selecione uma peça para adicionar à encomenda.");
+                MessageBox.Show("Por favor selecione uma peï¿½a para adicionar ï¿½ encomenda.");
             }
         }
 
@@ -2538,7 +2545,7 @@ namespace AutoParts
             }
             else
             {
-                MessageBox.Show("Por favor selecione uma peça para remover da encomenda.");
+                MessageBox.Show("Por favor selecione uma peï¿½a para remover da encomenda.");
             }
 
         }
@@ -2684,7 +2691,7 @@ namespace AutoParts
 
             if (!string.IsNullOrEmpty(filterPart))
             {
-                filterExpression += string.Format("Peça_ID LIKE '%{0}%'", filterPart);
+                filterExpression += string.Format("Peï¿½a_ID LIKE '%{0}%'", filterPart);
             }
             if (filterCliente != 0)
             {
